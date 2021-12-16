@@ -18,8 +18,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 //import android.view.View;
 //import android.widget.AdapterView;
+import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -34,11 +37,41 @@ import static java.lang.Math.abs;
 
 public class PuzzleActivity extends AppCompatActivity {
     ArrayList<PuzzlePiece> pieces;
+    TextView countTimer;
+    TextView countText;
+
+    int secondsRemaining = 30;//how many seconds left in timer
+    CountDownTimer timer = new CountDownTimer(30000, 1000) {
+        @Override
+        public void onTick(long millisUntilFinished) { //every time the clock ticks
+            secondsRemaining--;
+            countTimer.setText(Integer.toString(30 - secondsRemaining) + "sec"); //textViev- xml
+            String time = countTimer.getText().toString();
+            //prog_timer.setProgress(300 - secondsRemaining); //prog_timer - textView v xml, countdowm
+
+        }
+
+        @Override
+        public void onFinish() { //when timer expires, redirect to main activity
+            Intent Intent = new Intent(getApplicationContext(), TimeIsUpActivity.class);
+            startActivity(Intent);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle);
+
+
+        //counter initializing
+        countTimer = findViewById(R.id.count_timer);
+        countText = findViewById(R.id.count_text);
+        countTimer.setText("OSec");
+        countText.setText("In process...");
+
+
+        timer.start();//starting timer
 
 
 
@@ -66,6 +99,7 @@ public class PuzzleActivity extends AppCompatActivity {
                     piece.setOnTouchListener(touchListener);
                     layout.addView(piece);
                     // randomize position, on the bottom of the screen
+                    //need to make not overlapping
                     RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
                     lParams.leftMargin = new Random().nextInt(layout.getWidth() - piece.pieceWidth);
                     lParams.topMargin = layout.getHeight() - piece.pieceHeight;
@@ -75,11 +109,16 @@ public class PuzzleActivity extends AppCompatActivity {
         });
     }
 
-    public void checkGameOver() {
+    public void checkGameOver( ) {
         if (isGameOver()) {
-            finish();
+            //finish(); //redirect to another page
+            Intent countIntent = new Intent(getApplicationContext(), ScoreActivity.class);
+            countIntent.putExtra("KEY_SEND", countTimer.getText().toString()); //want to transfer final textview with seconds
+            startActivity(countIntent);
         }
     }
+
+
 
     private boolean isGameOver() {
         for (PuzzlePiece piece : pieces) {
@@ -298,4 +337,5 @@ public class PuzzleActivity extends AppCompatActivity {
 
         return ret;
     }
+
 }

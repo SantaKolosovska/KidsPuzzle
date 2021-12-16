@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class ImageAdapter extends BaseAdapter {
-
     private Context mContext;
     private AssetManager am;
     private String[] files;
