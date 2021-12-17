@@ -11,6 +11,7 @@
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:contentDescription="@string/app_name"
         android:layout_marginStart="8dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="8dp"
@@ -46,17 +47,6 @@
             android:layout_marginEnd="250dp"
             android:text="TextView" />
 
-        <TextView
-            android:id="@+id/count_text"
-            android:layout_width="103dp"
-            android:layout_height="33dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="250dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="50dp"
-            android:text="TextView" />
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

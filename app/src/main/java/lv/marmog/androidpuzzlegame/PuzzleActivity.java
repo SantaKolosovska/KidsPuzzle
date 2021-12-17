@@ -38,7 +38,6 @@ import static java.lang.Math.abs;
 public class PuzzleActivity extends AppCompatActivity {
     ArrayList<PuzzlePiece> pieces;
     TextView countTimer;
-    TextView countText;
 
     int secondsRemaining = 30;//how many seconds left in timer
     CountDownTimer timer = new CountDownTimer(30000, 1000) {
@@ -46,15 +45,16 @@ public class PuzzleActivity extends AppCompatActivity {
         public void onTick(long millisUntilFinished) { //every time the clock ticks
             secondsRemaining--;
             countTimer.setText(Integer.toString(30 - secondsRemaining) + "sec"); //textViev- xml
-            String time = countTimer.getText().toString();
-            //prog_timer.setProgress(300 - secondsRemaining); //prog_timer - textView v xml, countdowm
 
         }
 
+
+
+
         @Override
         public void onFinish() { //when timer expires, redirect to main activity
-            Intent Intent = new Intent(getApplicationContext(), TimeIsUpActivity.class);
-            startActivity(Intent);
+            startActivity(new Intent(PuzzleActivity.this, TimeIsUpActivity.class));
+            timer.cancel();
         }
     };
 
@@ -66,9 +66,8 @@ public class PuzzleActivity extends AppCompatActivity {
 
         //counter initializing
         countTimer = findViewById(R.id.count_timer);
-        countText = findViewById(R.id.count_text);
         countTimer.setText("OSec");
-        countText.setText("In process...");
+
 
 
         timer.start();//starting timer
@@ -100,6 +99,7 @@ public class PuzzleActivity extends AppCompatActivity {
                     layout.addView(piece);
                     // randomize position, on the bottom of the screen
                     //need to make not overlapping
+                    //set every image to its place in gridline
                     RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
                     lParams.leftMargin = new Random().nextInt(layout.getWidth() - piece.pieceWidth);
                     lParams.topMargin = layout.getHeight() - piece.pieceHeight;
@@ -112,9 +112,11 @@ public class PuzzleActivity extends AppCompatActivity {
     public void checkGameOver( ) {
         if (isGameOver()) {
             //finish(); //redirect to another page
+            //stop the game
             Intent countIntent = new Intent(getApplicationContext(), ScoreActivity.class);
             countIntent.putExtra("KEY_SEND", countTimer.getText().toString()); //want to transfer final textview with seconds
             startActivity(countIntent);
+            timer.cancel();
         }
     }
 

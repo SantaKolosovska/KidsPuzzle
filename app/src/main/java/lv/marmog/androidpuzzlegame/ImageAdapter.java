@@ -75,7 +75,7 @@ public class ImageAdapter extends BaseAdapter {
             }
         });
 
-        return convertView; //kartinka dlya kazhdogo faila
+        return convertView; //image for every file
     }
 
     private Bitmap getPicFromAsset(ImageView imageView, String assetName) {
