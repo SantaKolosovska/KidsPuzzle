@@ -1,4 +1,5 @@
 package lv.marmog.androidpuzzlegame;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 //import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -20,6 +21,7 @@ import android.os.Bundle;
 //import android.widget.AdapterView;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,44 +35,52 @@ import java.util.Random;
 
 import static java.lang.Math.abs;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 
 public class PuzzleActivity extends AppCompatActivity {
     ArrayList<PuzzlePiece> pieces;
+    //timer---------------------------------------
     TextView countTimer;
+    //------------------------------------timer
 
+    //popup-----------------------------------------------------
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+    private TextView newTimeIsUpText;
+    private Button newTimeIsUpNext;
+    //-----------------------------------------------------popup
+
+    //timer----------------------------------------------------------------
     int secondsRemaining = 30;//how many seconds left in timer
     CountDownTimer timer = new CountDownTimer(30000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) { //every time the clock ticks
             secondsRemaining--;
-            countTimer.setText(Integer.toString(30 - secondsRemaining) + "sec"); //textViev- xml
+            countTimer.setText(Integer.toString(30 - secondsRemaining) + "sec"); //textView- xml
 
         }
-
-
-
 
         @Override
-        public void onFinish() { //when timer expires, redirect to main activity
-            startActivity(new Intent(PuzzleActivity.this, TimeIsUpActivity.class));
+        public void onFinish() {
+            createNewContentDialog(); //creates popup window-------------popup-----------
             timer.cancel();
+
         }
     };
+    //---------------------------------------------------------timer
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle);
 
-
+        //timer-------------------------------------------------------
         //counter initializing
         countTimer = findViewById(R.id.count_timer);
         countTimer.setText("OSec");
-
-
-
         timer.start();//starting timer
+        //-------------------------------------------------timer
 
 
 
@@ -111,15 +121,30 @@ public class PuzzleActivity extends AppCompatActivity {
 
     public void checkGameOver( ) {
         if (isGameOver()) {
-            //finish(); //redirect to another page
-            //stop the game
-            Intent countIntent = new Intent(getApplicationContext(), ScoreActivity.class);
-            countIntent.putExtra("KEY_SEND", countTimer.getText().toString()); //want to transfer final textview with seconds
-            startActivity(countIntent);
-            timer.cancel();
+            timer.cancel(); //stops the timer
+            //stop the game, redirect to ScoreActivity
+
+            //we want to do it after 3 seconds
+            //3 sec waiting timer---------------------------------------------------------------
+           CountDownTimer pauseTimer = new CountDownTimer(3000,1000) {
+               @Override
+               public void onTick(long millisUntilFinished) {
+
+               }
+               @Override
+               public void onFinish() {
+
+                   Intent countIntent = new Intent(getApplicationContext(), ScoreActivity.class);
+                   countIntent.putExtra("KEY_SEND", countTimer.getText().toString()); //want to transfer final textview with seconds
+                   startActivity(countIntent);//transfers to ScoreActivity
+
+               }
+           };
+           pauseTimer.start();
+            //---------------------------------------------------------------3 sec waiting timer
+
         }
     }
-
 
 
     private boolean isGameOver() {
@@ -339,5 +364,27 @@ public class PuzzleActivity extends AppCompatActivity {
 
         return ret;
     }
+
+    //popup------------------------
+    public void createNewContentDialog(){
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View timeIsUpPopupView = getLayoutInflater().inflate(R.layout.activity_time_is_up, null);
+        newTimeIsUpText = (TextView) timeIsUpPopupView.findViewById(R.id.timeIsUpText);
+        newTimeIsUpNext = (Button) timeIsUpPopupView.findViewById(R.id.timeIsUpNext);
+
+        dialogBuilder.setView(timeIsUpPopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        newTimeIsUpNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //define next button
+                Intent Intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(Intent);
+            }
+        });
+    }
+    //------------------------popup
 
 }

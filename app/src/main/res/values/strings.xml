@@ -6,5 +6,5 @@
     <string name="textview">TextView</string>
     <string name="next_btn">NEXT</string>
     <string name="exit_btn">EXIT</string>
-    <string name="time_us_up">TIME IS UP!\nTRY AGAIN!\n\n\npush to continue</string>
+    <string name="time_us_up">\nTIME IS UP!\nTRY AGAIN!\n\n\npush to continue\n</string>
 </resources>
