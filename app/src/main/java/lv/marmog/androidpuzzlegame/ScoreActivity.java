@@ -33,13 +33,13 @@ public class ScoreActivity extends AppCompatActivity {
         yourTime.setText(receivedValue);
     }
     public void startNewGame(View view){
-        Intent intent = new Intent(this, MainActivity.class);// redirect from this page to MainActivity page- list of images
+        Intent intent = new Intent(this, GridViewActivity.class);// redirect from this page to MainActivity page- list of images
         startActivity(intent);
     }
 
     public void goToMenu(View view){
         // redirect from this activity to the first activity, for now it redirects to MianActivy!!!!!!!!!!!!!!!!
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, GridViewActivity.class);
         startActivity(intent);
     }
 

@@ -380,7 +380,7 @@ public class PuzzleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //define next button
-                Intent Intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent Intent = new Intent(getApplicationContext(), GridViewActivity.class);
                 startActivity(Intent);
             }
         });
