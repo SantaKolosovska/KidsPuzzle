@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateUsernameActivity"
+    android:orientation = "vertical">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="183dp"
+        android:layout_height="113dp"
+        app:srcCompat="@drawable/logo"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="17dp" />
+
+    <TextView
+        android:id="@+id/haveUsernames"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You have this usernames:"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="182dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="28dp"/>
+
+    <ListView
+        android:id="@+id/SHOW_ALL_Usernames"
+        android:layout_width="355dp"
+        android:layout_height="120dp"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="201dp"
+        android:layout_marginTop="20dp"
+        android:scrollbarThumbVertical="@color/design_default_color_primary">
+
+
+    </ListView>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter new username"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/newUsername"
+
+
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter username one more time"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/repeatUsername"
+
+
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/saveNewUsername"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:onClick="saveNewUsername"
+        android:text="Save Username"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/deleteUsername"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:text="Delete Username"
+        android:onClick="deleteUsername"
+
+        />
+</LinearLayout>

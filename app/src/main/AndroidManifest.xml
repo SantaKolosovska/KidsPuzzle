@@ -9,21 +9,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidPuzzleGame">
-        <activity
-            android:name=".TimeIsUpActivity"
 
-            android:exported="false" />
         <activity
             android:name=".ScoreActivity"
-
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".GridViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreateUsernameActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ComplexityActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StartActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -32,7 +36,6 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
     </application>
 
 </manifest>
