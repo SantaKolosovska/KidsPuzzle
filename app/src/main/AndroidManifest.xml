@@ -11,9 +11,11 @@
         android:theme="@style/Theme.AndroidPuzzleGame">
         <activity
             android:name=".TimeIsUpActivity"
+
             android:exported="false" />
         <activity
             android:name=".ScoreActivity"
+
             android:exported="false" />
         <activity
             android:name=".MainActivity"
