@@ -22,7 +22,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -58,7 +57,7 @@ public class PuzzleActivity extends AppCompatActivity {
         @Override
         public void onTick(long millisUntilFinished) { //every time the clock ticks
             secondsRemaining--;
-            countTimer.setText(Integer.toString(30 - secondsRemaining) + "sec"); //textViev- xml
+            countTimer.setText(Integer.toString(30 - secondsRemaining) + "sec"); //textView- xml
 
         }
 
