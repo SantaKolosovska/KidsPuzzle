@@ -1,6 +1,7 @@
 package lv.marmog.androidpuzzlegame;
 
 import android.content.Context;
+import android.graphics.Color;
 
 
 public class PuzzlePiece extends androidx.appcompat.widget.AppCompatImageView { //izmenila android.support.v7.widget.AppCompatImageView
@@ -9,8 +10,6 @@ public class PuzzlePiece extends androidx.appcompat.widget.AppCompatImageView { 
     public int pieceWidth;
     public int pieceHeight;
     public boolean canMove = true;
-
-
 
     public PuzzlePiece(Context context) {
         super(context);
