@@ -16,6 +16,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.ExifInterface;
 import android.os.Bundle;
 //import android.view.View;
 //import android.widget.AdapterView;
@@ -40,6 +41,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class PuzzleActivity extends AppCompatActivity {
     ArrayList<PuzzlePiece> pieces;
+
+    //picture from camera-------------------------------------------------------------------
+    String mCurrentPhotoPath;
+    //-------------------------------------------------------------------picture from camera
     //timer---------------------------------------
     TextView countTimer;
     //------------------------------------timer
@@ -89,6 +94,9 @@ public class PuzzleActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String assetName = intent.getStringExtra("assetName");
+        //picture from camera------------------------------------------------
+        mCurrentPhotoPath = intent.getStringExtra("mCurrentPhotoPath");
+        //-------------------------------------------------picture from camera
 
         // run image related code after the view was laid out
         // to have all dimensions calculated
@@ -97,6 +105,8 @@ public class PuzzleActivity extends AppCompatActivity {
             public void run() {
                 if (assetName != null) {
                     setPicFromAsset(assetName, imageView);
+                }else if(mCurrentPhotoPath != null) { //added else if picture from camera
+                    setPicFromPath(mCurrentPhotoPath, imageView);
                 }
                 pieces = splitImage();
                 TouchListener touchListener = new TouchListener(PuzzleActivity.this);
@@ -387,4 +397,57 @@ public class PuzzleActivity extends AppCompatActivity {
     }
     //------------------------popup
 
+    //picture from camera---------------------------------------------------------------------------
+    private void setPicFromPath(String mCurrentPhotoPath, ImageView imageView) {
+        // Get the dimensions of the View
+        int targetW = imageView.getWidth();
+        int targetH = imageView.getHeight();
+
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        // Determine how much to scale down the image
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+
+
+        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        Bitmap rotatedBitmap = bitmap;
+
+        // rotate bitmap if needed
+        try {
+            ExifInterface ei = new ExifInterface(mCurrentPhotoPath);
+            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    rotatedBitmap = rotateImage(bitmap, 90);
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    rotatedBitmap = rotateImage(bitmap, 180);
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    rotatedBitmap = rotateImage(bitmap, 270);
+                    break;
+            }
+        } catch (IOException e) {
+            Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+        imageView.setImageBitmap(rotatedBitmap);
+    }
+
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
+                matrix, true);
+    }
+    //---------------------------------------------------------------------------picture from camera
 }
