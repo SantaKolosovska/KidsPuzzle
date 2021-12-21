@@ -10,4 +10,13 @@
     <color name="colorPrimary">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    --- colors from palette ---
+    <color name="blue_dark">#143d6b</color>
+    <color name="purple">#8f2d56</color>
+    <color name="pink">#C3FA207F</color>
+    <color name="teal">#218380</color>
+    <color name="yellow">#fbb13c</color>
+    <color name="yellow_transparent">#EDFBB13C</color>
+    <color name="beige">#f7f0e5</color>
+    --- /colors from palette ---
 </resources>
