@@ -93,7 +93,7 @@ public class PuzzleActivity extends AppCompatActivity {
         final ImageView imageView = findViewById(R.id.imageView);
         // ---- timer for getting it's height and positioning the pieces
         final TextView timer = findViewById(R.id.count_timer);
-        // --- /timer
+        // -------timer
 
         Intent intent = getIntent();
         final String assetName = intent.getStringExtra("assetName");

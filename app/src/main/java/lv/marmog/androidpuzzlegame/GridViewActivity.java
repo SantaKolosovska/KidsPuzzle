@@ -77,7 +77,7 @@ public class GridViewActivity extends AppCompatActivity {
             if (photoFile != null) {
                 Uri photoUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", photoFile);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                // will exchange the startActivityForResult with ActivityResultLauncher
+                // will need to exchange the startActivityForResult with ActivityResultLauncher
                 startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
             }
         }
