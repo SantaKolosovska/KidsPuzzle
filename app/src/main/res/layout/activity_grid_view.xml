@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/blue_bg2"
     tools:context="lv.marmog.androidpuzzlegame.GridViewActivity">
 
     <GridView
@@ -35,7 +36,7 @@
         android:focusable="true"
         android:onClick="onImageFromCameraClick"
         android:src="@drawable/ic_baseline_photo_camera_24"
-        android:tint="@android:color/white"
+        android:backgroundTint="@color/pink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

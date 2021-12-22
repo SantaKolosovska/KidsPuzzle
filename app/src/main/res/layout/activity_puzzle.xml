@@ -5,24 +5,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/blue_bg2"
     tools:context=".PuzzleActivity">
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="140dp"
+        android:alpha="0.5"
+        app:layout_constraintDimensionRatio="H,4:3"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/beige" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:contentDescription="@string/app_name"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="250dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="160dp"
         android:alpha="0.5"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/photo" />
+        app:layout_constraintDimensionRatio="H, 4:3"
+        android:background="@color/beige" />
 
     <RelativeLayout
         android:id="@+id/layout"
@@ -42,12 +59,14 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="141dp"
-            android:layout_marginTop="55dp"
-            android:layout_marginEnd="158dp"
+            android:layout_marginStart="145dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="145dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="TextView"
-            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:textColor="@color/beige"
             android:textSize="20sp" />
 
     </RelativeLayout>

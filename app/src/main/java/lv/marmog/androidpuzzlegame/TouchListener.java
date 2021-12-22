@@ -1,5 +1,6 @@
 package lv.marmog.androidpuzzlegame;
 
+import android.graphics.Color;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,8 @@ import android.widget.RelativeLayout;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 import static java.lang.Math.abs;
+
+import androidx.annotation.ColorInt;
 
 
 public class TouchListener implements View.OnTouchListener{
@@ -31,9 +34,14 @@ public class TouchListener implements View.OnTouchListener{
         PuzzlePiece piece = (PuzzlePiece) view;
         if (!piece.canMove) {
             return true;
+
         }
 
         RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+        // --- pieces become larger on touch ---
+        lParams.height = piece.pieceHeight;
+        lParams.width = piece.pieceWidth;
+        // --- /pieces become larger on touch
         switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
                 xDelta = x - lParams.leftMargin;
