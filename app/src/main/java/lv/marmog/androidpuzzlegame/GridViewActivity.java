@@ -2,6 +2,7 @@ package lv.marmog.androidpuzzlegame;
 
 import static java.lang.Math.abs;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -33,6 +34,7 @@ public class GridViewActivity extends AppCompatActivity {
     private static final int REQUEST_PERMISSION_WRITE_EXTERNAL_STORAGE = 2;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     String mCurrentPhotoPath;
+
     //-------------------------------------------------------------------picture from camera
 
 
@@ -61,6 +63,7 @@ public class GridViewActivity extends AppCompatActivity {
     }
 
     //picture from camera-------------------------------------------------------------------
+    //clickListner
     public void onImageFromCameraClick(View view) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getPackageManager()) != null) {
@@ -74,6 +77,7 @@ public class GridViewActivity extends AppCompatActivity {
             if (photoFile != null) {
                 Uri photoUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", photoFile);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                // will exchange the startActivityForResult with ActivityResultLauncher
                 startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
             }
         }
