@@ -42,7 +42,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 public class PuzzleActivity extends AppCompatActivity {
     ArrayList<PuzzlePiece> pieces;
 
-
     //picture from camera-------------------------------------------------------------------
     String mCurrentPhotoPath;
     //-------------------------------------------------------------------picture from camera
@@ -58,12 +57,12 @@ public class PuzzleActivity extends AppCompatActivity {
     //-----------------------------------------------------popup
 
     //timer----------------------------------------------------------------
-    int secondsRemaining = 30;//how many seconds left in timer
-    CountDownTimer timer = new CountDownTimer(30000, 1000) {
+    int secondsRemaining = 300;//how many seconds left in timer
+    CountDownTimer timer = new CountDownTimer(300000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) { //every time the clock ticks
             secondsRemaining--;
-            countTimer.setText(Integer.toString(30 - secondsRemaining) + "sec"); //textView- xml
+            countTimer.setText(Integer.toString(300 - secondsRemaining) + "sec"); //textView- xml
 
         }
 
@@ -119,177 +118,101 @@ public class PuzzleActivity extends AppCompatActivity {
                 Collections.shuffle(pieces);
 
                 // --- SWITCH FOR COMPLEXITY LEVELS ---
-                switch (pieces.size()) {
 
+//positioning and size of pieces--------------------------------------------------------------------
+                int border = 24; //boarder size
+                int rows ;
+                int columns ;
+                int marginLeft;
+                double ratio = (double)((layout.getBottom() - imageView.getBottom()) - 2* border) / imageView.getHeight();
+                if (ratio > 1){
+                    ratio = 1;
+                }
+
+                switch (pieces.size()) {
                     // --- 4 pieces ---
                     case 4:
-
+                        rows = 2;
+                        columns = 2;
                         // 4 pieces - row 1
-                        int margin4 = 100;
-                        for (int i = 0; i < 2; i++) {
-                            PuzzlePiece piece = pieces.get(i);
-                            piece.setOnTouchListener(touchListener);
-                            layout.addView(piece);
+                        for (int i = 0; i < rows; i++) {
+                            marginLeft = border;
+                            for (int j=0; j < columns; j++){
+                                PuzzlePiece piece = pieces.get((i*columns) + j);
+                                piece.setOnTouchListener(touchListener);
+                                layout.addView(piece);
 
-                            RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
+                                RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
 
-                            int percentageHeight = (int) (piece.pieceHeight * 0.5);
-                            int percentageWidth = (int) (piece.pieceWidth * 0.5);
-                            lParams.height = percentageHeight;
-                            lParams.width = percentageWidth;
-                            lParams.leftMargin = margin4;
-                            lParams.topMargin = imageView.getHeight() + timer.getHeight() + 250;
-                            piece.setLayoutParams(lParams);
+                                int percentageHeight = (int) (piece.pieceHeight * 3 / 4 * ratio);
+                                int percentageWidth = (int) (piece.pieceWidth * 3 / 4 * ratio);
+                                lParams.height = percentageHeight;
+                                lParams.width = percentageWidth;
+                                lParams.leftMargin = marginLeft;
+                                lParams.topMargin = imageView.getBottom() + i*(int)((layout.getHeight()-imageView.getBottom())/rows)+border;
+                                lParams.bottomMargin = border;
+                                piece.setLayoutParams(lParams);
 
-                            margin4 += 440;
+                                marginLeft += (int)(imageView.getWidth()/columns) + (int)border/(columns-1);
+                            }
                         }
 
-                        // 4 pieces - row 2
-                        margin4 = 240;
-                        for (int i = 2; i < 4; i++) {
-                            PuzzlePiece piece = pieces.get(i);
-                            piece.setOnTouchListener(touchListener);
-                            layout.addView(piece);
-
-                            RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
-
-                            int percentageHeight = (int) (piece.pieceHeight * 0.5);
-                            int percentageWidth = (int) (piece.pieceWidth * 0.5);
-                            lParams.height = percentageHeight;
-                            lParams.width = percentageWidth;
-                            lParams.leftMargin = margin4;
-                            lParams.topMargin = layout.getHeight() - lParams.height - 70;
-                            piece.setLayoutParams(lParams);
-
-                            margin4 += 420;
-                        }
                         break;
 
                     // --- 9 pieces ---
                     case 9:
+                        rows = 3;
+                        columns = 3;
+                        // 4 pieces - row 1
+                        for (int i = 0; i < rows; i++) {
+                            marginLeft = border;
+                            for (int j=0; j < columns; j++){
+                                PuzzlePiece piece = pieces.get((i*columns) + j);
+                                piece.setOnTouchListener(touchListener);
+                                layout.addView(piece);
 
-                        // 9 pieces - row 1
-                        int margin9 = 90;
-                        for (int i = 0; i < 3; i++) {
-                            PuzzlePiece piece = pieces.get(i);
-                            piece.setOnTouchListener(touchListener);
-                            layout.addView(piece);
+                                RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
 
-                            RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
+                                int percentageHeight = (int) (piece.pieceHeight * 3 / 4 * ratio);
+                                int percentageWidth = (int) (piece.pieceWidth * 3 / 4 * ratio);
+                                lParams.height = percentageHeight;
+                                lParams.width = percentageWidth;
+                                lParams.leftMargin = marginLeft;
+                                lParams.topMargin = imageView.getBottom() + i*(int)((layout.getHeight()-imageView.getBottom())/rows)+border;
+                                lParams.bottomMargin = border;
+                                piece.setLayoutParams(lParams);
 
-                            int percentageHeight = (int) (piece.pieceHeight * 0.4);
-                            int percentageWidth = (int) (piece.pieceWidth * 0.4);
-                            lParams.height = percentageHeight;
-                            lParams.width = percentageWidth;
-                            lParams.leftMargin = margin9;
-                            lParams.topMargin = imageView.getBottom() + 60;
-                            piece.setLayoutParams(lParams);
-
-                            margin9 += 250;
-                        }
-
-                        // 9 pieces - row 2
-                        margin9 = 130;
-                        for (int i = 3; i < 6; i++) {
-                            PuzzlePiece piece = pieces.get(i);
-                            piece.setOnTouchListener(touchListener);
-                            layout.addView(piece);
-
-                            RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
-
-                            int percentageHeight = (int) (piece.pieceHeight * 0.4);
-                            int percentageWidth = (int) (piece.pieceWidth * 0.4);
-                            lParams.height = percentageHeight;
-                            lParams.width = percentageWidth;
-                            lParams.leftMargin = margin9;
-                            lParams.topMargin = layout.getHeight() - lParams.height*3 -20;
-                            piece.setLayoutParams(lParams);
-
-                            margin9 += 250;
-                        }
-
-                        // 9 pieces - row 3
-                        margin9 = 60;
-                        for (int i = 6; i < 9; i++) {
-                            PuzzlePiece piece = pieces.get(i);
-                            piece.setOnTouchListener(touchListener);
-                            layout.addView(piece);
-
-                            RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
-
-                            int percentageHeight = (int) (piece.pieceHeight * 0.4);
-                            int percentageWidth = (int) (piece.pieceWidth * 0.4);
-                            lParams.height = percentageHeight;
-                            lParams.width = percentageWidth;
-                            lParams.leftMargin = margin9;
-                            lParams.topMargin = layout.getHeight() - lParams.height - 40;
-                            piece.setLayoutParams(lParams);
-
-                            margin9 += 250;
+                                marginLeft += (int)(imageView.getWidth()/columns) + (int)border/(columns-1);
+                            }
                         }
                         break;
 
                     // --- 12 pieces ---
                     case 12:
 
-                        // 12 pieces - row 1
-                        int margin12 = 90;
-                        for (int i = 0; i < 4; i++) {
-                            PuzzlePiece piece = pieces.get(i);
-                            piece.setOnTouchListener(touchListener);
-                            layout.addView(piece);
+                        rows = 3;
+                        columns = 4;
+                        // 4 pieces - row 1
+                        for (int i = 0; i < rows; i++) {
+                            marginLeft = border;
+                            for (int j=0; j < columns; j++){
+                                PuzzlePiece piece = pieces.get((i*columns) + j);
+                                piece.setOnTouchListener(touchListener);
+                                layout.addView(piece);
 
-                            RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
+                                RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
 
-                            int percentageHeight = (int) (piece.pieceHeight * 0.3);
-                            int percentageWidth = (int) (piece.pieceWidth * 0.3);
-                            lParams.height = percentageHeight;
-                            lParams.width = percentageWidth;
-                            lParams.leftMargin = margin12;
-                            lParams.topMargin = 1100;
-                            piece.setLayoutParams(lParams);
+                                int percentageHeight = (int) (piece.pieceHeight * 3 / 4 * ratio);
+                                int percentageWidth = (int) (piece.pieceWidth * 3 / 4 * ratio);
+                                lParams.height = percentageHeight;
+                                lParams.width = percentageWidth;
+                                lParams.leftMargin = marginLeft;
+                                lParams.topMargin = imageView.getBottom() + i*(int)((layout.getHeight()-imageView.getBottom())/rows)+border;
+                                lParams.bottomMargin = border;
+                                piece.setLayoutParams(lParams);
 
-                            margin12 += 220;
-                        }
-
-                        // 12 pieces - row 2
-                        margin12 = 180;
-                        for (int i = 4; i < 8; i++) {
-                            PuzzlePiece piece = pieces.get(i);
-                            piece.setOnTouchListener(touchListener);
-                            layout.addView(piece);
-
-                            RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
-
-                            int percentageHeight = (int) (piece.pieceHeight * 0.3);
-                            int percentageWidth = (int) (piece.pieceWidth * 0.3);
-                            lParams.height = percentageHeight;
-                            lParams.width = percentageWidth;
-                            lParams.leftMargin = margin12;
-                            lParams.topMargin = 1250;
-                            piece.setLayoutParams(lParams);
-
-                            margin12 += 220;
-                        }
-
-                        // 12 pieces - row 3
-                        margin12 = 120;
-                        for (int i = 8; i < 12; i++) {
-                            PuzzlePiece piece = pieces.get(i);
-                            piece.setOnTouchListener(touchListener);
-                            layout.addView(piece);
-
-                            RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
-
-                            int percentageHeight = (int) (piece.pieceHeight * 0.3);
-                            int percentageWidth = (int) (piece.pieceWidth * 0.3);
-                            lParams.height = percentageHeight;
-                            lParams.width = percentageWidth;
-                            lParams.leftMargin = margin12;
-                            lParams.topMargin = 1400;
-                            piece.setLayoutParams(lParams);
-
-                            margin12 += 220;
+                                marginLeft += (int)(imageView.getWidth()/columns) + (int)border/(columns-1);
+                            }
                         }
 
                         break;
@@ -302,7 +225,7 @@ public class PuzzleActivity extends AppCompatActivity {
 //                    layout.addView(piece);
 //                    // randomize position, on the bottom of the screen
 //                    //need to make not overlapping
-//                    //set every image to its place in gridline
+//
 //                    RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
 //                    lParams.leftMargin = new Random().nextInt(layout.getWidth() - piece.pieceWidth);
 //                    lParams.topMargin = layout.getHeight() - piece.pieceHeight;
@@ -312,6 +235,7 @@ public class PuzzleActivity extends AppCompatActivity {
             }
         });
     }
+//--------------------------------------------------------------------positioning and size of pieces
 
     public void checkGameOver( ) {
         if (isGameOver()) {
@@ -638,4 +562,8 @@ public class PuzzleActivity extends AppCompatActivity {
                 matrix, true);
     }
     //---------------------------------------------------------------------------picture from camera
+    //public void getRawOfPuzzlePieces (int rowNumber, int numberOfColumns, RelativeLayout layout, double ratio, int border, ImageView imageView, TouchListener touchListener){
+
+
+
 }
