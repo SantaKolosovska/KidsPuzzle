@@ -150,7 +150,7 @@ public class PuzzleActivity extends AppCompatActivity {
                                 lParams.height = percentageHeight;
                                 lParams.width = percentageWidth;
                                 lParams.leftMargin = marginLeft;
-                                lParams.topMargin = imageView.getBottom() + i*(int)((layout.getHeight()-imageView.getBottom())/rows)+border;
+                                lParams.topMargin = imageView.getBottom() + i*(int)((layout.getHeight()-imageView.getBottom() - 2* border)/rows)+border;
                                 lParams.bottomMargin = border;
                                 piece.setLayoutParams(lParams);
 
@@ -159,6 +159,34 @@ public class PuzzleActivity extends AppCompatActivity {
                         }
 
                         break;
+
+                    /*case 56: //to check another possibilities
+                        rows = 7;
+                        columns = 8;
+                        // 4 pieces - row 1
+                        for (int i = 0; i < rows; i++) {
+                            marginLeft = border;
+                            for (int j=0; j < columns; j++){
+                                PuzzlePiece piece = pieces.get((i*columns) + j);
+                                piece.setOnTouchListener(touchListener);
+                                layout.addView(piece);
+
+                                RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
+
+                                int percentageHeight = (int) (piece.pieceHeight * 3 / 4 * ratio);
+                                int percentageWidth = (int) (piece.pieceWidth * 3 / 4 * ratio);
+                                lParams.height = percentageHeight;
+                                lParams.width = percentageWidth;
+                                lParams.leftMargin = marginLeft;
+                                lParams.topMargin = imageView.getBottom() + i*(int)((layout.getHeight()-imageView.getBottom()-2*border)/rows)+border;
+                                lParams.bottomMargin = border;
+                                piece.setLayoutParams(lParams);
+
+                                marginLeft += (int)(imageView.getWidth()/columns) + (int)border/(columns-1);
+                            }
+                        }
+
+                        break;*/
 
                     // --- 9 pieces ---
                     case 9:
@@ -179,7 +207,7 @@ public class PuzzleActivity extends AppCompatActivity {
                                 lParams.height = percentageHeight;
                                 lParams.width = percentageWidth;
                                 lParams.leftMargin = marginLeft;
-                                lParams.topMargin = imageView.getBottom() + i*(int)((layout.getHeight()-imageView.getBottom())/rows)+border;
+                                lParams.topMargin = imageView.getBottom() + i*(int)((layout.getHeight()-imageView.getBottom() - 2*border)/rows)+border;
                                 lParams.bottomMargin = border;
                                 piece.setLayoutParams(lParams);
 
@@ -208,7 +236,7 @@ public class PuzzleActivity extends AppCompatActivity {
                                 lParams.height = percentageHeight;
                                 lParams.width = percentageWidth;
                                 lParams.leftMargin = marginLeft;
-                                lParams.topMargin = imageView.getBottom() + i*(int)((layout.getHeight()-imageView.getBottom())/rows)+border;
+                                lParams.topMargin = imageView.getBottom() + i*(int)((layout.getHeight()-imageView.getBottom() - 2*border)/rows)+border;
                                 lParams.bottomMargin = border;
                                 piece.setLayoutParams(lParams);
 
@@ -316,7 +344,10 @@ public class PuzzleActivity extends AppCompatActivity {
         int rows =  getComplexityFromGridView.getIntExtra("numOfRowsToPuz", 0);
         int cols =  getComplexityFromGridView.getIntExtra("numOfColumnsToPuz", 0);
         // ---
-
+        /*int piecesNumber = 56; // to check another possibilities
+        int rows = 7;
+        int cols = 8;
+*/
 
         ImageView imageView = findViewById(R.id.imageView);
         ArrayList<PuzzlePiece> pieces = new ArrayList<>(piecesNumber);
