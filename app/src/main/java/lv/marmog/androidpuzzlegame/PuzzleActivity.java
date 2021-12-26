@@ -119,7 +119,7 @@ public class PuzzleActivity extends AppCompatActivity {
 
                 // --- SWITCH FOR COMPLEXITY LEVELS ---
 
-
+//positioning and size of pieces--------------------------------------------------------------------
                 int border = 24; //boarder size
                 int rows ;
                 int columns ;
@@ -235,6 +235,7 @@ public class PuzzleActivity extends AppCompatActivity {
             }
         });
     }
+//--------------------------------------------------------------------positioning and size of pieces
 
     public void checkGameOver( ) {
         if (isGameOver()) {
