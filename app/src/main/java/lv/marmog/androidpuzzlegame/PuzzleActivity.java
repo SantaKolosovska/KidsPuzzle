@@ -42,6 +42,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 public class PuzzleActivity extends AppCompatActivity {
     ArrayList<PuzzlePiece> pieces;
 
+
     //picture from camera-------------------------------------------------------------------
     String mCurrentPhotoPath;
     //-------------------------------------------------------------------picture from camera
@@ -315,6 +316,7 @@ public class PuzzleActivity extends AppCompatActivity {
         int rows =  getComplexityFromGridView.getIntExtra("numOfRowsToPuz", 0);
         int cols =  getComplexityFromGridView.getIntExtra("numOfColumnsToPuz", 0);
         // ---
+
 
         ImageView imageView = findViewById(R.id.imageView);
         ArrayList<PuzzlePiece> pieces = new ArrayList<>(piecesNumber);

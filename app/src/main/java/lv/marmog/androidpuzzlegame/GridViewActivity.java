@@ -46,9 +46,9 @@ public class GridViewActivity extends AppCompatActivity {
         // --- get complexity
         Intent getComplexity = getIntent();
 
-        int piecesIntent = getComplexity.getIntExtra("numberOfPieces", 9);
-        int columnsIntent = getComplexity.getIntExtra("numberOfColumns", 3);
-        int rowsIntent = getComplexity.getIntExtra("numberOfRows", 3);
+        int piecesIntent = getComplexity.getIntExtra("numberOfPieces", 0);
+        int columnsIntent = getComplexity.getIntExtra("numberOfColumns", 0);
+        int rowsIntent = getComplexity.getIntExtra("numberOfRows", 0);
 
         // --- /
 
