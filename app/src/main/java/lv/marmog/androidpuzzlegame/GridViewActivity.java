@@ -43,6 +43,15 @@ public class GridViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grid_view);
 
+        // --- get complexity
+        Intent getComplexity = getIntent();
+
+        int piecesIntent = getComplexity.getIntExtra("numberOfPieces", 9);
+        int columnsIntent = getComplexity.getIntExtra("numberOfColumns", 3);
+        int rowsIntent = getComplexity.getIntExtra("numberOfRows", 3);
+
+        // --- /
+
         AssetManager am = getAssets();
         try {
             final String[] files = am.list("img");
@@ -52,14 +61,26 @@ public class GridViewActivity extends AppCompatActivity {
             grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
                     Intent intent = new Intent(getApplicationContext(), PuzzleActivity.class);
                     intent.putExtra("assetName", files[i % files.length]);
+
+                    // --- put extra for complexity
+                    intent.putExtra("numOfPiecesToPuz", piecesIntent);
+                    intent.putExtra("numOfColumnsToPuz", columnsIntent);
+                    intent.putExtra("numOfRowsToPuz", rowsIntent);
+                    // --- extra for complexity
+
                     startActivity(intent);
+
+
                 }
             });
         } catch (IOException e) {
             Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT);
         }
+
     }
 
     //picture from camera-------------------------------------------------------------------
@@ -129,6 +150,8 @@ public class GridViewActivity extends AppCompatActivity {
         }
     }
     //-------------------------------------------------------------------picture from camera
+
+
 }
 
 
