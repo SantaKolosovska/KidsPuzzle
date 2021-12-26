@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Switch;
 
 public class ComplexityActivity extends AppCompatActivity {
 
@@ -15,6 +17,25 @@ public class ComplexityActivity extends AppCompatActivity {
     }
 
     public void selectPieces(View view) {
-        startActivity(new Intent(ComplexityActivity.this, GridViewActivity.class));
+
+        Intent complexityIntent = new Intent(this, GridViewActivity.class);
+
+        if (view == findViewById(R.id.choose4)) {
+            complexityIntent.putExtra("numberOfPieces", 4);
+            complexityIntent.putExtra("numberOfColumns", 2);
+            complexityIntent.putExtra("numberOfRows", 2);
+        } else if (view == findViewById(R.id.choose9)) {
+            complexityIntent.putExtra("numberOfPieces", 9);
+            complexityIntent.putExtra("numberOfColumns", 3);
+            complexityIntent.putExtra("numberOfRows", 3);
+        } else if (view == findViewById(R.id.choose12)) {
+            complexityIntent.putExtra("numberOfPieces", 12);
+            complexityIntent.putExtra("numberOfColumns", 4);
+            complexityIntent.putExtra("numberOfRows", 3);
+        }
+
+        startActivity(complexityIntent);
+
     }
+
 }
