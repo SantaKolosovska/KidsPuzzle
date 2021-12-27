@@ -30,12 +30,20 @@ import java.util.Date;
 
 public class GridViewActivity extends AppCompatActivity {
 
-    //picture from camera-------------------------------------------------------------------
+    //picture from camera and gallery --------------------------------------------------------------
     private static final int REQUEST_PERMISSION_WRITE_EXTERNAL_STORAGE = 2;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     String mCurrentPhotoPath;
 
+    static final int REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 3;
+    static final int REQUEST_IMAGE_GALLERY = 4;
+
     //-------------------------------------------------------------------picture from camera
+
+    // complexity form complexity activity
+    int piecesIntent;
+    int columnsIntent;
+    int rowsIntent;
 
 
     @Override
@@ -46,9 +54,9 @@ public class GridViewActivity extends AppCompatActivity {
         // --- get complexity
         Intent getComplexity = getIntent();
 
-        int piecesIntent = getComplexity.getIntExtra("numberOfPieces", 0);
-        int columnsIntent = getComplexity.getIntExtra("numberOfColumns", 0);
-        int rowsIntent = getComplexity.getIntExtra("numberOfRows", 0);
+        piecesIntent = getComplexity.getIntExtra("numberOfPieces", 56);
+        columnsIntent = getComplexity.getIntExtra("numberOfColumns", 8);
+        rowsIntent = getComplexity.getIntExtra("numberOfRows", 7);
 
         // --- /
 
@@ -144,12 +152,42 @@ public class GridViewActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+
             Intent intent = new Intent(this, PuzzleActivity.class);
+
+            // --- put extras for pieces
+            intent.putExtra("numOfPiecesToPuz", piecesIntent);
+            intent.putExtra("numOfColumnsToPuz", columnsIntent);
+            intent.putExtra("numOfRowsToPuz", rowsIntent);
+            // --- extra for complexity
+
             intent.putExtra("mCurrentPhotoPath", mCurrentPhotoPath);
+
+            startActivity(intent);
+        }
+        if (requestCode == REQUEST_IMAGE_GALLERY && resultCode == RESULT_OK) {
+            Uri uri = data.getData();
+            Intent intent = new Intent(this, PuzzleActivity.class);
+            // --- put extras for pieces
+            intent.putExtra("numOfPiecesToPuz", piecesIntent);
+            intent.putExtra("numOfColumnsToPuz", columnsIntent);
+            intent.putExtra("numOfRowsToPuz", rowsIntent);
+            // --- extra for complexity
+            intent.putExtra("mCurrentPhotoUri", uri.toString());
             startActivity(intent);
         }
     }
     //-------------------------------------------------------------------picture from camera
+
+    public void onImageFromGalleryClick(View view) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION_READ_EXTERNAL_STORAGE);
+        } else {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            startActivityForResult(intent, REQUEST_IMAGE_GALLERY);
+        }
+    }
 
 
 }

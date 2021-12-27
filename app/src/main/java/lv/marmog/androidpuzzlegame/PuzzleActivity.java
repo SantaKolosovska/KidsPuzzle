@@ -17,6 +17,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Bundle;
 //import android.view.View;
 //import android.widget.AdapterView;
@@ -43,8 +44,9 @@ public class PuzzleActivity extends AppCompatActivity {
     ArrayList<PuzzlePiece> pieces;
 
 
-    //picture from camera-------------------------------------------------------------------
+    //picture from camera and gallery-------------------------------------------------------------------
     String mCurrentPhotoPath;
+    String  mCurrentPhotoUri;
     //-------------------------------------------------------------------picture from camera
     //timer---------------------------------------
     TextView countTimer;
@@ -98,8 +100,9 @@ public class PuzzleActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String assetName = intent.getStringExtra("assetName");
-        //picture from camera------------------------------------------------
+        //picture from camera and gallery ------------------------------------------------
         mCurrentPhotoPath = intent.getStringExtra("mCurrentPhotoPath");
+        mCurrentPhotoUri = intent.getStringExtra("mCurrentPhotoUri");
         //-------------------------------------------------picture from camera
 
         // run image related code after the view was laid out
@@ -111,6 +114,8 @@ public class PuzzleActivity extends AppCompatActivity {
                     setPicFromAsset(assetName, imageView);
                 }else if(mCurrentPhotoPath != null) { //added else if picture from camera
                     setPicFromPath(mCurrentPhotoPath, imageView);
+                } else if (mCurrentPhotoUri != null) {
+                    imageView.setImageURI(Uri.parse(mCurrentPhotoUri));
                 }
                 pieces = splitImage();
                 TouchListener touchListener = new TouchListener(PuzzleActivity.this);
@@ -131,6 +136,37 @@ public class PuzzleActivity extends AppCompatActivity {
                 }
 
                 switch (pieces.size()) {
+                    // --- 2 pieces just for fun
+                    case 2:
+                        rows = 1;
+                        columns = 2;
+                        // 4 pieces - row 1
+                        for (int i = 0; i < rows; i++) {
+                            marginLeft = border;
+                            for (int j=0; j < columns; j++){
+                                PuzzlePiece piece = pieces.get((i*columns) + j);
+                                piece.setOnTouchListener(touchListener);
+                                layout.addView(piece);
+
+                                RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
+
+                                int percentageHeight = (int) (piece.pieceHeight * 3 / 4 * ratio);
+                                int percentageWidth = (int) (piece.pieceWidth * 3 / 4 * ratio);
+                                lParams.height = percentageHeight;
+                                lParams.width = percentageWidth;
+                                lParams.leftMargin = marginLeft;
+                                lParams.topMargin = imageView.getBottom() + i*(int)((layout.getHeight()-imageView.getBottom() - 2* border)/rows)+border;
+                                lParams.bottomMargin = border;
+                                piece.setLayoutParams(lParams);
+
+                                marginLeft += (int)(imageView.getWidth()/columns) + (int)border/(columns-1);
+                            }
+                        }
+
+                        break;
+                        // --- 2 pieces
+
+
                     // --- 4 pieces ---
                     case 4:
                         rows = 2;
@@ -160,7 +196,7 @@ public class PuzzleActivity extends AppCompatActivity {
 
                         break;
 
-                    /*case 56: //to check another possibilities
+                    case 56: //to check another possibilities
                         rows = 7;
                         columns = 8;
                         // 4 pieces - row 1
@@ -186,7 +222,7 @@ public class PuzzleActivity extends AppCompatActivity {
                             }
                         }
 
-                        break;*/
+                        break;
 
                     // --- 9 pieces ---
                     case 9:
