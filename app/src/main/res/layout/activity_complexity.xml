@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/blue_bg2"
     android:orientation="vertical"
     tools:context=".ComplexityActivity">
 
@@ -11,41 +12,68 @@
         android:id="@+id/choosePieces"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Choose pieces: "
-        android:textAlignment="center"
-        android:textSize="36sp"
-        android:textStyle="bold|italic"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="50dp"/>
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="50dp"
+        android:shadowColor="@color/black"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="5"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:text="Choose the number of pieces: "
+        android:textAlignment="center"
+        android:textColor="@color/beige"
+        android:textSize="32sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/choose4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="4"
-       android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
+        android:layout_gravity="center"
+        android:textSize="20sp"
         android:layout_marginTop="20dp"
-        android:onClick="selectPieces"/>
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/yellow"
+        android:onClick="selectPieces"
+        android:shadowColor="@color/black"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="4" />
 
     <Button
         android:id="@+id/choose9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="9"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
+        android:textSize="20sp"
         android:layout_marginTop="20dp"
-        android:onClick="selectPieces"/>
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/yellow"
+        android:onClick="selectPieces"
+        android:shadowColor="@color/black"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="9" />
 
     <Button
         android:id="@+id/choose12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="12"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
-        android:onClick="selectPieces"/>
+        android:layout_marginBottom="20dp"
+        android:textSize="20sp"
+        android:backgroundTint="@color/yellow"
+        android:onClick="selectPieces"
+        android:shadowColor="@color/black"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="12" />
+
+
 </LinearLayout>

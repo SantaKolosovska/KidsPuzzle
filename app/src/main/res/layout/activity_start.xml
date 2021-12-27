@@ -4,21 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/puzzle_bg_narrower"
     android:orientation="vertical"
     tools:context=".StartActivity">
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="182dp"
         android:layout_height="145dp"
-        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="45dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/usernameText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo"
-        android:layout_gravity="center"/>
+        app:srcCompat="@drawable/logo_round" />
 
 
     <ListView
@@ -31,23 +32,40 @@
 
     <Button
         android:id="@+id/StartGame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:text="Start game"
+        android:layout_width="190dp"
+        android:layout_height="70dp"
         android:layout_gravity="center"
-android:layout_marginTop="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="50dp"
+        android:alpha="1"
+        android:backgroundTint="@color/beige"
         android:onClick="startGame"
-       />
+        android:shadowColor="@color/aqua"
+        android:shadowDx="2"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="Start game"
+        android:textColor="@color/blue_dark"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textAlignment="center"/>
+
     <Button
         android:id="@+id/createUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:text="Create new username"
         android:layout_gravity="center"
+        android:layout_marginBottom="50dp"
+        android:alpha="0.9"
+        android:backgroundTint="@color/beige"
         android:onClick="createUsername"
-        />
+        android:shadowColor="@color/aqua"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="Create new user"
+        android:textColor="@color/blue_dark1"
+        android:textStyle="bold" />
 
 
 </LinearLayout>
