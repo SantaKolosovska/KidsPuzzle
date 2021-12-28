@@ -305,7 +305,6 @@ public class PuzzleActivity extends AppCompatActivity {
     public void checkGameOver( ) {
         if (isGameOver()) {
             timer.cancel(); //stops the timer
-            //stop the game, redirect to ScoreActivity
 
             //we want to do it after 3 seconds
             //3 sec waiting timer---------------------------------------------------------------
@@ -401,8 +400,8 @@ public class PuzzleActivity extends AppCompatActivity {
         int croppedImageWidth = scaledBitmapWidth - 2 * abs(scaledBitmapLeft);
         int croppedImageHeight = scaledBitmapHeight - 2 * abs(scaledBitmapTop);
 
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, scaledBitmapWidth, scaledBitmapHeight, true);
-        Bitmap croppedBitmap = Bitmap.createBitmap(scaledBitmap, abs(scaledBitmapLeft), abs(scaledBitmapTop), croppedImageWidth, croppedImageHeight);
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, scaledBitmapWidth, scaledBitmapHeight, true);//calls createBitmap(Bitmap source, int 0, int 0, int width, int height), matrix- m, filter , The result will be the same as bitmap buth with sizes scaledBitmapWidth, scaledBitmapHeight
+        Bitmap croppedBitmap = Bitmap.createBitmap(scaledBitmap, abs(scaledBitmapLeft), abs(scaledBitmapTop), croppedImageWidth, croppedImageHeight);//creates bitmap from existing bitmap- scaledbitmap, x, y, width, height
 
         // Calculate the with and height of the pieces
         int pieceWidth = croppedImageWidth/cols;
@@ -587,7 +586,7 @@ public class PuzzleActivity extends AppCompatActivity {
         // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions); //gets file from file, using path
         int photoW = bmOptions.outWidth;
         int photoH = bmOptions.outHeight;
 
@@ -600,7 +599,7 @@ public class PuzzleActivity extends AppCompatActivity {
 
 
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        Bitmap rotatedBitmap = bitmap;
+        Bitmap rotatedBitmap = bitmap;//just for rotating
 
         // rotate bitmap if needed
         try {
@@ -623,7 +622,7 @@ public class PuzzleActivity extends AppCompatActivity {
 
         imageView.setImageBitmap(rotatedBitmap);
     }
-
+//rotates bitmap to angle degrees
     public static Bitmap rotateImage(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
@@ -631,7 +630,6 @@ public class PuzzleActivity extends AppCompatActivity {
                 matrix, true);
     }
     //---------------------------------------------------------------------------picture from camera
-    //public void getRawOfPuzzlePieces (int rowNumber, int numberOfColumns, RelativeLayout layout, double ratio, int border, ImageView imageView, TouchListener touchListener){
 
 
 

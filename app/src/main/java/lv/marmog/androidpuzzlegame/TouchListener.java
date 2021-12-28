@@ -1,6 +1,9 @@
 package lv.marmog.androidpuzzlegame;
 
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.os.CountDownTimer;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,22 +46,40 @@ public class TouchListener implements View.OnTouchListener{
         lParams.width = piece.pieceWidth;
         // --- /pieces become larger on touch
         switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
-            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_DOWN: //push
                 xDelta = x - lParams.leftMargin;
                 yDelta = y - lParams.topMargin;
                 piece.bringToFront();
                 break;
-            case MotionEvent.ACTION_MOVE:
+            case MotionEvent.ACTION_MOVE: //move
                 lParams.leftMargin = (int) (x - xDelta);
                 lParams.topMargin = (int) (y - yDelta);
                 view.setLayoutParams(lParams);
                 break;
-            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_UP: //release
                 int xDiff = abs(piece.xCoord - lParams.leftMargin);
                 int yDiff = abs(piece.yCoord - lParams.topMargin);
                 if (xDiff <= tolerance && yDiff <= tolerance) {
                     lParams.leftMargin = piece.xCoord;
                     lParams.topMargin = piece.yCoord;
+                    //blink------------------------------------------------------------------
+
+                    CountDownTimer blinkTimer = new CountDownTimer(300,100) {
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            piece.setColorFilter(0X80FFFFFF); //can change filter or make blinking faster
+
+                        }
+                        @Override
+                        public void onFinish() {
+                            piece.clearColorFilter();
+                        }
+
+                    };
+                   blinkTimer.start();
+                    //-------------------------------------------------------------------blink
+
+
                     piece.setLayoutParams(lParams);
                     piece.canMove = false;
                     sendViewToBack(piece);
