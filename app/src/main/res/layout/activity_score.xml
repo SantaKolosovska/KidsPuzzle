@@ -14,7 +14,7 @@
         android:layout_marginTop="100dp"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
-        android:shadowColor="@color/aqua"
+        android:shadowColor="@color/teal"
         android:shadowDx="2"
         android:shadowDy="1"
         android:shadowRadius="2"
@@ -40,7 +40,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/congratulation_text"
         tools:ignore="UnknownId"
-        android:shadowColor="@color/aqua"
+        android:shadowColor="@color/teal"
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"/>
@@ -73,7 +73,7 @@
         app:layout_constraintTop_toBottomOf="@+id/your_time"
         android:textColor="@color/blue_dark1"
         android:textStyle="bold"
-        android:shadowColor="@color/aqua"
+        android:shadowColor="@color/teal"
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"/>
