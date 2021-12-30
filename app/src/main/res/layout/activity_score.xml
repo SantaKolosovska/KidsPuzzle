@@ -23,7 +23,8 @@
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:letterSpacing="0.1"/>
 
     <TextView
         android:id="@+id/your_time_text"
@@ -43,7 +44,8 @@
         android:shadowColor="@color/teal"
         android:shadowDx="1"
         android:shadowDy="1"
-        android:shadowRadius="2"/>
+        android:shadowRadius="2"
+        android:letterSpacing="0.1"/>
 
     <TextView
         android:id="@+id/your_time"
@@ -76,7 +78,8 @@
         android:shadowColor="@color/teal"
         android:shadowDx="1"
         android:shadowDy="1"
-        android:shadowRadius="2"/>
+        android:shadowRadius="2"
+        android:letterSpacing="0.1"/>
 
     <TextView
         android:id="@+id/best_time"
