@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,15 +9,19 @@
     tools:context=".CreateUsernameActivity">
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:id="@+id/logo_create_username"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        app:srcCompat="@drawable/puzzle_game_logo_largerletters" />
+        app:srcCompat="@drawable/puzzle_game_logo_largerletters"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <TextView
-        android:id="@+id/createUsernameTextView"
+        android:id="@+id/create_username_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -28,15 +32,18 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"
-        android:text="Create username"
+        android:text="Create new user"
         android:textAlignment="center"
         android:textStyle="bold"
         android:letterSpacing="0.1"
         android:textColor="@color/blue_dark1"
-        android:textSize="24dp" />
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo_create_username"/>
 
     <EditText
-        android:id="@+id/newUsername"
+        android:id="@+id/enter_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -45,28 +52,29 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:hint="Enter new username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/create_username_textview"/>
 
-
-        />
 
     <EditText
-        android:id="@+id/repeatUsername"
+        android:id="@+id/repeat_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:gravity="center"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
-        android:hint="Enter username one more time"
-
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:hint="Repeat username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/enter_username"
 
         />
 
     <Button
-        android:id="@+id/saveNewUsername"
+        android:id="@+id/save_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -78,41 +86,50 @@
         android:shadowDy="1"
         android:shadowRadius="2"
         android:text="Save Username"
-        android:textSize="16sp"
-        android:textColor="@color/beige" />
+        android:textSize="12sp"
+        android:textColor="@color/beige"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/repeat_username"/>
 
     <TextView
-        android:id="@+id/haveUsernames"
+        android:id="@+id/view_usernames_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="28dp"
         android:shadowColor="@color/teal"
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"
-        android:text="Delete username:"
+        android:text="Already existing usernames:"
         android:letterSpacing="0.1"
         android:textAlignment="center"
         android:textColor="@color/blue_dark1"
-        android:textSize="20dp" />
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/save_username"/>
 
     <ListView
-        android:id="@+id/SHOW_ALL_Usernames"
+        android:id="@+id/view_usernames_listview"
         android:layout_width="355dp"
-        android:layout_height="120dp"
+        android:layout_height="80dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:scrollbarThumbVertical="@color/design_default_color_primary">
+        android:scrollbarThumbVertical="@color/design_default_color_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_usernames_textview">
 
     </ListView>
 
     <Button
-        android:id="@+id/deleteUsername"
+        android:id="@+id/delete_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="@color/purple3"
         android:onClick="deleteUsername"
         android:shadowColor="@color/yellow"
@@ -120,7 +137,12 @@
         android:shadowDy="1"
         android:shadowRadius="2"
         android:text="Delete Username"
+        android:textSize="12sp"
         android:textColor="@color/beige"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_usernames_listview"
+
 
         />
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
