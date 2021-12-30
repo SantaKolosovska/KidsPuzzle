@@ -4,82 +4,123 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateUsernameActivity"
-    android:orientation = "vertical">
+    android:background="@drawable/bg_beige3"
+    android:orientation="vertical"
+    tools:context=".CreateUsernameActivity">
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="183dp"
-        android:layout_height="113dp"
-        app:srcCompat="@drawable/logo"
-        tools:layout_editor_absoluteX="10dp"
-        tools:layout_editor_absoluteY="17dp" />
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        app:srcCompat="@drawable/puzzle_game_logo_largerletters" />
+
+    <TextView
+        android:id="@+id/createUsernameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="28dp"
+        android:shadowColor="@color/teal"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="Create username"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:letterSpacing="0.1"
+        android:textColor="@color/blue_dark1"
+        android:textSize="24dp" />
+
+    <EditText
+        android:id="@+id/newUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:hint="Enter new username"
+
+
+        />
+
+    <EditText
+        android:id="@+id/repeatUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:hint="Enter username one more time"
+
+
+        />
+
+    <Button
+        android:id="@+id/saveNewUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/blue_dark"
+        android:onClick="saveNewUsername"
+        android:shadowColor="@color/yellow"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="Save Username"
+        android:textSize="16sp"
+        android:textColor="@color/beige" />
 
     <TextView
         android:id="@+id/haveUsernames"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You have this usernames:"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="182dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="28dp"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:shadowColor="@color/teal"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="Delete username:"
+        android:letterSpacing="0.1"
+        android:textAlignment="center"
+        android:textColor="@color/blue_dark1"
+        android:textSize="20dp" />
 
     <ListView
         android:id="@+id/SHOW_ALL_Usernames"
         android:layout_width="355dp"
         android:layout_height="120dp"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="201dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:scrollbarThumbVertical="@color/design_default_color_primary">
 
-
     </ListView>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter new username"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:id="@+id/newUsername"
 
-
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter username one more time"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:id="@+id/repeatUsername"
-
-
-        />
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/saveNewUsername"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:onClick="saveNewUsername"
-        android:text="Save Username"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/deleteUsername"
-        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Delete Username"
+        android:layout_marginTop="28dp"
+        android:backgroundTint="@color/purple3"
         android:onClick="deleteUsername"
+        android:shadowColor="@color/yellow"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="Delete Username"
+        android:textColor="@color/beige"
 
         />
 </LinearLayout>
