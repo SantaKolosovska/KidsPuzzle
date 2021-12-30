@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidPuzzleGame</string>
+    <string name="app_name">KidsPuzzle</string>
     <string name="congratulation">Well done, kid!</string>
     <string name="your_time_text">Time spent: </string>
     <string name="best_time_text">Your best time:  </string>
