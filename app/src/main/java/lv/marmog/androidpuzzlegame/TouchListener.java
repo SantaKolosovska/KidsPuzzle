@@ -21,14 +21,16 @@ import androidx.annotation.ColorInt;
 import java.io.IOException;
 
 
-public class TouchListener implements View.OnTouchListener{
+public class TouchListener implements View.OnTouchListener {
 
     private float xDelta;
     private float yDelta;
     private PuzzleActivity activity;
+
     public TouchListener(PuzzleActivity activity) {
         this.activity = activity;
     }
+
     private MediaPlayer sound;
 
     public TouchListener() {
@@ -40,8 +42,6 @@ public class TouchListener implements View.OnTouchListener{
         float y = motionEvent.getRawY();
 
         final double tolerance = sqrt(pow(view.getWidth(), 2) + pow(view.getHeight(), 2)) / 10;
-
-        sound = MediaPlayer.create(activity.getApplicationContext(), R.raw.note_d);
 
         PuzzlePiece piece = (PuzzlePiece) view;
         if (!piece.canMove) {
@@ -62,6 +62,7 @@ public class TouchListener implements View.OnTouchListener{
                 // --- add sound
                 sound = MediaPlayer.create(activity.getApplicationContext(), R.raw.salt_shake_quiet);
                 sound.start();
+                stopOnCompletion(sound);
                 // --- /add sound
                 break;
             case MotionEvent.ACTION_MOVE: //move
@@ -77,24 +78,26 @@ public class TouchListener implements View.OnTouchListener{
                     lParams.topMargin = piece.yCoord;
                     //blink------------------------------------------------------------------
 
-                    CountDownTimer blinkTimer = new CountDownTimer(300,100) {
+                    CountDownTimer blinkTimer = new CountDownTimer(300, 100) {
                         @Override
                         public void onTick(long millisUntilFinished) {
                             piece.setColorFilter(0X80FFFFFF); //can change filter or make blinking faster
 
                         }
+
                         @Override
                         public void onFinish() {
                             piece.clearColorFilter();
                         }
 
                     };
-                   blinkTimer.start();
+                    blinkTimer.start();
                     //-------------------------------------------------------------------blink
 
                     // --- add sound
                     sound = MediaPlayer.create(activity.getApplicationContext(), R.raw.lighter_flick3);
                     sound.start();
+                    stopOnCompletion(sound);
                     // --- /add sound
 
                     piece.setLayoutParams(lParams);
@@ -109,11 +112,22 @@ public class TouchListener implements View.OnTouchListener{
     }
 
     public void sendViewToBack(final View child) {
-        final ViewGroup parent = (ViewGroup)child.getParent();
+        final ViewGroup parent = (ViewGroup) child.getParent();
         if (null != parent) {
             parent.removeView(child);
             parent.addView(child, 0);
         }
+    }
+
+    // stop media player after playing sound
+    public void stopOnCompletion(MediaPlayer mp) {
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+                mp = null;
+            }
+        });
     }
 
 }
