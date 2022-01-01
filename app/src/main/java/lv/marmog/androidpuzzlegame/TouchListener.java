@@ -3,16 +3,22 @@ package lv.marmog.androidpuzzlegame;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 import static java.lang.Math.abs;
 
 import androidx.annotation.ColorInt;
+
+import java.io.IOException;
 
 
 public class TouchListener implements View.OnTouchListener{
@@ -23,6 +29,7 @@ public class TouchListener implements View.OnTouchListener{
     public TouchListener(PuzzleActivity activity) {
         this.activity = activity;
     }
+    private MediaPlayer sound;
 
     public TouchListener() {
     }
@@ -33,6 +40,8 @@ public class TouchListener implements View.OnTouchListener{
         float y = motionEvent.getRawY();
 
         final double tolerance = sqrt(pow(view.getWidth(), 2) + pow(view.getHeight(), 2)) / 10;
+
+        sound = MediaPlayer.create(activity.getApplicationContext(), R.raw.note_d);
 
         PuzzlePiece piece = (PuzzlePiece) view;
         if (!piece.canMove) {
@@ -50,6 +59,10 @@ public class TouchListener implements View.OnTouchListener{
                 xDelta = x - lParams.leftMargin;
                 yDelta = y - lParams.topMargin;
                 piece.bringToFront();
+                // --- add sound
+                sound = MediaPlayer.create(activity.getApplicationContext(), R.raw.salt_shake_quiet);
+                sound.start();
+                // --- /add sound
                 break;
             case MotionEvent.ACTION_MOVE: //move
                 lParams.leftMargin = (int) (x - xDelta);
@@ -79,6 +92,10 @@ public class TouchListener implements View.OnTouchListener{
                    blinkTimer.start();
                     //-------------------------------------------------------------------blink
 
+                    // --- add sound
+                    sound = MediaPlayer.create(activity.getApplicationContext(), R.raw.lighter_flick3);
+                    sound.start();
+                    // --- /add sound
 
                     piece.setLayoutParams(lParams);
                     piece.canMove = false;
