@@ -59,7 +59,7 @@ public class TouchListener implements View.OnTouchListener {
                 yDelta = y - lParams.topMargin;
                 piece.bringToFront();
                 // --- add sound
-                sound = MediaPlayer.create(activity.getApplicationContext(), R.raw.salt_shake_quiet);
+                sound = MediaPlayer.create(activity.getApplicationContext(), R.raw.salt_shake);
                 sound.start();
                 stopOnCompletion(sound);
                 // --- /add sound
