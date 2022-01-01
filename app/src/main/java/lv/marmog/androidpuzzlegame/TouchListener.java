@@ -26,12 +26,11 @@ public class TouchListener implements View.OnTouchListener {
     private float xDelta;
     private float yDelta;
     private PuzzleActivity activity;
+    private MediaPlayer sound;
 
     public TouchListener(PuzzleActivity activity) {
         this.activity = activity;
     }
-
-    private MediaPlayer sound;
 
     public TouchListener() {
     }
