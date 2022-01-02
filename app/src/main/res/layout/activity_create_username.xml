@@ -12,8 +12,9 @@
         android:id="@+id/logo_create_username"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:contentDescription="@string/app_name"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="0dp"
         app:srcCompat="@drawable/puzzle_game_logo_nocircle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,36 +26,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginTop="20dp"
+        android:letterSpacing="0.1"
         android:shadowColor="@color/teal"
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"
-        android:text="Create new user"
+        android:text="@string/create_user"
         android:textAlignment="center"
-        android:textStyle="bold"
-        android:letterSpacing="0.1"
         android:textColor="@color/blue_dark1"
-        android:textSize="20dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logo_create_username"/>
+        app:layout_constraintTop_toBottomOf="@id/logo_create_username" />
 
     <EditText
         android:id="@+id/enter_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="text"
         android:layout_gravity="center"
         android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="40dp"
         android:gravity="center"
-        android:hint="Enter new username"
+        android:hint="@string/new_username"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/create_username_textview"/>
+        app:layout_constraintTop_toBottomOf="@id/create_username_textview"
+        tools:ignore="TouchTargetSizeCheck" />
 
 
     <EditText
@@ -63,15 +65,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="40dp"
         android:gravity="center"
-        android:hint="Repeat username"
+        android:hint="@string/repeat_username"
+        android:inputType="text"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/enter_username"
 
-        />
+        tools:ignore="TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/save_username"
@@ -85,7 +89,8 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"
-        android:text="Save Username"
+        android:text="@string/save_username"
+        app:layout_constraintVertical_bias="0.6"
         android:textSize="12sp"
         android:textColor="@color/beige"
         app:layout_constraintEnd_toEndOf="parent"
@@ -97,26 +102,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
+        android:letterSpacing="0.1"
         android:shadowColor="@color/teal"
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"
-        android:text="Already existing usernames:"
-        android:letterSpacing="0.1"
+        android:text="@string/existing_names"
         android:textAlignment="center"
         android:textColor="@color/blue_dark1"
-        android:textSize="16dp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/save_username"/>
+        app:layout_constraintTop_toBottomOf="@id/save_username" />
 
     <ListView
         android:id="@+id/view_usernames_listview"
-        android:layout_width="355dp"
-        android:layout_height="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
+        android:textSize="16sp"
         android:scrollbarThumbVertical="@color/design_default_color_primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -136,13 +142,12 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"
-        android:text="Delete Username"
-        android:textSize="12sp"
+        android:text="@string/delete_name"
         android:textColor="@color/beige"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_usernames_listview"
-
-
-        />
+        app:layout_constraintVertical_bias="0.3" />
 </androidx.constraintlayout.widget.ConstraintLayout>
