@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">AndroidPuzzleGame</string>
+    <string name="app_name">KidsPuzzle</string>
     <string name="congratulation">Well done, kid!</string>
     <string name="your_time_text">Time spent: </string>
     <string name="best_time_text">Your best time:  </string>
     <string name="textview">TextView</string>
     <string name="next_btn">NEXT</string>
     <string name="exit_btn">EXIT</string>
-    <string name="time_us_up">\nTIME IS UP!\nTRY AGAIN!\n\n\npush to continue\n</string>
+    <string name="time_us_up">\nTIME IS UP!\nTRY AGAIN!\n\n\nPush to continue\n</string>
 </resources>

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_beige3">
 
 
     <TextView
@@ -11,29 +12,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="50dp"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
         android:text="@string/time_us_up"
-        android:textColor="@color/black"
+        android:textColor="@color/purple3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:letterSpacing="0.1" />
 
     <Button
         android:id="@+id/timeIsUpNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="28dp"
         android:layout_marginBottom="20dp"
         android:gravity="center"
         android:text="Next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timeIsUpText"
-        app:layout_constraintVertical_bias="0.139" />
+        android:backgroundTint="@color/blue_dark"
+        android:textColor="@color/beige"
+        android:textStyle="bold"
+        android:letterSpacing="0.1"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
