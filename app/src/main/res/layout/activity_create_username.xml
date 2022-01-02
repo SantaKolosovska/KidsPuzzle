@@ -10,11 +10,11 @@
 
     <ImageView
         android:id="@+id/logo_create_username"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        app:srcCompat="@drawable/puzzle_game_logo_largerletters"
+        app:srcCompat="@drawable/puzzle_game_logo_nocircle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
