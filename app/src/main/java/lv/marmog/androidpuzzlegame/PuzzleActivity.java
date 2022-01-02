@@ -65,7 +65,7 @@ public class PuzzleActivity extends AppCompatActivity {
         @Override
         public void onTick(long millisUntilFinished) { //every time the clock ticks
             secondsRemaining--;
-            countTimer.setText(Integer.toString(300 - secondsRemaining) + "sec"); //textView- xml
+            countTimer.setText(Integer.toString(299 - secondsRemaining) + "sec"); //textView- xml
 
         }
 

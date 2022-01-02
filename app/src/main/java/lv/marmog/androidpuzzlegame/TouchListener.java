@@ -27,6 +27,9 @@ public class TouchListener implements View.OnTouchListener{
     public TouchListener() {
     }
 
+
+
+
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         float x = motionEvent.getRawX();
@@ -41,15 +44,19 @@ public class TouchListener implements View.OnTouchListener{
         }
 
         RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-        // --- pieces become larger on touch ---
-        lParams.height = piece.pieceHeight;
-        lParams.width = piece.pieceWidth;
-        // --- /pieces become larger on touch
+
+            // --- pieces become larger on touch ---
+            lParams.height = piece.pieceHeight;
+            lParams.width = piece.pieceWidth;
+            // --- /pieces become larger on touch
+
+
         switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN: //push
                 xDelta = x - lParams.leftMargin;
                 yDelta = y - lParams.topMargin;
                 piece.bringToFront();
+
                 break;
             case MotionEvent.ACTION_MOVE: //move
                 lParams.leftMargin = (int) (x - xDelta);
@@ -62,8 +69,8 @@ public class TouchListener implements View.OnTouchListener{
                 if (xDiff <= tolerance && yDiff <= tolerance) {
                     lParams.leftMargin = piece.xCoord;
                     lParams.topMargin = piece.yCoord;
-                    //blink------------------------------------------------------------------
 
+                    //blink------------------------------------------------------------------
                     CountDownTimer blinkTimer = new CountDownTimer(300,100) {
                         @Override
                         public void onTick(long millisUntilFinished) {
@@ -78,7 +85,6 @@ public class TouchListener implements View.OnTouchListener{
                     };
                    blinkTimer.start();
                     //-------------------------------------------------------------------blink
-
 
                     piece.setLayoutParams(lParams);
                     piece.canMove = false;
