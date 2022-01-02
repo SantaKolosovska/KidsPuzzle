@@ -2,6 +2,7 @@ package lv.marmog.androidpuzzlegame.database;
 
 
 
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_ID;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.TABLE_USERS;
 
 import android.content.ContentValues;
@@ -35,7 +36,7 @@ public class UserDAO {
     }
 
     //Method that insert data into database - creating new username
-    public User createUser(User username){
+    public boolean createUser(User username){
 
         ContentValues contentValues = new ContentValues();
 
@@ -46,25 +47,34 @@ public class UserDAO {
         cursor.moveToLast();
         User newUser = cursorToUser(cursor);
         cursor.close();
-        return newUser;
+        if(insertID == -1) return false;
+        else return true;
+
 
     }
-
     //Method that check username in the database
-    public Boolean checkUsername(User username){
+    public Boolean checkUsername(String username){
 
-        Cursor cursor = database.rawQuery("Select * from "+ TABLE_USERS + " where username = ?", new String[] {username.getUsername()});
+        Cursor cursor = database.rawQuery("Select * from "+ TABLE_USERS + " where username = ?", new String[] {username});
         if(cursor.getCount()>0){
             return true;}
         else{
             return false;}
     }
 
+
     //Method that delete user from the database
-    public User deleteUser(User username){
-        int id = username.getUsernameId();
-        database.delete(TABLE_USERS, DatabaseHelper.COLUMN_ID + " = " + id, null);
-        return username;
+    public Boolean deleteUser(User user){
+
+        String queryString = "DELETE FROM " + TABLE_USERS + " WHERE " + COLUMN_ID + " = " + user.getUsernameId();
+       Cursor cursor =  database.rawQuery(queryString, null);
+       if(cursor.moveToFirst()){
+           return true;
+       }
+       else{
+           return false;
+       }
+
     }
     //Method that show us all the users we have in database
     public List<User> getAllUsers(){

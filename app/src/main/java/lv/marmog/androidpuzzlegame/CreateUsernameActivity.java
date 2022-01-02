@@ -3,6 +3,8 @@ package lv.marmog.androidpuzzlegame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQuery;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,6 +31,7 @@ public class CreateUsernameActivity extends AppCompatActivity {
     private ListView usernamesListView;
     private List<User> usernames;
     private UserList userList;
+    private DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,26 +49,31 @@ public class CreateUsernameActivity extends AppCompatActivity {
         usernamesListView = (ListView) findViewById(R.id.SHOW_ALL_Usernames);
         usernames = new ArrayList<User>(0);
         populateUsernamesList();
-
+        db = new DatabaseHelper(this);
         //onClickListener for button to save new username in database
         saveNewUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //variables that have to convert the field of the layout into string
                 String username = user.getText().toString();
                 String reUser = repeatUsername.getText().toString();
-
+                User u = new User();
+                u.setUsername(username);
            //check if field are filled and show message if not
                 if(username.equals("") || reUser.equals("")) {
                     Toast.makeText(CreateUsernameActivity.this, "Please enter all the field", Toast.LENGTH_SHORT).show();
                 }
+
                 //check username and repeatUsername fields if they are same
                 else{
                     if(username.equals(reUser)){
-                        Boolean checkUser = checkUser(userList.getUser());
+                        //First one if the method is taken from databaseHelper.
+                       // Boolean checkUser = db.checkUsername(username);
+                        Boolean checkUser = userList.checkUsername(username);
                         //check if the username already exists, if no, than insert new username to database
                         if(checkUser == false) {
-                            Boolean insert = userList.createUser(username);
+                          Boolean insert = userList.createUser(u);
                             if (insert == true) {
                                 Toast.makeText(CreateUsernameActivity.this, "New username is created", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(), StartActivity.class);
@@ -84,13 +92,18 @@ public class CreateUsernameActivity extends AppCompatActivity {
                 }
             }
         });
+usernamesListView.setOnItemClickListener(listViewListener);
 
         deleteUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                User u = userList.getUser(onContextItemSelected());
-                userList.deleteUser(u);
+                int usernameId = usernames.get(usernamesListView.getId()).getUsernameId();
+                User userClicked = userList.getUser(usernameId);
+                userList.deleteUser(userClicked);
+                    Toast.makeText(CreateUsernameActivity.this,"User has been deleted", Toast.LENGTH_LONG).show();
+
+
 
             }
         });
@@ -113,8 +126,10 @@ public class CreateUsernameActivity extends AppCompatActivity {
     private AdapterView.OnItemClickListener listViewListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            usernamesListView.setSelection(position);
+            view.setSelected(true);
             int usernameId = usernames.get(position).getUsernameId();
-            goToComplexityActivity(usernameId);
+           // goToComplexityActivity(usernameId);
         }
     };
     protected void goToComplexityActivity(int id){

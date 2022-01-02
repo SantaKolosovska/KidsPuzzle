@@ -78,6 +78,8 @@ public class StartActivity extends AppCompatActivity {
     private AdapterView.OnItemClickListener listViewListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            usernamesListView.setSelection(position);
+            view.setSelected(true);
             //get user id of selected user
             int usernameId = usernames.get(position).getUsernameId();
             //make intent

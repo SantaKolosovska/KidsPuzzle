@@ -21,15 +21,15 @@ public class UserList {
             return userDataSource.getUserById(userID);
         }
 
-        public User createUser(User u){
+        public boolean createUser(User u){
              return userDataSource.createUser(u);
         }
+        public boolean checkUsername(String u){
+        return userDataSource.checkUsername(u);
+}
 
-        public void checkUser(User u){
-            userDataSource.checkUsername(u);
-        }
-        public void deleteUser(User u){
-            userDataSource.deleteUser(u);
+        public Boolean deleteUser(User u){
+          return  userDataSource.deleteUser(u);
         }
 
         public List<User> getAllUsers(){
