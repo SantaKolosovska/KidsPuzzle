@@ -43,7 +43,7 @@ public class StartActivity extends AppCompatActivity {
         usernamesListView.setOnItemClickListener(listViewListener);
 
         //value for buttons that is find by id that is created in layout
-        btnLogin = (Button) findViewById(R.id.StartGame);
+//        btnLogin = (Button) findViewById(R.id.StartGame);
         btnCreateNewUser = (Button) findViewById(R.id.createUsername);
 
         //setOnClickListener for buttons

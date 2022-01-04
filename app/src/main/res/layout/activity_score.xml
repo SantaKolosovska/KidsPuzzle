@@ -11,7 +11,7 @@
         android:id="@+id/congratulation_text"
         android:layout_width="219dp"
         android:layout_height="85dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="60dp"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
         android:shadowColor="@color/teal"
@@ -111,6 +111,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:alpha="1"
         android:backgroundTint="@color/blue_dark"
         android:onClick="startNewGame"
@@ -121,7 +122,5 @@
         android:text="@string/next_btn"
         android:textColor="@color/beige"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias = "0.9"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
