@@ -3,6 +3,8 @@ package lv.marmog.androidpuzzlegame.database;
 
 
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_ID;
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_USER_ID;
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.TABLE_TIMER;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.TABLE_USERS;
 
 import android.content.ContentValues;
@@ -11,7 +13,9 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.ContactsContract;
+import android.util.Log;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +28,11 @@ public class UserDAO {
             DatabaseHelper.COLUMN_USERNAME};
 
     //Constructor
+
+
+    public UserDAO() {
+    }
+
     public UserDAO(Context context){
         dbHelper = new DatabaseHelper(context);
 
@@ -47,8 +56,17 @@ public class UserDAO {
         cursor.moveToLast();
         User newUser = cursorToUser(cursor);
         cursor.close();
-        if(insertID == -1) return false;
-        else return true;
+
+        if(insertID == -1) {
+            Log.e(UserDAO.class.getName(), "New user was NOT created");
+            return false;
+        }  else {
+            Log.i(UserDAO.class.getName(), "New user was created");
+            return true;
+        }
+
+
+
 
 
     }
@@ -66,14 +84,21 @@ public class UserDAO {
     //Method that delete user from the database
     public Boolean deleteUser(User user){
 
+// --- need to delete from timer database
+//        String queryStringToDeleteFromTimer = "SELECT * FROM " + TABLE_TIMER + " WHERE " + COLUMN_USER_ID + " = " + user.getUsernameId();
+//        Cursor cursor1 =  database.rawQuery(queryStringToDeleteFromTimer, null);
+
+
         String queryString = "DELETE FROM " + TABLE_USERS + " WHERE " + COLUMN_ID + " = " + user.getUsernameId();
-       Cursor cursor =  database.rawQuery(queryString, null);
-       if(cursor.moveToFirst()){
+       Cursor cursor2 =  database.rawQuery(queryString, null);
+       if(cursor2.moveToFirst()){
            return true;
        }
-       else{
+       else {
            return false;
        }
+
+
 
     }
     //Method that show us all the users we have in database

@@ -5,11 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class  DatabaseHelper extends SQLiteOpenHelper {
     //Database name
     public static final String DATABASE_NAME = "users.db";
     //DB version
@@ -59,6 +60,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     db.execSQL(sqlUsers);
 
     onCreate(db);
+
+        Log.w(DatabaseHelper.class.getName(), "Upgrading database from version " + oldVersion + " to "
+                + newVersion + " , which will destroy all old data");
     }
 
 //    //Method that check username in the database

@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -44,6 +45,7 @@ public class GridViewActivity extends AppCompatActivity {
     int piecesIntent;
     int columnsIntent;
     int rowsIntent;
+    int userId;
 
 
     @Override
@@ -57,6 +59,9 @@ public class GridViewActivity extends AppCompatActivity {
         piecesIntent = getComplexity.getIntExtra("numberOfPieces", 56);
         columnsIntent = getComplexity.getIntExtra("numberOfColumns", 8);
         rowsIntent = getComplexity.getIntExtra("numberOfRows", 7);
+
+        userId = getComplexity.getIntExtra("userId", 0);
+        Log.w(GridViewActivity.class.getName(), "User id is " + userId);
 
         // --- /
 
@@ -78,6 +83,9 @@ public class GridViewActivity extends AppCompatActivity {
                     intent.putExtra("numOfPiecesToPuz", piecesIntent);
                     intent.putExtra("numOfColumnsToPuz", columnsIntent);
                     intent.putExtra("numOfRowsToPuz", rowsIntent);
+
+                    intent.putExtra("userId", userId);
+
                     // --- extra for complexity
 
                     startActivity(intent);
