@@ -16,9 +16,7 @@ public class User {
     //toString method for printing the contents of a class object
     @Override
     public String toString() {
-        return "Username{" +
-                "username='" + username + '\'' +
-                '}';
+        return username ;
     }
 //getters and setters
     public int getUsernameId() {

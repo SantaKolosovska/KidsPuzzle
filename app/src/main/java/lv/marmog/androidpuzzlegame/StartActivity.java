@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +26,7 @@ public class StartActivity extends AppCompatActivity {
   private ListView usernamesListView;
   private List<User> usernames;
   private UserList userList;
+  int usernameId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +55,14 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(StartActivity.this, ComplexityActivity.class));
-            }
-        });
+//        btnLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(StartActivity.this, ComplexityActivity.class);
+//
+//                startActivity(intent);
+//            }
+//        });
 
     }
     private void populateUsernamesList(){
@@ -81,14 +85,18 @@ public class StartActivity extends AppCompatActivity {
             usernamesListView.setSelection(position);
             view.setSelected(true);
             //get user id of selected user
-            int usernameId = usernames.get(position).getUsernameId();
+            usernameId = usernames.get(position).getUsernameId();
+            Log.w(StartActivity.class.getName(), "Username id is " + usernameId);
             //make intent
             goToComplexityActivity(usernameId);
         }
     };
+
     protected void goToComplexityActivity(int id){
-        Intent complexityActivity = new Intent(this, ComplexityActivity.class);
-        startActivity(complexityActivity);
+        Intent goToComplexityActivity = new Intent(this, ComplexityActivity.class);
+        goToComplexityActivity.putExtra("userId", usernameId);
+        Log.w(StartActivity.class.getName(), "Username id that is sent is " + usernameId);
+        startActivity(goToComplexityActivity);
     }
 
 

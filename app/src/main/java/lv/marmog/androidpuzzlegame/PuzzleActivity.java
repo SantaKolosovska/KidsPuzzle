@@ -22,6 +22,7 @@ import android.os.Bundle;
 //import android.view.View;
 //import android.widget.AdapterView;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -59,6 +60,14 @@ public class PuzzleActivity extends AppCompatActivity {
     private Button newTimeIsUpNext;
     //-----------------------------------------------------popup
 
+//    int[] arrayPiecesColsRowsId = new int[4];
+    int piecesNumber;
+    int cols;
+    int rows;
+    int userId;
+
+
+
     //timer----------------------------------------------------------------
     int secondsRemaining = 300;//how many seconds left in timer
     CountDownTimer timer = new CountDownTimer(300000, 1000) {
@@ -73,7 +82,6 @@ public class PuzzleActivity extends AppCompatActivity {
         public void onFinish() {
             createNewContentDialog(); //creates popup window-------------popup-----------
             timer.cancel();
-
         }
     };
     //---------------------------------------------------------timer
@@ -245,6 +253,56 @@ public class PuzzleActivity extends AppCompatActivity {
     }
 //--------------------------------------------------------------------positioning and size of pieces
 
+
+//    // --- create an array of pieces, cols, rows, id from intent extras
+//    private int[] getPiecesColsRowsId () {
+//        Intent getComplexityFromGridView = getIntent();
+//        int[] arrayPiecesColsRowsId = new int[4];
+//
+//        int id = getComplexityFromGridView.getIntExtra("userId",0);
+//        int piecesNumber = getComplexityFromGridView.getIntExtra("numOfPiecesToPuz", 0);
+//        int cols = getComplexityFromGridView.getIntExtra("numOfColumnsToPuz", 0);
+//        int rows = getComplexityFromGridView.getIntExtra("numOfRowsToPuz", 0);
+//
+//        arrayPiecesColsRowsId[0] = id;
+//        arrayPiecesColsRowsId[1] = piecesNumber;
+//        arrayPiecesColsRowsId[2] = cols;
+//        arrayPiecesColsRowsId[3] = rows;
+//
+//        Log.w(PuzzleActivity.class.getName(), id + ", " + piecesNumber + ", " + cols + ", " + rows);
+//        return arrayPiecesColsRowsId;
+//    }
+//    // ---
+
+    // --- methods to get number of pieces, columns, rows and id from intent extras
+    private int getPiecesNumber() {
+        Intent getComplexityFromGridView = getIntent();
+        piecesNumber = getComplexityFromGridView.getIntExtra("numOfPiecesToPuz", 0);
+        return piecesNumber;
+    }
+
+    private int getCols() {
+        Intent getComplexityFromGridView = getIntent();
+        cols = getComplexityFromGridView.getIntExtra("numOfColumnsToPuz", 0);
+        return cols;
+    }
+
+    private int getRows() {
+        Intent getComplexityFromGridView = getIntent();
+        rows = getComplexityFromGridView.getIntExtra("numOfRowsToPuz", 0);
+        return rows;
+    }
+
+    private int getUserId() {
+        Intent getComplexityFromGridView = getIntent();
+        userId = getComplexityFromGridView.getIntExtra("userId",0);
+        return userId;
+    }
+    // --- methods to get complexity and id
+
+
+
+
     public void checkGameOver( ) {
         if (isGameOver()) {
             timer.cancel(); //stops the timer
@@ -259,8 +317,17 @@ public class PuzzleActivity extends AppCompatActivity {
                @Override
                public void onFinish() {
 
+                  piecesNumber = getPiecesNumber();
+                  userId = getUserId();
+                   Log.w(PuzzleActivity.class.getName(), "Received level is " + piecesNumber);
+                   Log.w(PuzzleActivity.class.getName(), "Received id is " + userId);
+
                    Intent countIntent = new Intent(getApplicationContext(), ScoreActivity.class);
-                   countIntent.putExtra("KEY_SEND", countTimer.getText().toString()); //want to transfer final textview with seconds
+                   countIntent.putExtra("KEY_SEND", countTimer.getText().toString());//want to transfer final textview with seconds
+                   countIntent.putExtra("userId", userId);
+                   countIntent.putExtra("level", piecesNumber);
+                   Log.w(PuzzleActivity.class.getName(), "Sent level is " + piecesNumber);
+                   Log.w(PuzzleActivity.class.getName(), "Sent id is " + userId);
                    startActivity(countIntent);//transfers to ScoreActivity
 
                }
@@ -315,19 +382,36 @@ public class PuzzleActivity extends AppCompatActivity {
     }
 
     private ArrayList<PuzzlePiece> splitImage() {
-        // --- intent to getIntExtras from grid view activity
-        Intent getComplexityFromGridView = getIntent();
 
-        int piecesNumber = getComplexityFromGridView.getIntExtra("numOfPiecesToPuz", 0);
-        int rows =  getComplexityFromGridView.getIntExtra("numOfRowsToPuz", 0);
-        int cols =  getComplexityFromGridView.getIntExtra("numOfColumnsToPuz", 0);
-        // ---
+//         // --- intent to getIntExtras from grid view activity
+//        Intent getComplexityFromGridView = getIntent();
+//
+//        int piecesNumber = getComplexityFromGridView.getIntExtra("numOfPiecesToPuz", 0);
+//        int rows =  getComplexityFromGridView.getIntExtra("numOfRowsToPuz", 0);
+//        int cols =  getComplexityFromGridView.getIntExtra("numOfColumnsToPuz", 0);
+//        Log.w(PuzzleActivity.class.getName(), "Number of pieces is " + piecesNumber);
+//        // ---
+
         /*int piecesNumber = 56; // to check another possibilities
         int rows = 7;
         int cols = 8;
 */
 
+//        // --- using array
+//        arrayPiecesColsRowsId = getPiecesColsRowsId();
+//        int piecesNumber = arrayPiecesColsRowsId[1];
+//        int cols = arrayPiecesColsRowsId[2];
+//        int rows = arrayPiecesColsRowsId[3];
+//        // ---
+
+        // --- using separate methods
+        piecesNumber = getPiecesNumber();
+        cols = getCols();
+        rows = getRows();
+        // ---
+
         ImageView imageView = findViewById(R.id.imageView);
+
         ArrayList<PuzzlePiece> pieces = new ArrayList<>(piecesNumber);
 
         // Get the scaled bitmap of the source image
