@@ -1,4 +1,5 @@
 package lv.marmog.androidpuzzlegame;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 //import androidx.constraintlayout.widget.ConstraintLayout;
@@ -47,7 +48,7 @@ public class PuzzleActivity extends AppCompatActivity {
 
     //picture from camera and gallery-------------------------------------------------------------------
     String mCurrentPhotoPath;
-    String  mCurrentPhotoUri;
+    String mCurrentPhotoUri;
     //-------------------------------------------------------------------picture from camera
     //timer---------------------------------------
     TextView countTimer;
@@ -60,12 +61,16 @@ public class PuzzleActivity extends AppCompatActivity {
     private Button newTimeIsUpNext;
     //-----------------------------------------------------popup
 
+//  --- array for pieces, cols, rows, id - probably not needed
 //    int[] arrayPiecesColsRowsId = new int[4];
+
+    // --- separate variables for pieces, cols, rows, user id - will be initialized with
+    // received results from intent extras
     int piecesNumber;
     int cols;
     int rows;
     int userId;
-
+    // ---
 
 
     //timer----------------------------------------------------------------
@@ -99,7 +104,6 @@ public class PuzzleActivity extends AppCompatActivity {
         //-------------------------------------------------timer
 
 
-
         final RelativeLayout layout = findViewById(R.id.layout);
         final ImageView imageView = findViewById(R.id.imageView);
         // ---- timer for getting it's height and positioning the pieces
@@ -120,7 +124,7 @@ public class PuzzleActivity extends AppCompatActivity {
             public void run() {
                 if (assetName != null) {
                     setPicFromAsset(assetName, imageView);
-                }else if(mCurrentPhotoPath != null) { //added else if picture from camera
+                } else if (mCurrentPhotoPath != null) { //added else if picture from camera
                     setPicFromPath(mCurrentPhotoPath, imageView);
                 } else if (mCurrentPhotoUri != null) {
                     imageView.setImageURI(Uri.parse(mCurrentPhotoUri));
@@ -135,11 +139,11 @@ public class PuzzleActivity extends AppCompatActivity {
 
 //positioning and size of pieces--------------------------------------------------------------------
                 int border = 28; //boarder size
-                int rows ;
-                int columns ;
+                int rows;
+                int columns;
                 int marginLeft;
-                double ratio = (double)((layout.getBottom() - imageView.getBottom()) - 2* border) / imageView.getHeight();
-                if (ratio > 1){
+                double ratio = (double) ((layout.getBottom() - imageView.getBottom()) - 2 * border) / imageView.getHeight();
+                if (ratio > 1) {
                     ratio = 1;
                 }
 
@@ -152,8 +156,8 @@ public class PuzzleActivity extends AppCompatActivity {
                         // 4 pieces - row 1
                         for (int i = 0; i < rows; i++) {
                             marginLeft = border;
-                            for (int j=0; j < columns; j++){
-                                PuzzlePiece piece = pieces.get((i*columns) + j);
+                            for (int j = 0; j < columns; j++) {
+                                PuzzlePiece piece = pieces.get((i * columns) + j);
                                 piece.setOnTouchListener(touchListener);
                                 layout.addView(piece);
 
@@ -164,16 +168,15 @@ public class PuzzleActivity extends AppCompatActivity {
                                 lParams.height = percentageHeight;
                                 lParams.width = percentageWidth;
                                 lParams.leftMargin = marginLeft;
-                                lParams.topMargin = imageView.getBottom() + i*(int)((layout.getHeight()-imageView.getBottom() - border)/rows)+border;
+                                lParams.topMargin = imageView.getBottom() + i * (int) ((layout.getHeight() - imageView.getBottom() - border) / rows) + border;
                                 lParams.bottomMargin = border;
                                 piece.setLayoutParams(lParams);
 
-                                marginLeft += (int)(imageView.getWidth()/columns) + (int)border/(columns-1);
+                                marginLeft += (int) (imageView.getWidth() / columns) + (int) border / (columns - 1);
                             }
                         }
 
                         break;
-
 
 
                     // --- 9 pieces ---
@@ -182,8 +185,8 @@ public class PuzzleActivity extends AppCompatActivity {
                         columns = 3;
                         for (int i = 0; i < rows; i++) {
                             marginLeft = border;
-                            for (int j=0; j < columns; j++){
-                                PuzzlePiece piece = pieces.get((i*columns) + j);
+                            for (int j = 0; j < columns; j++) {
+                                PuzzlePiece piece = pieces.get((i * columns) + j);
                                 piece.setOnTouchListener(touchListener);
                                 layout.addView(piece);
 
@@ -194,11 +197,11 @@ public class PuzzleActivity extends AppCompatActivity {
                                 lParams.height = percentageHeight;
                                 lParams.width = percentageWidth;
                                 lParams.leftMargin = marginLeft;
-                                lParams.topMargin = imageView.getBottom() + i*(int)((layout.getHeight()-imageView.getBottom() - border)/rows)+border;
+                                lParams.topMargin = imageView.getBottom() + i * (int) ((layout.getHeight() - imageView.getBottom() - border) / rows) + border;
                                 lParams.bottomMargin = border;
                                 piece.setLayoutParams(lParams);
 
-                                marginLeft += (int)(imageView.getWidth()/columns) + (int)border/(columns-1);
+                                marginLeft += (int) (imageView.getWidth() / columns) + (int) border / (columns - 1);
                             }
                         }
                         break;
@@ -210,8 +213,8 @@ public class PuzzleActivity extends AppCompatActivity {
                         columns = 4;
                         for (int i = 0; i < rows; i++) {
                             marginLeft = border;
-                            for (int j=0; j < columns; j++){
-                                PuzzlePiece piece = pieces.get((i*columns) + j);
+                            for (int j = 0; j < columns; j++) {
+                                PuzzlePiece piece = pieces.get((i * columns) + j);
                                 piece.setOnTouchListener(touchListener);
                                 layout.addView(piece);
 
@@ -222,11 +225,11 @@ public class PuzzleActivity extends AppCompatActivity {
                                 lParams.height = percentageHeight;
                                 lParams.width = percentageWidth;
                                 lParams.leftMargin = marginLeft;
-                                lParams.topMargin = imageView.getBottom() + i*(int)((layout.getHeight()-imageView.getBottom() - border)/rows)+border;
+                                lParams.topMargin = imageView.getBottom() + i * (int) ((layout.getHeight() - imageView.getBottom() - border) / rows) + border;
                                 lParams.bottomMargin = border;
                                 piece.setLayoutParams(lParams);
 
-                                marginLeft += (int)(imageView.getWidth()/columns) + (int)border/(columns-1);
+                                marginLeft += (int) (imageView.getWidth() / columns) + (int) border / (columns - 1);
                             }
                         }
 
@@ -295,44 +298,43 @@ public class PuzzleActivity extends AppCompatActivity {
 
     private int getUserId() {
         Intent getComplexityFromGridView = getIntent();
-        userId = getComplexityFromGridView.getIntExtra("userId",0);
+        userId = getComplexityFromGridView.getIntExtra("userId", 0);
         return userId;
     }
     // --- methods to get complexity and id
 
 
-
-
-    public void checkGameOver( ) {
+    public void checkGameOver() {
         if (isGameOver()) {
             timer.cancel(); //stops the timer
 
             //we want to do it after 3 seconds
             //3 sec waiting timer---------------------------------------------------------------
-           CountDownTimer pauseTimer = new CountDownTimer(3000,1000) {
-               @Override
-               public void onTick(long millisUntilFinished) {
+            CountDownTimer pauseTimer = new CountDownTimer(3000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
 
-               }
-               @Override
-               public void onFinish() {
+                }
 
-                  piecesNumber = getPiecesNumber();
-                  userId = getUserId();
-                   Log.w(PuzzleActivity.class.getName(), "Received level is " + piecesNumber);
-                   Log.w(PuzzleActivity.class.getName(), "Received id is " + userId);
+                @Override
+                public void onFinish() {
 
-                   Intent countIntent = new Intent(getApplicationContext(), ScoreActivity.class);
-                   countIntent.putExtra("KEY_SEND", countTimer.getText().toString());//want to transfer final textview with seconds
-                   countIntent.putExtra("userId", userId);
-                   countIntent.putExtra("level", piecesNumber);
-                   Log.w(PuzzleActivity.class.getName(), "Sent level is " + piecesNumber);
-                   Log.w(PuzzleActivity.class.getName(), "Sent id is " + userId);
-                   startActivity(countIntent);//transfers to ScoreActivity
+                    piecesNumber = getPiecesNumber();
+                    userId = getUserId();
+                    Log.w(PuzzleActivity.class.getName(), "Received level is " + piecesNumber);
+                    Log.w(PuzzleActivity.class.getName(), "Received id is " + userId);
 
-               }
-           };
-           pauseTimer.start();
+                    Intent countIntent = new Intent(getApplicationContext(), ScoreActivity.class);
+                    countIntent.putExtra("KEY_SEND", countTimer.getText().toString());//want to transfer final textview with seconds
+                    countIntent.putExtra("userId", userId);
+                    countIntent.putExtra("level", piecesNumber);
+                    Log.w(PuzzleActivity.class.getName(), "Sent level is " + piecesNumber);
+                    Log.w(PuzzleActivity.class.getName(), "Sent id is " + userId);
+                    startActivity(countIntent);//transfers to ScoreActivity
+
+                }
+            };
+            pauseTimer.start();
             //---------------------------------------------------------------3 sec waiting timer
 
         }
@@ -365,7 +367,7 @@ public class PuzzleActivity extends AppCompatActivity {
             int photoH = bmOptions.outHeight;
 
             // Determine how much to scale down the image
-            int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+            int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
 
             is.reset();
 
@@ -431,8 +433,8 @@ public class PuzzleActivity extends AppCompatActivity {
         Bitmap croppedBitmap = Bitmap.createBitmap(scaledBitmap, abs(scaledBitmapLeft), abs(scaledBitmapTop), croppedImageWidth, croppedImageHeight);//creates bitmap from existing bitmap- scaledbitmap, x, y, width, height
 
         // Calculate the with and height of the pieces
-        int pieceWidth = croppedImageWidth/cols;
-        int pieceHeight = croppedImageHeight/rows;
+        int pieceWidth = croppedImageWidth / cols;
+        int pieceHeight = croppedImageHeight / rows;
 
         // Create each bitmap piece and add it to the resulting array
         int yCoord = 0;
@@ -482,7 +484,7 @@ public class PuzzleActivity extends AppCompatActivity {
                 } else {
                     // right bump
                     path.lineTo(pieceBitmap.getWidth(), offsetY + (pieceBitmap.getHeight() - offsetY) / 3.0f);
-                    path.cubicTo(pieceBitmap.getWidth() - bumpSize,offsetY + (pieceBitmap.getHeight() - offsetY) / 6.0f, pieceBitmap.getWidth() - bumpSize, offsetY + (pieceBitmap.getHeight() - offsetY) / 6.0f * 5, pieceBitmap.getWidth(), offsetY + (pieceBitmap.getHeight() - offsetY) / 3.0f * 2);
+                    path.cubicTo(pieceBitmap.getWidth() - bumpSize, offsetY + (pieceBitmap.getHeight() - offsetY) / 6.0f, pieceBitmap.getWidth() - bumpSize, offsetY + (pieceBitmap.getHeight() - offsetY) / 6.0f * 5, pieceBitmap.getWidth(), offsetY + (pieceBitmap.getHeight() - offsetY) / 3.0f * 2);
                     path.lineTo(pieceBitmap.getWidth(), pieceBitmap.getHeight());
                 }
 
@@ -492,7 +494,7 @@ public class PuzzleActivity extends AppCompatActivity {
                 } else {
                     // bottom bump
                     path.lineTo(offsetX + (pieceBitmap.getWidth() - offsetX) / 3.0f * 2, pieceBitmap.getHeight());
-                    path.cubicTo(offsetX + (pieceBitmap.getWidth() - offsetX) / 6.0f * 5,pieceBitmap.getHeight() - bumpSize, offsetX + (pieceBitmap.getWidth() - offsetX) / 6.0f, pieceBitmap.getHeight() - bumpSize, offsetX + (pieceBitmap.getWidth() - offsetX) / 3.0f, pieceBitmap.getHeight());
+                    path.cubicTo(offsetX + (pieceBitmap.getWidth() - offsetX) / 6.0f * 5, pieceBitmap.getHeight() - bumpSize, offsetX + (pieceBitmap.getWidth() - offsetX) / 6.0f, pieceBitmap.getHeight() - bumpSize, offsetX + (pieceBitmap.getWidth() - offsetX) / 3.0f, pieceBitmap.getHeight());
                     path.lineTo(offsetX, pieceBitmap.getHeight());
                 }
 
@@ -573,8 +575,8 @@ public class PuzzleActivity extends AppCompatActivity {
         int imgViewW = imageView.getWidth();
         int imgViewH = imageView.getHeight();
 
-        int top = (int) (imgViewH - actH)/2;
-        int left = (int) (imgViewW - actW)/2;
+        int top = (int) (imgViewH - actH) / 2;
+        int left = (int) (imgViewW - actW) / 2;
 
         ret[0] = left;
         ret[1] = top;
@@ -583,7 +585,7 @@ public class PuzzleActivity extends AppCompatActivity {
     }
 
     //popup------------------------
-    public void createNewContentDialog(){
+    public void createNewContentDialog() {
         dialogBuilder = new AlertDialog.Builder(this);
         final View timeIsUpPopupView = getLayoutInflater().inflate(R.layout.activity_time_is_up, null);
         newTimeIsUpText = (TextView) timeIsUpPopupView.findViewById(R.id.timeIsUpText);
@@ -618,7 +620,7 @@ public class PuzzleActivity extends AppCompatActivity {
         int photoH = bmOptions.outHeight;
 
         // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+        int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
 
         // Decode the image file into a Bitmap sized to fill the View
         bmOptions.inJustDecodeBounds = false;
@@ -649,7 +651,8 @@ public class PuzzleActivity extends AppCompatActivity {
 
         imageView.setImageBitmap(rotatedBitmap);
     }
-//rotates bitmap to angle degrees
+
+    //rotates bitmap to angle degrees
     public static Bitmap rotateImage(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
@@ -657,7 +660,6 @@ public class PuzzleActivity extends AppCompatActivity {
                 matrix, true);
     }
     //---------------------------------------------------------------------------picture from camera
-
 
 
 }
