@@ -1,13 +1,27 @@
 package lv.marmog.androidpuzzlegame;
 
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.TABLE_TIMER;
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.TABLE_USERS;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import lv.marmog.androidpuzzlegame.database.DatabaseHelper;
+import lv.marmog.androidpuzzlegame.database.User;
+import lv.marmog.androidpuzzlegame.database.UserDAO;
+
 
 public class ScoreActivity extends AppCompatActivity {
 
@@ -20,9 +34,21 @@ public class ScoreActivity extends AppCompatActivity {
     Button exit;
     int userId;
     int level;
-    int time;
+    int timeInt;
+    String timeString;
+    long insertResult;
+    Cursor cursor;
 
-
+    private SQLiteDatabase database;
+    private DatabaseHelper dbHelper;
+    private String[] allColumns = {
+            DatabaseHelper.COLUMN_USER_ID,
+            DatabaseHelper.COLUMN_TIMER_RESULT_FOR_2,
+            DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4,
+            DatabaseHelper.COLUMN_TIMER_RESULT_FOR_6,
+            DatabaseHelper.COLUMN_TIMER_RESULT_FOR_9,
+            DatabaseHelper.COLUMN_TIMER_RESULT_FOR_12,
+    };
 
 
     @Override
@@ -30,31 +56,90 @@ public class ScoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
 
-        //showing seconds from puzzleActivity
+        // database
+        dbHelper = new DatabaseHelper(ScoreActivity.this);
+        database = dbHelper.getWritableDatabase();
+
+        // show timer result from puzzleActivity
         yourTime = (TextView) findViewById(R.id.your_time);
-//        Intent getTimeIntent = getIntent();
-//        String receivedValue = getTimeIntent.getStringExtra("KEY_SEND");
-//        int userId = getTimeIntent.getIntExtra("userId", 0);
-//        int level = getTimeIntent.getIntExtra("level", 0);
+        timeString = getTimeString();
+        yourTime.setText(timeString);
 
-        String time = getTimeString();
+        // id, level, timer for db
+        userId = getUserId();
+        level = getLevel();
+        timeInt = getTimeInt();
 
-        //yourTime.setText(receivedValue);
-        Integer userIdInteger = Integer.valueOf(userId);
-        Integer levelInteger = Integer.valueOf(level);
-        yourTime.setText(time);
+        // insert in db
+        insertResult();
+
     }
-    public void startNewGame(View view){
+
+    // --- insert timer result in db
+    public boolean insertResult() {
+        ContentValues contentValues = new ContentValues();
+
+        // switch for insertion of data in different puzzle complexity/level columns
+        switch (level) {
+            case 4:
+                contentValues.put(DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4, timeInt);
+                contentValues.put(DatabaseHelper.COLUMN_USER_ID, userId);
+                insertResult = database.insert(TABLE_TIMER, null, contentValues);
+                cursor = database.query(TABLE_TIMER, allColumns,
+                        DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4 + " = " + insertResult, null, null, null, null);
+                cursor.moveToLast();
+                cursor.close();
+                Log.w(ScoreActivity.class.getName(), "Id: " + userId + " and timer result: " + timeInt + " inserted into column " + level);
+                break;
+
+            case 9:
+                contentValues.put(DatabaseHelper.COLUMN_TIMER_RESULT_FOR_9, timeInt);
+                contentValues.put(DatabaseHelper.COLUMN_USER_ID, userId);
+                insertResult = database.insert(TABLE_TIMER, null, contentValues);
+                cursor = database.query(TABLE_TIMER, allColumns,
+                        DatabaseHelper.COLUMN_TIMER_RESULT_FOR_9 + " = " + insertResult, null, null, null, null);
+                cursor.moveToLast();
+                cursor.close();
+                Log.w(ScoreActivity.class.getName(), "Id: " + userId + " and timer result: " + timeInt + " inserted into column " + level);
+                break;
+
+            case 12:
+                contentValues.put(DatabaseHelper.COLUMN_TIMER_RESULT_FOR_12, timeInt);
+                contentValues.put(DatabaseHelper.COLUMN_USER_ID, userId);
+                insertResult = database.insert(TABLE_TIMER, null, contentValues);
+                cursor = database.query(TABLE_TIMER, allColumns,
+                        DatabaseHelper.COLUMN_TIMER_RESULT_FOR_12 + " = " + insertResult, null, null, null, null);
+                cursor.moveToLast();
+                cursor.close();
+                Log.w(ScoreActivity.class.getName(), "Id: " + userId + " and timer result: " + timeInt + " inserted into column " + level);
+                break;
+        }
+
+        if (insertResult == -1) {
+            Log.e(ScoreActivity.class.getName(), "Results are not saved");
+            return false;
+        } else {
+            Log.i(ScoreActivity.class.getName(), "Results are saved");
+            return true;
+        }
+    }
+    // --- /insert timer result in db
+
+    public void startNewGame(View view) {
         Intent intent = new Intent(this, ComplexityActivity.class);// redirect from this page to MainActivity page- list of images
+        userId = getUserId();
+        intent.putExtra("userIdFromScoreActivity", userId);
+        Log.i(ScoreActivity.class.getName(), "User id " + userId + " was sent to complexity activity");
         startActivity(intent);
     }
 
-    public void goToMenu(View view){
+    public void goToMenu(View view) {
         // redirect from this activity to the first activity, for now it redirects to MianActivy!!!!!!!!!!!!!!!!
         Intent intent = new Intent(this, ComplexityActivity.class);
         startActivity(intent);
     }
 
+    // --- methods to get userId, level and time from intent extras
     public int getUserId() {
         Intent getUserIntent = getIntent();
         userId = getUserIntent.getIntExtra("userId", 0);
@@ -78,9 +163,10 @@ public class ScoreActivity extends AppCompatActivity {
 
     public int getTimeInt() {
         String timeString = getTimeString();
-        time = Integer.valueOf(timeString);
-        return time;
+        timeInt = Integer.valueOf(timeString);
+        return timeInt;
     }
+    // --- /methods to get userId, level and time
 
 
 }

@@ -15,6 +15,7 @@ public class ComplexityActivity extends AppCompatActivity {
 
 
     int userId;
+    int userIdFromScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +27,24 @@ public class ComplexityActivity extends AppCompatActivity {
     public void selectPieces(View view) {
 
         Intent getUserId = getIntent();
+        // user id from start activity
         userId = getUserId.getIntExtra("userId", 0);
-        Log.w(ComplexityActivity.class.getName(), "Received user id is " + userId);
-        Intent complexityIntent = new Intent(this, GridViewActivity.class);
-        complexityIntent.putExtra("userId", userId);
-        Log.w(ComplexityActivity.class.getName(), "Sent user id is " + userId);
+        Log.i(ComplexityActivity.class.getName(), "Received user id from start activity is " + userId);
+        // user id from score
+        userIdFromScore = getUserId.getIntExtra("userIdFromScoreActivity", 0);
+        Log.i(ComplexityActivity.class.getName(), "Received user id from score activity is " + userIdFromScore);
+        // set user id to user id from score
+        if (userId == 0) {
+            userId = userIdFromScore;
+        }
 
+        Intent complexityIntent = new Intent(this, GridViewActivity.class);
+
+        // sending id to gridView activity
+        complexityIntent.putExtra("userId", userId);
+
+
+        // sending number of pieces, columns and rows from buttons to gridView activity
         if (view == findViewById(R.id.choose4)) {
             complexityIntent.putExtra("numberOfPieces", 4);
             complexityIntent.putExtra("numberOfColumns", 2);
