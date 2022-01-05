@@ -13,7 +13,6 @@ import lv.marmog.androidpuzzlegame.database.DatabaseHelper;
 
 public class ComplexityActivity extends AppCompatActivity {
 
-
     int userId;
     int userIdFromScore;
     int userIdFromPopup;
@@ -54,6 +53,7 @@ public class ComplexityActivity extends AppCompatActivity {
 
     }
 
+    // --- method to get user id
     private int getUserId() {
         Intent getUserId = getIntent();
         // user id from start activity
