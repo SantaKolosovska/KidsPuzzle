@@ -61,6 +61,7 @@ public class GridViewActivity extends AppCompatActivity {
         rowsIntent = getComplexity.getIntExtra("numberOfRows", 7);
 
         userId = getComplexity.getIntExtra("userId", 0);
+
         Log.w(GridViewActivity.class.getName(), "User id is " + userId);
 
         // --- /

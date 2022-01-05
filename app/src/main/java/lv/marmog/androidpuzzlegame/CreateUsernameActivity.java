@@ -75,19 +75,19 @@ public class CreateUsernameActivity extends AppCompatActivity {
                         if(checkUser == false) {
                           Boolean insert = userList.createUser(u);
                             if (insert == true) {
-                                Toast.makeText(CreateUsernameActivity.this, "New username is created", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CreateUsernameActivity.this, "New username is created", Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(getApplicationContext(), StartActivity.class);
                                 startActivity(intent);
                             } else {
-                                Toast.makeText(CreateUsernameActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CreateUsernameActivity.this, "Registration failed", Toast.LENGTH_LONG).show();
                             }
                         }
                             else{
-                                Toast.makeText(CreateUsernameActivity.this, "User already exists", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CreateUsernameActivity.this, "User already exists", Toast.LENGTH_LONG).show();
                             }
                     }
                     else{
-                        Toast.makeText(CreateUsernameActivity.this, "Username not matching", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateUsernameActivity.this, "Username not matching", Toast.LENGTH_LONG).show();
                     }
                 }
             }
