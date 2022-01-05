@@ -596,11 +596,15 @@ public class PuzzleActivity extends AppCompatActivity {
         dialog.show();
 
         newTimeIsUpNext.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 //define next button
-                Intent Intent = new Intent(getApplicationContext(), GridViewActivity.class);
-                startActivity(Intent);
+                int userIdFromPopup = getUserId();
+                Intent intent = new Intent(getApplicationContext(), ComplexityActivity.class);
+                intent.putExtra("userIdFromPopup", userIdFromPopup);
+                Log.i(PuzzleActivity.class.getName(), "User id " + userIdFromPopup + " from time is up popup was sent to complexity");
+                startActivity(intent);
             }
         });
     }
