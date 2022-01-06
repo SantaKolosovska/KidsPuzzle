@@ -1,26 +1,22 @@
 package lv.marmog.androidpuzzlegame;
 
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4;
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_USER_ID;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.TABLE_TIMER;
-import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.TABLE_USERS;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import lv.marmog.androidpuzzlegame.database.DatabaseHelper;
-import lv.marmog.androidpuzzlegame.database.User;
-import lv.marmog.androidpuzzlegame.database.UserDAO;
 
 
 public class ScoreActivity extends AppCompatActivity {
@@ -29,12 +25,13 @@ public class ScoreActivity extends AppCompatActivity {
     TextView yourTimeText;
     TextView yourTime;
     TextView BestTimeText;
-    TextView BestTime;
+    TextView bestTime;
     Button next;
     Button exit;
     int userId;
     int level;
     int timeInt;
+   boolean showBestTime;
     String timeString;
     long insertResult;
     Cursor cursor;
@@ -64,6 +61,10 @@ public class ScoreActivity extends AppCompatActivity {
         yourTime = (TextView) findViewById(R.id.your_time);
         timeString = getTimeString();
         yourTime.setText(timeString);
+
+        //show best time
+        bestTime = (TextView) findViewById(R.id.best_time);
+        bestTime.setText(showBestResult());
 
         // id, level, timer for db
         userId = getUserId();
@@ -124,6 +125,35 @@ public class ScoreActivity extends AppCompatActivity {
         }
     }
     // --- /insert timer result in db
+
+//Show only best
+    public String showBestResult(){
+
+        String showBestResult1;
+
+        //switch for showing better result for current level( puzzle pieces quantity)
+        switch(getLevel()){
+            case 4:
+                //one option to get best result
+               String showBestResult2 = "SELECT " + COLUMN_TIMER_RESULT_FOR_4 +  " FROM "+ TABLE_TIMER +" WHERE " + COLUMN_USER_ID + getUserId() + " ORDER BY " + COLUMN_TIMER_RESULT_FOR_4 + " limit 1 " ;
+//second option to get best result
+                showBestResult1 = "SELECT MIN(COLUMN_TIMER_RESULT_FOR_4) FROM TABLE_TIMER WHERE COLUMN_USER_ID " + getUserId();
+                break;
+
+            case 9:
+                showBestResult1 = "SELECT MIN(COLUMN_TIMER_RESULT_FOR_9) FROM TABLE_TIMER WHERE COLUMN_USER_ID " + getUserId();
+                break;
+            case 12:
+                showBestResult1 = "SELECT MIN(COLUMN_TIMER_RESULT_FOR_12) FROM TABLE_TIMER WHERE COLUMN_USER_ID " + getUserId();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + getLevel());
+        }
+      return showBestResult1;
+
+
+    }
+
 
     public void startNewGame(View view) {
         Intent intent = new Intent(this, ComplexityActivity.class);// redirect from this page to MainActivity page- list of images
