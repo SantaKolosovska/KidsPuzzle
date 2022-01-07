@@ -106,24 +106,21 @@ public class CreateUsernameActivity extends AppCompatActivity {
                 }
             }
         });
-usernamesListView.setOnItemLongClickListener(listViewListener);
+
+      usernamesListView.setOnItemLongClickListener(listViewListener);
 
         deleteUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                     //delete only user by usernameId from TABLE_USERS
-                userList.deleteUser(usernames.remove(usernameId));
+                userList.deleteUser(usernames.remove(usernameId));      // remove is a database method
                 Toast.makeText(CreateUsernameActivity.this,"User has been deleted", Toast.LENGTH_LONG).show();
                 populateUsernamesList();
-
 
                // int usernameId = usernames.get(usernamesListView.getId()).getUsernameId();
                // User userClicked = userList.getUser(usernameId);
             //   userList.deleteResults(usernames.remove(usernameId));
                // Log.i(CreateUsernameActivity.class.getName(), "Users results for user id " + usernameId + " was deleted from database");
-
-                Log.i(CreateUsernameActivity.class.getName(), "User id " + usernameId + " was deleted from database");
-
 
             }
         });

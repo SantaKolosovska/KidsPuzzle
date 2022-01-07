@@ -1,23 +1,19 @@
 package lv.marmog.androidpuzzlegame;
 
+
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_12;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_9;
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_USER_ID;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.TABLE_TIMER;
-import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.TABLE_USERS;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,8 +22,6 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import lv.marmog.androidpuzzlegame.database.DatabaseHelper;
-import lv.marmog.androidpuzzlegame.database.User;
-import lv.marmog.androidpuzzlegame.database.UserDAO;
 
 
 public class ScoreActivity extends AppCompatActivity {
@@ -146,7 +140,9 @@ public class ScoreActivity extends AppCompatActivity {
 
 //Show only best
     public String showBestResult(){
+
         Cursor cursor1;
+
 
         //switch for showing better result for current level( puzzle pieces quantity)
         switch(getLevel()){
@@ -172,9 +168,8 @@ public class ScoreActivity extends AppCompatActivity {
             default:
                 throw new IllegalStateException("Unexpected value: " + getLevel());
         }
+
       return cursor1.toString();
-
-
     }
 
 
