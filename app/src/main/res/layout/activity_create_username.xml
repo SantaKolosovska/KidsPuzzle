@@ -153,14 +153,16 @@
         android:id="@+id/goHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="656dp"
-        android:alpha="0.8"
-        android:backgroundTint="@color/pink"
+        android:alpha="0.7"
+        android:backgroundTint="@color/aqua"
         android:clickable="true"
-        android:src="@drawable/ic_action_name"
+        android:src="@drawable/ic_baseline_home_24_smaller"
         android:tint="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.717"
-        app:layout_constraintStart_toEndOf="@+id/logo_create_username" />
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="10dp"
+        app:fabCustomSize="48dp"
+        app:rippleColor="@color/blue_dark1"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
