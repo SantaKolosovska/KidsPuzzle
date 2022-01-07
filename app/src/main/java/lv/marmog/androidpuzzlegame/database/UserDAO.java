@@ -76,19 +76,10 @@ public class UserDAO {
     }
 
 
-    // --- need to delete from timer database
-    public Boolean deleteResults(User user) {
-        String queryStringToDeleteFromTimer = "DELETE * FROM " + TABLE_TIMER + " WHERE " + COLUMN_USER_ID + " = " + user.getUsernameId();
-        Cursor cursor1 = database.rawQuery(queryStringToDeleteFromTimer, null);
-        if (cursor1.moveToFirst()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
         //Method that delete user from the database
         public Boolean deleteUser(User user){
+
         String queryString = "DELETE FROM " + TABLE_USERS + " WHERE " + COLUMN_ID + " = " + user.getUsernameId();
        Cursor cursor2 =  database.rawQuery(queryString, null);
        if(cursor2.moveToFirst()){
@@ -97,8 +88,19 @@ public class UserDAO {
        else {
            return false;
        }
-
     }
+  
+    // --- need to delete from timer database
+    public Boolean deleteResults(User user) {
+        String queryStringToDeleteFromTimer = "DELETE * FROM " + TABLE_TIMER + " WHERE " + COLUMN_USER_ID + " = " + user.getUsernameId();
+        Cursor cursor1 = database.rawQuery(queryStringToDeleteFromTimer, null);
+        if (cursor1.moveToLast()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+  
     //Method that show us all the users we have in database
     public List<User> getAllUsers(){
         List<User> userList= new ArrayList<User>(0);

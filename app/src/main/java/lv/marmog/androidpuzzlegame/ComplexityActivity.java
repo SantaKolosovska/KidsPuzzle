@@ -9,21 +9,36 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import lv.marmog.androidpuzzlegame.database.DatabaseHelper;
+import lv.marmog.androidpuzzlegame.database.UserDAO;
 
 public class ComplexityActivity extends AppCompatActivity {
 
+    //Variables that is extras
     int userId;
     int userIdFromScore;
     int userIdFromPopup;
+    //Button to go to the StartActivity
+    private FloatingActionButton goHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complexity);
 
-    }
+        //Button to go to the StartActivity
+        goHome = findViewById(R.id.goHome);
+        goHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goHome();
+            }
+        });
 
+    }
+//Method that selects pieces for puzzle when is pressed one of the buttons
     public void selectPieces(View view) {
 
         userId = getUserId();
@@ -77,5 +92,10 @@ public class ComplexityActivity extends AppCompatActivity {
 
         return userId;
     }
+    //Method to go to the StartActivity
+    public void goHome() {
+        Intent intent = new Intent(this, StartActivity.class);
+        startActivity(intent);
 
+    }
 }

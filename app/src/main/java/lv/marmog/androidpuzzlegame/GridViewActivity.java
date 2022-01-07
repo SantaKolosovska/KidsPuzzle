@@ -20,8 +20,11 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +34,10 @@ import java.util.Date;
 
 public class GridViewActivity extends AppCompatActivity {
 
-    //picture from camera and gallery --------------------------------------------------------------
+    //Button to go to the StartActivity
+     private FloatingActionButton goHome;
+
+     //picture from camera and gallery --------------------------------------------------------------
     private static final int REQUEST_PERMISSION_WRITE_EXTERNAL_STORAGE = 2;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     String mCurrentPhotoPath;
@@ -61,6 +67,15 @@ public class GridViewActivity extends AppCompatActivity {
         rowsIntent = getComplexity.getIntExtra("numberOfRows", 7);
 
         userId = getComplexity.getIntExtra("userId", 0);
+
+        //Button to go to the StartActivity
+        goHome = findViewById(R.id.goHome);
+        goHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goHome();
+            }
+        });
 
         Log.w(GridViewActivity.class.getName(), "User id is " + userId);
 
@@ -196,6 +211,12 @@ public class GridViewActivity extends AppCompatActivity {
             intent.setType("image/*");
             startActivityForResult(intent, REQUEST_IMAGE_GALLERY);
         }
+    }
+
+    //Method to go to the StartActivity
+    public void goHome() {
+        Intent intent = new Intent(this, StartActivity.class);
+        startActivity(intent);
     }
 
 
