@@ -12,21 +12,21 @@
         android:id="@+id/logo_create_username"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:contentDescription="@string/app_name"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="0dp"
-        app:srcCompat="@drawable/puzzle_game_logo_nocircle"
+        android:layout_marginTop="468dp"
+        android:contentDescription="@string/app_name"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        app:srcCompat="@drawable/puzzle_game_logo_nocircle" />
 
     <TextView
         android:id="@+id/create_username_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:letterSpacing="0.1"
         android:shadowColor="@color/teal"
         android:shadowDx="1"
@@ -38,8 +38,9 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logo_create_username" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/enter_username"
@@ -118,7 +119,7 @@
     <ListView
         android:id="@+id/view_usernames_listview"
         android:layout_width="wrap_content"
-        android:layout_height="120dp"
+        android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:textSize="16sp"
@@ -145,7 +146,8 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_usernames_listview"
-        app:layout_constraintVertical_bias="0.3" />
+        app:layout_constraintVertical_bias="0.036" />
 </androidx.constraintlayout.widget.ConstraintLayout>
