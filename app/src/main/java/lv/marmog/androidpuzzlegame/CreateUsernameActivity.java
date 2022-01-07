@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQuery;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +28,11 @@ import lv.marmog.androidpuzzlegame.database.UserList;
 public class CreateUsernameActivity extends AppCompatActivity {
 
 //references to buttons and other controls on the layout
+    private int usernameId;
     private EditText user;
     private EditText repeatUsername;
     private Button saveNewUsername, deleteUsername;
+    private FloatingActionButton goHome;
     private ListView usernamesListView;
     private List<User> usernames;
     private UserList userList;
@@ -45,6 +50,14 @@ public class CreateUsernameActivity extends AppCompatActivity {
         saveNewUsername = (Button) findViewById(R.id.save_username);
         deleteUsername = (Button) findViewById(R.id.delete_username);
 
+        //Button to go to the StartActivity
+        goHome = findViewById(R.id.goHome);
+        goHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goHome();
+            }
+        });
         //creates usernamesList in current layout
         usernamesListView = (ListView) findViewById(R.id.view_usernames_listview);
         usernames = new ArrayList<User>(0);
@@ -76,8 +89,9 @@ public class CreateUsernameActivity extends AppCompatActivity {
                           Boolean insert = userList.createUser(u);
                             if (insert == true) {
                                 Toast.makeText(CreateUsernameActivity.this, "New username is created", Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(getApplicationContext(), StartActivity.class);
-                                startActivity(intent);
+                                populateUsernamesList();
+                                //Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+                               // startActivity(intent);
                             } else {
                                 Toast.makeText(CreateUsernameActivity.this, "Registration failed", Toast.LENGTH_LONG).show();
                             }
@@ -92,17 +106,23 @@ public class CreateUsernameActivity extends AppCompatActivity {
                 }
             }
         });
-usernamesListView.setOnItemClickListener(listViewListener);
+usernamesListView.setOnItemLongClickListener(listViewListener);
 
         deleteUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                    //delete only user by usernameId from TABLE_USERS
+                userList.deleteUser(usernames.remove(usernameId));
+                Toast.makeText(CreateUsernameActivity.this,"User has been deleted", Toast.LENGTH_LONG).show();
+                populateUsernamesList();
 
-                int usernameId = usernames.get(usernamesListView.getId()).getUsernameId();
-                User userClicked = userList.getUser(usernameId);
-                userList.deleteUser(userClicked);
-                    Toast.makeText(CreateUsernameActivity.this,"User has been deleted", Toast.LENGTH_LONG).show();
 
+               // int usernameId = usernames.get(usernamesListView.getId()).getUsernameId();
+               // User userClicked = userList.getUser(usernameId);
+            //   userList.deleteResults(usernames.remove(usernameId));
+               // Log.i(CreateUsernameActivity.class.getName(), "Users results for user id " + usernameId + " was deleted from database");
+
+                Log.i(CreateUsernameActivity.class.getName(), "User id " + usernameId + " was deleted from database");
 
 
             }
@@ -123,18 +143,25 @@ usernamesListView.setOnItemClickListener(listViewListener);
         usernamesListView.setAdapter(arrayAdapter);
     }
 
-    private AdapterView.OnItemClickListener listViewListener = new AdapterView.OnItemClickListener() {
+    private AdapterView.OnItemLongClickListener listViewListener = new AdapterView.OnItemLongClickListener() {
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            usernamesListView.getSelectedItem();
+            usernamesListView.getItemAtPosition(position);
             usernamesListView.setSelection(position);
+            usernameId = usernames.get(position).getUsernameId();
             view.setSelected(true);
-            int usernameId = usernames.get(position).getUsernameId();
-           // goToComplexityActivity(usernameId);
+            return false;
         }
+
     };
     protected void goToComplexityActivity(int id){
         Intent complexityActivity = new Intent(this, ComplexityActivity.class);
         startActivity(complexityActivity);
     }
-
+    //Method to go to the StartActivity
+    public void goHome() {
+        Intent intent = new Intent(this, StartActivity.class);
+        startActivity(intent);
+    }
 }

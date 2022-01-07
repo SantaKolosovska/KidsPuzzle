@@ -40,11 +40,14 @@ import java.util.Random;
 import static java.lang.Math.abs;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class PuzzleActivity extends AppCompatActivity {
     ArrayList<PuzzlePiece> pieces;
 
+    //floating button  for going to StartActivity
+    private FloatingActionButton goHome;
 
     //picture from camera and gallery-------------------------------------------------------------------
     String mCurrentPhotoPath;
@@ -95,6 +98,15 @@ public class PuzzleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle);
+
+        //Button to go to the StartActivity
+        goHome = findViewById(R.id.goHome);
+        goHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goHome();
+            }
+        });
 
         //timer-------------------------------------------------------
         //counter initializing
@@ -595,6 +607,15 @@ public class PuzzleActivity extends AppCompatActivity {
         dialog = dialogBuilder.create();
         dialog.show();
 
+        //Button to go to the HomePage
+        goHome = findViewById(R.id.goHome);
+        goHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goHome();
+            }
+        });
+
         newTimeIsUpNext.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -663,7 +684,13 @@ public class PuzzleActivity extends AppCompatActivity {
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
                 matrix, true);
     }
-    //---------------------------------------------------------------------------picture from camera
 
+
+    //---------------------------------------------------------------------------picture from camera
+    //Method to go to the StartActivity
+    public void goHome() {
+        Intent intent = new Intent(this, StartActivity.class);
+        startActivity(intent);
+    }
 
 }

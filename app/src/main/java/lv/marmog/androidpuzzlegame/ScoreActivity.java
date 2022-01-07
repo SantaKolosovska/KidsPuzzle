@@ -1,5 +1,9 @@
 package lv.marmog.androidpuzzlegame;
 
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_12;
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4;
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_9;
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_USER_ID;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.TABLE_TIMER;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.TABLE_USERS;
 
@@ -9,6 +13,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -17,6 +22,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import lv.marmog.androidpuzzlegame.database.DatabaseHelper;
 import lv.marmog.androidpuzzlegame.database.User;
@@ -29,16 +36,16 @@ public class ScoreActivity extends AppCompatActivity {
     TextView yourTimeText;
     TextView yourTime;
     TextView BestTimeText;
-    TextView BestTime;
-    Button next;
-    Button exit;
-    int userId;
-    int level;
-    int timeInt;
+    TextView bestTime;
+    Button next, exit;
+    int userId, level, timeInt;
     String timeString;
     long insertResult;
     Cursor cursor;
+    //Button to go to the StartActivity
+    private FloatingActionButton goHome;
 
+    //Variables for connection to the database
     private SQLiteDatabase database;
     private DatabaseHelper dbHelper;
     private String[] allColumns = {
@@ -65,10 +72,22 @@ public class ScoreActivity extends AppCompatActivity {
         timeString = getTimeString();
         yourTime.setText(timeString);
 
+        //show best time
+        bestTime = (TextView) findViewById(R.id.best_time);
+        bestTime.setText(showBestResult());
+
         // id, level, timer for db
         userId = getUserId();
         level = getLevel();
         timeInt = getTimeInt();
+        //Button to go in StartActivity
+        goHome = findViewById(R.id.goHome);
+        goHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goHome();
+            }
+        });
 
         // insert in db
         insertResult();
@@ -125,6 +144,40 @@ public class ScoreActivity extends AppCompatActivity {
     }
     // --- /insert timer result in db
 
+//Show only best
+    public String showBestResult(){
+        Cursor cursor1;
+
+        //switch for showing better result for current level( puzzle pieces quantity)
+        switch(getLevel()){
+            case 4:
+                cursor1 = database.rawQuery("SELECT " + COLUMN_TIMER_RESULT_FOR_4 + " from " + TABLE_TIMER +
+                        " ORDER BY " + COLUMN_TIMER_RESULT_FOR_4 + " ASC LIMIT 1", null);
+
+           //   showBestResult2 = "SELECT " + COLUMN_TIMER_RESULT_FOR_4 +  " FROM "+ TABLE_TIMER +" WHERE " + COLUMN_USER_ID + getUserId() + " ORDER BY " + COLUMN_TIMER_RESULT_FOR_4 + " limit 1 " ;
+
+            // "SELECT ( MIN " + COLUMN_TIMER_RESULT_FOR_4 + ") FROM " + TABLE_TIMER + " WHERE " + COLUMN_USER_ID  + getUserId();
+                break;
+
+            case 9:
+
+                cursor1 = database.rawQuery("SELECT " + COLUMN_TIMER_RESULT_FOR_9 + " from " + TABLE_TIMER +
+                        " ORDER BY " + COLUMN_TIMER_RESULT_FOR_9 + " ASC LIMIT 1", null);
+                break;
+            case 12:
+
+                cursor1 = database.rawQuery("SELECT " + COLUMN_TIMER_RESULT_FOR_12 + " from " + TABLE_TIMER +
+                        " ORDER BY " + COLUMN_TIMER_RESULT_FOR_12 + " ASC LIMIT 1", null);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + getLevel());
+        }
+      return cursor1.toString();
+
+
+    }
+
+
     public void startNewGame(View view) {
         Intent intent = new Intent(this, ComplexityActivity.class);// redirect from this page to MainActivity page- list of images
         userId = getUserId();
@@ -168,5 +221,14 @@ public class ScoreActivity extends AppCompatActivity {
     }
     // --- /methods to get userId, level and time
 
+    public Cursor getData(){
+        Cursor cursor = database.rawQuery("Select * from " + TABLE_TIMER, null);
+        return cursor;
+    }
 
+    //Method to go to the StartActivity
+    public void goHome() {
+        Intent intent = new Intent(this, StartActivity.class);
+        startActivity(intent);
+    }
 }

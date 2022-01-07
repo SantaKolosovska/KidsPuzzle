@@ -148,4 +148,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_usernames_listview"
         app:layout_constraintVertical_bias="0.3" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/goHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="656dp"
+        android:alpha="0.8"
+        android:backgroundTint="@color/pink"
+        android:clickable="true"
+        android:src="@drawable/ic_action_name"
+        android:tint="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.717"
+        app:layout_constraintStart_toEndOf="@+id/logo_create_username" />
 </androidx.constraintlayout.widget.ConstraintLayout>
