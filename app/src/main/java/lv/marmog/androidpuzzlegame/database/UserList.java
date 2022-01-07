@@ -31,6 +31,9 @@ public class UserList {
         public Boolean deleteUser(User u){
           return  userDataSource.deleteUser(u);
         }
+        public Boolean deleteResults(User u){
+        return userDataSource.deleteResults(u);
+        }
 
         public List<User> getAllUsers(){
             userList = userDataSource.getAllUsers();

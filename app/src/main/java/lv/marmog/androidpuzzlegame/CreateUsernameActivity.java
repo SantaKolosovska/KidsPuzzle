@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQuery;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -100,9 +101,12 @@ usernamesListView.setOnItemClickListener(listViewListener);
 
                 int usernameId = usernames.get(usernamesListView.getId()).getUsernameId();
                 User userClicked = userList.getUser(usernameId);
+                userList.deleteResults(userClicked);
+                Log.i(CreateUsernameActivity.class.getName(), "Users results for user id " + usernameId + " was deleted from database");
+
                 userList.deleteUser(userClicked);
                     Toast.makeText(CreateUsernameActivity.this,"User has been deleted", Toast.LENGTH_LONG).show();
-
+                Log.i(CreateUsernameActivity.class.getName(), "User id " + usernameId + " was deleted from database");
 
 
             }
