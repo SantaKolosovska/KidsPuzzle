@@ -18,6 +18,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 //import android.view.View;
@@ -35,11 +36,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 import static java.lang.Math.abs;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
@@ -91,6 +90,7 @@ public class PuzzleActivity extends AppCompatActivity {
 
         @Override
         public void onFinish() {
+
             createNewContentDialog(); //creates popup window-------------popup-----------
             timer.cancel();
         }
@@ -331,6 +331,11 @@ public class PuzzleActivity extends AppCompatActivity {
     public void checkGameOver() {
         if (isGameOver()) {
             timer.cancel(); //stops the timer
+            // --- sound on finish
+            MediaPlayer sound = MediaPlayer.create(this, R.raw.cheer);
+            sound.start();
+            stopOnCompletion(sound);
+            // --- /sound
 
             //we want to do it after 3 seconds
             //3 sec waiting timer---------------------------------------------------------------
@@ -638,8 +643,10 @@ public class PuzzleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //define next button
                 int userIdFromPopup = getUserId();
+                String usernameFromPopup = getUsername();
                 Intent intent = new Intent(getApplicationContext(), ComplexityActivity.class);
                 intent.putExtra("userIdFromPopup", userIdFromPopup);
+                intent.putExtra("usernameFromPopup", usernameFromPopup);
                 Log.i(PuzzleActivity.class.getName(), "User id " + userIdFromPopup + " from time is up popup was sent to complexity");
                 startActivity(intent);
             }
@@ -709,9 +716,21 @@ public class PuzzleActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // show username on screen
     public void setName() {
         TextView name = (TextView)findViewById(R.id.username_puzzle);
         name.setText(getUsername());
+    }
+
+    // stop media player after playing sound for finishing puzzle
+    public void stopOnCompletion(MediaPlayer mp) {
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+                mp = null;
+            }
+        });
     }
 
 }

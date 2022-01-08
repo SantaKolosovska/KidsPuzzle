@@ -98,12 +98,39 @@ public class ComplexityActivity extends AppCompatActivity {
         return userId;
     }
 
+    // method to get username
     private String getUsername() {
-        Intent getUsernameIntent = getIntent();
-        String username = getUsernameIntent.getStringExtra("username");
-        Log.i(ComplexityActivity.class.getName(), "Received username is " + username);
+        Intent getUsername = getIntent();
+        // user id from start activity
+        username = getUsername.getStringExtra("username");
+        Log.i(ComplexityActivity.class.getName(), "Received username from start activity is " + username);
+        // user id from score
+        String usernameFromScore = getUsername.getStringExtra("usernameFromScoreActivity");
+        Log.i(ComplexityActivity.class.getName(), "Received username from score activity is " + usernameFromScore);
+        // user id from popup
+        String userNameFromPopup = getUsername.getStringExtra("usernameFromPopup");
+        Log.i(ComplexityActivity.class.getName(), "Received username from popup is " + userNameFromPopup);
+
+        // set username to username from score
+        if (username == null) {
+            username = usernameFromScore;
+        }
+        // if didn't receive the username from score and it still is null, set username from popup
+        if (username == null) {
+            username = userNameFromPopup;
+        }
+
         return username;
     }
+
+
+
+//    private String getUsername() {
+//        Intent getUsernameIntent = getIntent();
+//        String username = getUsernameIntent.getStringExtra("username");
+//        Log.i(ComplexityActivity.class.getName(), "Received username is " + username);
+//        return username;
+//    }
 
     //Method to go to the StartActivity
     public void goHome() {
