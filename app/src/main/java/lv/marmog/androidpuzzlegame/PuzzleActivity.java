@@ -78,11 +78,13 @@ public class PuzzleActivity extends AppCompatActivity {
 
     //timer----------------------------------------------------------------
     int secondsRemaining = 300;//how many seconds left in timer
+    int time;
     CountDownTimer timer = new CountDownTimer(300000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) { //every time the clock ticks
             secondsRemaining--;
-            countTimer.setText(Integer.toString(299 - secondsRemaining)); //textView- xml
+            time = 299 - secondsRemaining;
+            countTimer.setText(Integer.toString(time) + " secs"); //textView- xml
 
         }
 
@@ -337,7 +339,8 @@ public class PuzzleActivity extends AppCompatActivity {
                     Log.w(PuzzleActivity.class.getName(), "Received id is " + userId);
 
                     Intent countIntent = new Intent(getApplicationContext(), ScoreActivity.class);
-                    countIntent.putExtra("KEY_SEND", countTimer.getText().toString());//want to transfer final textview with seconds
+                    countIntent.putExtra("time", time);//want to transfer final textview with seconds
+                    Log.i(PuzzleActivity.class.getName(),"Timer result sent from puzzle activity is " + time);
                     countIntent.putExtra("userId", userId);
                     countIntent.putExtra("level", piecesNumber);
                     Log.w(PuzzleActivity.class.getName(), "Sent level is " + piecesNumber);

@@ -32,7 +32,7 @@ public class ScoreActivity extends AppCompatActivity {
     TextView BestTimeText;
     TextView bestTime;
     Button next, exit;
-    int userId, level, timeInt;
+    int userId, level, time;
     String timeString;
     long insertResult;
     Cursor cursor;
@@ -63,8 +63,8 @@ public class ScoreActivity extends AppCompatActivity {
 
         // show timer result from puzzleActivity
         yourTime = (TextView) findViewById(R.id.your_time);
-        timeString = getTimeString();
-        yourTime.setText(timeString);
+        timeString = String.valueOf(getTime());
+        yourTime.setText(timeString + " seconds");
 
         //show best time
         bestTime = (TextView) findViewById(R.id.best_time);
@@ -73,7 +73,7 @@ public class ScoreActivity extends AppCompatActivity {
         // id, level, timer for db
         userId = getUserId();
         level = getLevel();
-        timeInt = getTimeInt();
+        time = getTime();
         //Button to go in StartActivity
         goHome = findViewById(R.id.goHome);
         goHome.setOnClickListener(new View.OnClickListener() {
@@ -95,36 +95,36 @@ public class ScoreActivity extends AppCompatActivity {
         // switch for insertion of data in different puzzle complexity/level columns
         switch (level) {
             case 4:
-                contentValues.put(DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4, timeInt);
+                contentValues.put(DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4, time);
                 contentValues.put(DatabaseHelper.COLUMN_USER_ID, userId);
                 insertResult = database.insert(TABLE_TIMER, null, contentValues);
                 cursor = database.query(TABLE_TIMER, allColumns,
                         DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4 + " = " + insertResult, null, null, null, null);
                 cursor.moveToLast();
                 cursor.close();
-                Log.w(ScoreActivity.class.getName(), "Id: " + userId + " and timer result: " + timeInt + " inserted into column " + level);
+                Log.w(ScoreActivity.class.getName(), "Id: " + userId + " and timer result: " + time + " inserted into column " + level);
                 break;
 
             case 9:
-                contentValues.put(DatabaseHelper.COLUMN_TIMER_RESULT_FOR_9, timeInt);
+                contentValues.put(DatabaseHelper.COLUMN_TIMER_RESULT_FOR_9, time);
                 contentValues.put(DatabaseHelper.COLUMN_USER_ID, userId);
                 insertResult = database.insert(TABLE_TIMER, null, contentValues);
                 cursor = database.query(TABLE_TIMER, allColumns,
                         DatabaseHelper.COLUMN_TIMER_RESULT_FOR_9 + " = " + insertResult, null, null, null, null);
                 cursor.moveToLast();
                 cursor.close();
-                Log.w(ScoreActivity.class.getName(), "Id: " + userId + " and timer result: " + timeInt + " inserted into column " + level);
+                Log.w(ScoreActivity.class.getName(), "Id: " + userId + " and timer result: " + time + " inserted into column " + level);
                 break;
 
             case 12:
-                contentValues.put(DatabaseHelper.COLUMN_TIMER_RESULT_FOR_12, timeInt);
+                contentValues.put(DatabaseHelper.COLUMN_TIMER_RESULT_FOR_12, time);
                 contentValues.put(DatabaseHelper.COLUMN_USER_ID, userId);
                 insertResult = database.insert(TABLE_TIMER, null, contentValues);
                 cursor = database.query(TABLE_TIMER, allColumns,
                         DatabaseHelper.COLUMN_TIMER_RESULT_FOR_12 + " = " + insertResult, null, null, null, null);
                 cursor.moveToLast();
                 cursor.close();
-                Log.w(ScoreActivity.class.getName(), "Id: " + userId + " and timer result: " + timeInt + " inserted into column " + level);
+                Log.w(ScoreActivity.class.getName(), "Id: " + userId + " and timer result: " + time + " inserted into column " + level);
                 break;
         }
 
@@ -202,17 +202,17 @@ public class ScoreActivity extends AppCompatActivity {
         return level;
     }
 
-    public String getTimeString() {
-        Intent getTimeIntent = getIntent();
-        String time = getTimeIntent.getStringExtra("KEY_SEND");
-        Log.w(ScoreActivity.class.getName(), "Timer result is " + time);
-        return time;
-    }
+//    public String getTimeString() {
+//        Intent getTimeIntent = getIntent();
+//        String time = getTimeIntent.getStringExtra("KEY_SEND");
+//        Log.w(ScoreActivity.class.getName(), "Timer result is " + time);
+//        return time;
+//    }
 
-    public int getTimeInt() {
-        String timeString = getTimeString();
-        timeInt = Integer.valueOf(timeString);
-        return timeInt;
+    public int getTime() {
+        Intent getTimeIntent = getIntent();
+        int time = getTimeIntent.getIntExtra("time", 0);
+        return time;
     }
     // --- /methods to get userId, level and time
 
