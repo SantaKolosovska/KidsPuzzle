@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -20,6 +21,7 @@ public class ComplexityActivity extends AppCompatActivity {
     int userId;
     int userIdFromScore;
     int userIdFromPopup;
+    String username;
     //Button to go to the StartActivity
     private FloatingActionButton goHome;
 
@@ -27,6 +29,7 @@ public class ComplexityActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complexity);
+        setName();
 
         //Button to go to the StartActivity
         goHome = findViewById(R.id.goHome);
@@ -42,11 +45,13 @@ public class ComplexityActivity extends AppCompatActivity {
     public void selectPieces(View view) {
 
         userId = getUserId();
+        username = getUsername();
 
         Intent complexityIntent = new Intent(this, GridViewActivity.class);
 
         // sending id to gridView activity
         complexityIntent.putExtra("userId", userId);
+        complexityIntent.putExtra("username", username);
 
 
         // sending number of pieces, columns and rows from buttons to gridView activity
@@ -92,10 +97,22 @@ public class ComplexityActivity extends AppCompatActivity {
 
         return userId;
     }
+
+    private String getUsername() {
+        Intent getUsernameIntent = getIntent();
+        String username = getUsernameIntent.getStringExtra("username");
+        Log.i(ComplexityActivity.class.getName(), "Received username is " + username);
+        return username;
+    }
+
     //Method to go to the StartActivity
     public void goHome() {
         Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
+    }
 
+    public void setName() {
+        TextView name = (TextView)findViewById(R.id.username_complexity);
+        name.setText(getUsername());
     }
 }

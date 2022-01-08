@@ -73,6 +73,7 @@ public class PuzzleActivity extends AppCompatActivity {
     int cols;
     int rows;
     int userId;
+    String username;
     // ---
 
 
@@ -100,6 +101,7 @@ public class PuzzleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle);
+        setName();
 
         //Button to go to the StartActivity
         goHome = findViewById(R.id.goHome);
@@ -315,6 +317,14 @@ public class PuzzleActivity extends AppCompatActivity {
         userId = getComplexityFromGridView.getIntExtra("userId", 0);
         return userId;
     }
+
+    private String getUsername() {
+        Intent getComplexityFromGridView = getIntent();
+        username = getComplexityFromGridView.getStringExtra("username");
+        return username;
+    }
+
+
     // --- methods to get complexity and id
 
 
@@ -335,6 +345,7 @@ public class PuzzleActivity extends AppCompatActivity {
 
                     piecesNumber = getPiecesNumber();
                     userId = getUserId();
+                    username = getUsername();
                     Log.w(PuzzleActivity.class.getName(), "Received level is " + piecesNumber);
                     Log.w(PuzzleActivity.class.getName(), "Received id is " + userId);
 
@@ -343,8 +354,10 @@ public class PuzzleActivity extends AppCompatActivity {
                     Log.i(PuzzleActivity.class.getName(),"Timer result sent from puzzle activity is " + time);
                     countIntent.putExtra("userId", userId);
                     countIntent.putExtra("level", piecesNumber);
-                    Log.w(PuzzleActivity.class.getName(), "Sent level is " + piecesNumber);
-                    Log.w(PuzzleActivity.class.getName(), "Sent id is " + userId);
+                    countIntent.putExtra("username", username);
+                    Log.i(PuzzleActivity.class.getName(), "Sent level is " + piecesNumber);
+                    Log.i(PuzzleActivity.class.getName(), "Sent id is " + userId);
+                    Log.i(PuzzleActivity.class.getName(), "Sent username is " + username);
                     startActivity(countIntent);//transfers to ScoreActivity
 
                 }
@@ -694,6 +707,11 @@ public class PuzzleActivity extends AppCompatActivity {
     public void goHome() {
         Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
+    }
+
+    public void setName() {
+        TextView name = (TextView)findViewById(R.id.username_puzzle);
+        name.setText(getUsername());
     }
 
 }

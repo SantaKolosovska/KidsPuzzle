@@ -27,6 +27,7 @@ public class StartActivity extends AppCompatActivity {
   private List<User> usernames;
   private UserList userList;
   int usernameId;
+  String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,8 @@ public class StartActivity extends AppCompatActivity {
             view.setSelected(true);
             //get user id of selected user
             usernameId = usernames.get(position).getUsernameId();
+            username = usernames.get(position).getUsername();
+            Log.i(StartActivity.class.getName(), "Selected username is " + username);
             Log.i(StartActivity.class.getName(), "Selected username id is " + usernameId);
             //make intent
             goToComplexityActivity(usernameId);
@@ -95,7 +98,9 @@ public class StartActivity extends AppCompatActivity {
     protected void goToComplexityActivity(int id){
         Intent goToComplexityActivity = new Intent(this, ComplexityActivity.class);
         goToComplexityActivity.putExtra("userId", usernameId);
-        Log.w(StartActivity.class.getName(), "Username id that is sent is " + usernameId);
+        goToComplexityActivity.putExtra("username", username);
+        Log.i(StartActivity.class.getName(), "Username id that is sent is " + usernameId);
+        Log.i(StartActivity.class.getName(), "Username that is sent is " + username);
         startActivity(goToComplexityActivity);
     }
 

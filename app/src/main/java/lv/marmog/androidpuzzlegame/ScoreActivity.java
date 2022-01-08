@@ -31,9 +31,10 @@ public class ScoreActivity extends AppCompatActivity {
     TextView yourTime;
     TextView BestTimeText;
     TextView bestTime;
+    TextView kidName;
     Button next, exit;
     int userId, level, time;
-    String timeString;
+    String username;
     long insertResult;
     Cursor cursor;
     //Button to go to the StartActivity
@@ -63,8 +64,13 @@ public class ScoreActivity extends AppCompatActivity {
 
         // show timer result from puzzleActivity
         yourTime = (TextView) findViewById(R.id.your_time);
-        timeString = String.valueOf(getTime());
+        String timeString = String.valueOf(getTime());
         yourTime.setText(timeString + " seconds");
+
+        kidName = (TextView) findViewById(R.id.kid_name);
+        username = getUsername();
+        Log.i(ScoreActivity.class.getName(), "Username for textview is " + username);
+        kidName.setText(username + "!");
 
         //show best time
         bestTime = (TextView) findViewById(R.id.best_time);
@@ -191,23 +197,23 @@ public class ScoreActivity extends AppCompatActivity {
     public int getUserId() {
         Intent getUserIntent = getIntent();
         userId = getUserIntent.getIntExtra("userId", 0);
-        Log.w(ScoreActivity.class.getName(), "Id is " + userId);
+        Log.i(ScoreActivity.class.getName(), "Id is " + userId);
         return userId;
+    }
+
+    public String getUsername() {
+        Intent getUserIntent = getIntent();
+        username = getUserIntent.getStringExtra("username");
+        Log.i(ScoreActivity.class.getName(), "Username is " + username);
+        return username;
     }
 
     public int getLevel() {
         Intent getLevelIntent = getIntent();
         level = getLevelIntent.getIntExtra("level", 0);
-        Log.w(ScoreActivity.class.getName(), "Level is " + level);
+        Log.i(ScoreActivity.class.getName(), "Level is " + level);
         return level;
     }
-
-//    public String getTimeString() {
-//        Intent getTimeIntent = getIntent();
-//        String time = getTimeIntent.getStringExtra("KEY_SEND");
-//        Log.w(ScoreActivity.class.getName(), "Timer result is " + time);
-//        return time;
-//    }
 
     public int getTime() {
         Intent getTimeIntent = getIntent();

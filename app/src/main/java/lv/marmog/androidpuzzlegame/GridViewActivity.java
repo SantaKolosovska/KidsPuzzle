@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -47,17 +48,19 @@ public class GridViewActivity extends AppCompatActivity {
 
     //-------------------------------------------------------------------picture from camera
 
-    // complexity form complexity activity
+    // complexity from complexity activity
     int piecesIntent;
     int columnsIntent;
     int rowsIntent;
     int userId;
+    String username;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grid_view);
+        setName();
 
         // --- get complexity
         Intent getComplexity = getIntent();
@@ -67,6 +70,7 @@ public class GridViewActivity extends AppCompatActivity {
         rowsIntent = getComplexity.getIntExtra("numberOfRows", 7);
 
         userId = getComplexity.getIntExtra("userId", 0);
+        username = getComplexity.getStringExtra("username");
 
         //Button to go to the StartActivity
         goHome = findViewById(R.id.goHome);
@@ -101,6 +105,8 @@ public class GridViewActivity extends AppCompatActivity {
                     intent.putExtra("numOfRowsToPuz", rowsIntent);
 
                     intent.putExtra("userId", userId);
+                    intent.putExtra("username", username);
+                    Log.i(GridViewActivity.class.getName(), "Sent username is " + username);
 
                     // --- extra for complexity
 
@@ -217,6 +223,14 @@ public class GridViewActivity extends AppCompatActivity {
     public void goHome() {
         Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
+    }
+
+    public void setName() {
+        Intent intent = getIntent();
+        String nameString = intent.getStringExtra("username");
+        Log.i(GridViewActivity.class.getName(), "Name for textview is " + nameString);
+        TextView name = (TextView)findViewById(R.id.username_gridview);
+        name.setText(nameString);
     }
 
 
