@@ -86,7 +86,7 @@ public class StartActivity extends AppCompatActivity {
             view.setSelected(true);
             //get user id of selected user
             usernameId = usernames.get(position).getUsernameId();
-            Log.w(StartActivity.class.getName(), "Username id is " + usernameId);
+            Log.i(StartActivity.class.getName(), "Selected username id is " + usernameId);
             //make intent
             goToComplexityActivity(usernameId);
         }

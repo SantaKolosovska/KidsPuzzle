@@ -29,6 +29,7 @@ public class CreateUsernameActivity extends AppCompatActivity {
 
 //references to buttons and other controls on the layout
     private int usernameId;
+    private  int idToDelete;
     private EditText user;
     private EditText repeatUsername;
     private Button saveNewUsername, deleteUsername;
@@ -107,13 +108,19 @@ public class CreateUsernameActivity extends AppCompatActivity {
             }
         });
 
-      usernamesListView.setOnItemLongClickListener(listViewListener);
+//      usernamesListView.setOnItemLongClickListener(listViewListener);
+        usernamesListView.setOnItemClickListener(listViewListener);
 
         deleteUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                     //delete only user by usernameId from TABLE_USERS
-                userList.deleteUser(usernames.remove(usernameId));      // remove is a database method
+                Log.i(CreateUsernameActivity.class.getName(), "Username id to be deleted is: " + getIdToDelete());
+//                userList.deleteUser(usernames.remove(getIdToDelete()));      // remove is a database method
+                User user = new User();
+                user.setUsernameId(getIdToDelete());
+                userList.deleteResults(user);
+                userList.deleteUser(user);
                 Toast.makeText(CreateUsernameActivity.this,"User has been deleted", Toast.LENGTH_LONG).show();
                 populateUsernamesList();
 
@@ -140,18 +147,41 @@ public class CreateUsernameActivity extends AppCompatActivity {
         usernamesListView.setAdapter(arrayAdapter);
     }
 
-    private AdapterView.OnItemLongClickListener listViewListener = new AdapterView.OnItemLongClickListener() {
-        @Override
-        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-            usernamesListView.getSelectedItem();
-            usernamesListView.getItemAtPosition(position);
-            usernamesListView.setSelection(position);
-            usernameId = usernames.get(position).getUsernameId();
-            view.setSelected(true);
-            return false;
-        }
+//    private AdapterView.OnItemLongClickListener listViewListener = new AdapterView.OnItemLongClickListener() {
+//        @Override
+//        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//            usernamesListView.getSelectedItem();
+//            usernamesListView.getItemAtPosition(position);
+//            usernamesListView.setSelection(position);
+//            usernameId = usernames.get(position).getUsernameId();
+//            view.setSelected(true);
+//            Log.i(CreateUsernameActivity.class.getName(), "Username id to delete is: " + usernameId);
+//            return false;
+//        }
+//    };
 
+    private AdapterView.OnItemClickListener listViewListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            usernamesListView.setSelection(position);
+            view.setSelected(true);
+            //get user id of selected user
+            usernameId = usernames.get(position).getUsernameId();
+            Log.i(CreateUsernameActivity.class.getName(), "Selected username id is " + usernameId);
+            setIdToDelete(usernameId);
+            Log.i(CreateUsernameActivity.class.getName(), "idToDelete is set to  " + usernameId);
+        }
     };
+
+    private int setIdToDelete(int id) {
+        idToDelete = id;
+        return idToDelete;
+    }
+
+    public int getIdToDelete() {
+        return idToDelete;
+    }
+
     protected void goToComplexityActivity(int id){
         Intent complexityActivity = new Intent(this, ComplexityActivity.class);
         startActivity(complexityActivity);
