@@ -7,6 +7,24 @@
     android:background="@drawable/blue_bg2"
     tools:context="lv.marmog.androidpuzzlegame.GridViewActivity">
 
+    <TextView
+        android:id="@+id/username_gridview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        android:shadowColor="@color/black"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="2"
+        android:text="Name"
+        android:textColor="@color/aqua"
+        android:alpha="0.7"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <GridView
         android:id="@+id/grid"
         android:layout_width="0dp"
@@ -14,7 +32,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="64dp"
         android:horizontalSpacing="10dp"
         android:numColumns="3"
         android:paddingHorizontal="10dp"
@@ -56,5 +74,22 @@
         android:backgroundTint="@color/pink"
         android:alpha="0.8"
         app:layout_constraintEnd_toStartOf="@id/cameraButton" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/goHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.7"
+        android:backgroundTint="@color/aqua"
+        android:clickable="true"
+        android:src="@drawable/ic_baseline_home_24_smaller"
+        android:tint="@android:color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="10dp"
+        app:fabCustomSize="48dp"
+        app:rippleColor="@color/blue_dark1"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

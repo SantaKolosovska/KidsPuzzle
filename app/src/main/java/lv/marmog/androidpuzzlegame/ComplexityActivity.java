@@ -8,30 +8,50 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
+import android.widget.TextView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import lv.marmog.androidpuzzlegame.database.DatabaseHelper;
+import lv.marmog.androidpuzzlegame.database.UserDAO;
 
 public class ComplexityActivity extends AppCompatActivity {
 
+    //Variables that is extras
     int userId;
     int userIdFromScore;
     int userIdFromPopup;
+    String username;
+    //Button to go to the StartActivity
+    private FloatingActionButton goHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complexity);
+        setName();
+
+        //Button to go to the StartActivity
+        goHome = findViewById(R.id.goHome);
+        goHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goHome();
+            }
+        });
 
     }
-
+//Method that selects pieces for puzzle when is pressed one of the buttons
     public void selectPieces(View view) {
 
         userId = getUserId();
+        username = getUsername();
 
         Intent complexityIntent = new Intent(this, GridViewActivity.class);
 
         // sending id to gridView activity
         complexityIntent.putExtra("userId", userId);
+        complexityIntent.putExtra("username", username);
 
 
         // sending number of pieces, columns and rows from buttons to gridView activity
@@ -78,4 +98,48 @@ public class ComplexityActivity extends AppCompatActivity {
         return userId;
     }
 
+    // method to get username
+    private String getUsername() {
+        Intent getUsername = getIntent();
+        // user id from start activity
+        username = getUsername.getStringExtra("username");
+        Log.i(ComplexityActivity.class.getName(), "Received username from start activity is " + username);
+        // user id from score
+        String usernameFromScore = getUsername.getStringExtra("usernameFromScoreActivity");
+        Log.i(ComplexityActivity.class.getName(), "Received username from score activity is " + usernameFromScore);
+        // user id from popup
+        String userNameFromPopup = getUsername.getStringExtra("usernameFromPopup");
+        Log.i(ComplexityActivity.class.getName(), "Received username from popup is " + userNameFromPopup);
+
+        // set username to username from score
+        if (username == null) {
+            username = usernameFromScore;
+        }
+        // if didn't receive the username from score and it still is null, set username from popup
+        if (username == null) {
+            username = userNameFromPopup;
+        }
+
+        return username;
+    }
+
+
+
+//    private String getUsername() {
+//        Intent getUsernameIntent = getIntent();
+//        String username = getUsernameIntent.getStringExtra("username");
+//        Log.i(ComplexityActivity.class.getName(), "Received username is " + username);
+//        return username;
+//    }
+
+    //Method to go to the StartActivity
+    public void goHome() {
+        Intent intent = new Intent(this, StartActivity.class);
+        startActivity(intent);
+    }
+
+    public void setName() {
+        TextView name = (TextView)findViewById(R.id.username_complexity);
+        name.setText(getUsername());
+    }
 }

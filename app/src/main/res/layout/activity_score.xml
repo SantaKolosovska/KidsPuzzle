@@ -9,8 +9,8 @@
 
     <TextView
         android:id="@+id/congratulation_text"
-        android:layout_width="219dp"
-        android:layout_height="85dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
@@ -27,6 +27,24 @@
         android:letterSpacing="0.1"/>
 
     <TextView
+        android:id="@+id/kid_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center"
+        android:letterSpacing="0.1"
+        android:shadowColor="@color/teal"
+        android:shadowDx="2"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="name"
+        android:textColor="@color/blue_dark1"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/congratulation_text" />
+
+    <TextView
         android:id="@+id/your_time_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +57,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/congratulation_text"
+        app:layout_constraintTop_toBottomOf="@id/kid_name"
         tools:ignore="UnknownId"
         android:shadowColor="@color/teal"
         android:shadowDx="1"
@@ -123,4 +141,21 @@
         android:textColor="@color/beige"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/goHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.7"
+        android:backgroundTint="@color/aqua"
+        android:clickable="true"
+        android:src="@drawable/ic_baseline_home_24_smaller"
+        android:tint="@android:color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="10dp"
+        app:fabCustomSize="48dp"
+        app:rippleColor="@color/blue_dark1"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

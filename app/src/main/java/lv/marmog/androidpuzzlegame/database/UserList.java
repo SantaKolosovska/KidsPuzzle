@@ -1,6 +1,10 @@
 package lv.marmog.androidpuzzlegame.database;
 
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_USER_ID;
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.TABLE_TIMER;
+
 import android.content.Context;
+import android.database.Cursor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +35,11 @@ public class UserList {
         public Boolean deleteUser(User u){
           return  userDataSource.deleteUser(u);
         }
+
         public Boolean deleteResults(User u){
         return userDataSource.deleteResults(u);
         }
+
 
         public List<User> getAllUsers(){
             userList = userDataSource.getAllUsers();

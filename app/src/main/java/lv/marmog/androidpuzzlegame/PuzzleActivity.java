@@ -18,6 +18,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 //import android.view.View;
@@ -35,16 +36,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 import static java.lang.Math.abs;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class PuzzleActivity extends AppCompatActivity {
     ArrayList<PuzzlePiece> pieces;
 
+    //floating button  for going to StartActivity
+    private FloatingActionButton goHome;
 
     //picture from camera and gallery-------------------------------------------------------------------
     String mCurrentPhotoPath;
@@ -70,21 +72,25 @@ public class PuzzleActivity extends AppCompatActivity {
     int cols;
     int rows;
     int userId;
+    String username;
     // ---
 
 
     //timer----------------------------------------------------------------
     int secondsRemaining = 300;//how many seconds left in timer
+    int time;
     CountDownTimer timer = new CountDownTimer(300000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) { //every time the clock ticks
             secondsRemaining--;
-            countTimer.setText(Integer.toString(299 - secondsRemaining)); //textView- xml
+            time = 299 - secondsRemaining;
+            countTimer.setText(Integer.toString(time) + " secs"); //textView- xml
 
         }
 
         @Override
         public void onFinish() {
+
             createNewContentDialog(); //creates popup window-------------popup-----------
             timer.cancel();
         }
@@ -95,6 +101,16 @@ public class PuzzleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_puzzle);
+        setName();
+
+        //Button to go to the StartActivity
+        goHome = findViewById(R.id.goHome);
+        goHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goHome();
+            }
+        });
 
         //timer-------------------------------------------------------
         //counter initializing
@@ -301,12 +317,25 @@ public class PuzzleActivity extends AppCompatActivity {
         userId = getComplexityFromGridView.getIntExtra("userId", 0);
         return userId;
     }
+
+    private String getUsername() {
+        Intent getComplexityFromGridView = getIntent();
+        username = getComplexityFromGridView.getStringExtra("username");
+        return username;
+    }
+
+
     // --- methods to get complexity and id
 
 
     public void checkGameOver() {
         if (isGameOver()) {
             timer.cancel(); //stops the timer
+            // --- sound on finish
+            MediaPlayer sound = MediaPlayer.create(this, R.raw.cheer);
+            sound.start();
+            stopOnCompletion(sound);
+            // --- /sound
 
             //we want to do it after 3 seconds
             //3 sec waiting timer---------------------------------------------------------------
@@ -321,15 +350,19 @@ public class PuzzleActivity extends AppCompatActivity {
 
                     piecesNumber = getPiecesNumber();
                     userId = getUserId();
+                    username = getUsername();
                     Log.w(PuzzleActivity.class.getName(), "Received level is " + piecesNumber);
                     Log.w(PuzzleActivity.class.getName(), "Received id is " + userId);
 
                     Intent countIntent = new Intent(getApplicationContext(), ScoreActivity.class);
-                    countIntent.putExtra("KEY_SEND", countTimer.getText().toString());//want to transfer final textview with seconds
+                    countIntent.putExtra("time", time);//want to transfer final textview with seconds
+                    Log.i(PuzzleActivity.class.getName(),"Timer result sent from puzzle activity is " + time);
                     countIntent.putExtra("userId", userId);
                     countIntent.putExtra("level", piecesNumber);
-                    Log.w(PuzzleActivity.class.getName(), "Sent level is " + piecesNumber);
-                    Log.w(PuzzleActivity.class.getName(), "Sent id is " + userId);
+                    countIntent.putExtra("username", username);
+                    Log.i(PuzzleActivity.class.getName(), "Sent level is " + piecesNumber);
+                    Log.i(PuzzleActivity.class.getName(), "Sent id is " + userId);
+                    Log.i(PuzzleActivity.class.getName(), "Sent username is " + username);
                     startActivity(countIntent);//transfers to ScoreActivity
 
                 }
@@ -595,14 +628,25 @@ public class PuzzleActivity extends AppCompatActivity {
         dialog = dialogBuilder.create();
         dialog.show();
 
+        //Button to go to the HomePage
+        goHome = findViewById(R.id.goHome);
+        goHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goHome();
+            }
+        });
+
         newTimeIsUpNext.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 //define next button
                 int userIdFromPopup = getUserId();
+                String usernameFromPopup = getUsername();
                 Intent intent = new Intent(getApplicationContext(), ComplexityActivity.class);
                 intent.putExtra("userIdFromPopup", userIdFromPopup);
+                intent.putExtra("usernameFromPopup", usernameFromPopup);
                 Log.i(PuzzleActivity.class.getName(), "User id " + userIdFromPopup + " from time is up popup was sent to complexity");
                 startActivity(intent);
             }
@@ -663,7 +707,30 @@ public class PuzzleActivity extends AppCompatActivity {
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
                 matrix, true);
     }
-    //---------------------------------------------------------------------------picture from camera
 
+
+    //---------------------------------------------------------------------------picture from camera
+    //Method to go to the StartActivity
+    public void goHome() {
+        Intent intent = new Intent(this, StartActivity.class);
+        startActivity(intent);
+    }
+
+    // show username on screen
+    public void setName() {
+        TextView name = (TextView)findViewById(R.id.username_puzzle);
+        name.setText(getUsername());
+    }
+
+    // stop media player after playing sound for finishing puzzle
+    public void stopOnCompletion(MediaPlayer mp) {
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+                mp = null;
+            }
+        });
+    }
 
 }
