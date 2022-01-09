@@ -7,7 +7,9 @@ import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_R
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_USER_ID;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.TABLE_TIMER;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import lv.marmog.androidpuzzlegame.database.DatabaseHelper;
+import lv.marmog.androidpuzzlegame.database.User;
 
 
 public class ScoreActivity extends AppCompatActivity {
@@ -144,21 +147,21 @@ public class ScoreActivity extends AppCompatActivity {
     }
     // --- /insert timer result in db
 
-//Show only best
-    public String showBestResult(){
+    //Show only best
+    public String showBestResult() {
 
         Cursor cursor1;
 
 
         //switch for showing better result for current level( puzzle pieces quantity)
-        switch(getLevel()){
+        switch (getLevel()) {
             case 4:
-                cursor1 = database.rawQuery("SELECT " + COLUMN_TIMER_RESULT_FOR_4 + " from " + TABLE_TIMER +
+                cursor1 = database.rawQuery("SELECT " + COLUMN_TIMER_RESULT_FOR_4 + " from " + TABLE_TIMER + " WHERE " + COLUMN_USER_ID + " = " + getUserId() +
                         " ORDER BY " + COLUMN_TIMER_RESULT_FOR_4 + " ASC LIMIT 1", null);
 
-           //   showBestResult2 = "SELECT " + COLUMN_TIMER_RESULT_FOR_4 +  " FROM "+ TABLE_TIMER +" WHERE " + COLUMN_USER_ID + getUserId() + " ORDER BY " + COLUMN_TIMER_RESULT_FOR_4 + " limit 1 " ;
+                //   showBestResult2 = "SELECT " + COLUMN_TIMER_RESULT_FOR_4 +  " FROM "+ TABLE_TIMER +" WHERE " + COLUMN_USER_ID + getUserId() + " ORDER BY " + COLUMN_TIMER_RESULT_FOR_4 + " limit 1 " ;
 
-            // "SELECT ( MIN " + COLUMN_TIMER_RESULT_FOR_4 + ") FROM " + TABLE_TIMER + " WHERE " + COLUMN_USER_ID  + getUserId();
+                // "SELECT ( MIN " + COLUMN_TIMER_RESULT_FOR_4 + ") FROM " + TABLE_TIMER + " WHERE " + COLUMN_USER_ID  + getUserId();
                 break;
 
             case 9:
@@ -175,14 +178,25 @@ public class ScoreActivity extends AppCompatActivity {
                 throw new IllegalStateException("Unexpected value: " + getLevel());
         }
 
-      return cursor1.toString();
+//        while (!cursor1.isAfterLast()) {
+//
+//            User user = cursorToUser(cursor);
+//            userList.add(user);
+//            cursor.moveToNext();
+//        }
+
+        String bestResult = cursor1.toString();
+        Log.i(ScoreActivity.class.getName(), "Best result from database is " + bestResult);
+        return bestResult;
     }
 
 
     public void startNewGame(View view) {
         Intent intent = new Intent(this, ComplexityActivity.class);// redirect from this page to MainActivity page- list of images
         userId = getUserId();
+        username = getUsername();
         intent.putExtra("userIdFromScoreActivity", userId);
+        intent.putExtra("usernameFromScoreActivity", username);
         Log.i(ScoreActivity.class.getName(), "User id " + userId + " was sent to complexity activity");
         startActivity(intent);
     }
@@ -222,7 +236,7 @@ public class ScoreActivity extends AppCompatActivity {
     }
     // --- /methods to get userId, level and time
 
-    public Cursor getData(){
+    public Cursor getData() {
         Cursor cursor = database.rawQuery("Select * from " + TABLE_TIMER, null);
         return cursor;
     }
