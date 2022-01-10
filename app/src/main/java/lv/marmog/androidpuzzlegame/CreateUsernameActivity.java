@@ -52,7 +52,7 @@ public class CreateUsernameActivity extends AppCompatActivity {
         saveNewUsername = (Button) findViewById(R.id.save_username);
         deleteUsername = (Button) findViewById(R.id.delete_username);
 
-        //Button to go to the StartActivity
+        // Button to go to the StartActivity
         goHome = findViewById(R.id.goHome);
         goHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +60,8 @@ public class CreateUsernameActivity extends AppCompatActivity {
                 goHome();
             }
         });
+
+
         //creates usernamesList in current layout
         usernamesListView = (ListView) findViewById(R.id.view_usernames_listview);
         usernames = new ArrayList<User>(0);
@@ -92,8 +94,8 @@ public class CreateUsernameActivity extends AppCompatActivity {
                             if (insert == true) {
                                 Toast.makeText(CreateUsernameActivity.this, "New username is created", Toast.LENGTH_LONG).show();
                                 populateUsernamesList();
-                                //Intent intent = new Intent(getApplicationContext(), StartActivity.class);
-                               // startActivity(intent);
+                                Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+                                startActivity(intent);
                             } else {
                                 Toast.makeText(CreateUsernameActivity.this, "Registration failed", Toast.LENGTH_LONG).show();
                             }
@@ -183,10 +185,10 @@ public class CreateUsernameActivity extends AppCompatActivity {
         return idToDelete;
     }
 
-    protected void goToComplexityActivity(int id){
-        Intent complexityActivity = new Intent(this, ComplexityActivity.class);
-        startActivity(complexityActivity);
-    }
+//    protected void goToComplexityActivity(int id){
+//        Intent complexityActivity = new Intent(this, ComplexityActivity.class);
+//        startActivity(complexityActivity);
+//    }
     //Method to go to the StartActivity
     public void goHome() {
         Intent intent = new Intent(this, StartActivity.class);
