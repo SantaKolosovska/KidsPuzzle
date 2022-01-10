@@ -8,15 +8,15 @@
     android:orientation="vertical"
     tools:context=".CreateUsernameActivity">
 
+
     <ImageView
         android:id="@+id/logo_create_username"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="261dp"
+        android:layout_height="168dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="72dp"
         android:contentDescription="@string/app_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/puzzle_game_logo_nocircle" />
@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="68dp"
         android:letterSpacing="0.1"
         android:shadowColor="@color/teal"
         android:shadowDx="1"
@@ -35,47 +35,47 @@
         android:text="@string/create_user"
         android:textAlignment="center"
         android:textColor="@color/blue_dark1"
-        android:textSize="20sp"
+        android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/logo_create_username" />
 
     <EditText
         android:id="@+id/enter_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
+        android:layout_width="881dp"
+        android:layout_height="73dp"
         android:layout_gravity="center"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="112dp"
         android:layout_marginEnd="40dp"
         android:gravity="center"
         android:hint="@string/new_username"
-        android:textSize="16sp"
+        android:inputType="text"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/create_username_textview"
         tools:ignore="TouchTargetSizeCheck" />
 
-
     <EditText
         android:id="@+id/repeat_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="905dp"
+        android:layout_height="72dp"
         android:layout_gravity="center"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="72dp"
         android:layout_marginEnd="40dp"
         android:gravity="center"
         android:hint="@string/repeat_username"
         android:inputType="text"
-        android:textSize="16sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/enter_username"
 
+        app:layout_constraintTop_toBottomOf="@id/enter_username"
         tools:ignore="TouchTargetSizeCheck" />
 
     <Button
@@ -83,24 +83,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="48dp"
         android:backgroundTint="@color/blue_dark"
         android:shadowColor="@color/yellow"
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"
         android:text="@string/save_username"
-        app:layout_constraintVertical_bias="0.6"
-        android:textSize="12sp"
         android:textColor="@color/beige"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/repeat_username"/>
+        app:layout_constraintTop_toBottomOf="@id/repeat_username" />
 
     <TextView
         android:id="@+id/view_usernames_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="270dp"
+        android:layout_height="92dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="28dp"
         android:letterSpacing="0.1"
@@ -111,17 +110,17 @@
         android:text="@string/existing_names"
         android:textAlignment="center"
         android:textColor="@color/blue_dark1"
-        android:textSize="16sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/save_username" />
 
     <ListView
         android:id="@+id/view_usernames_listview"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_width="963dp"
+        android:layout_height="344dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:scrollbarThumbVertical="@color/design_default_color_primary"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -144,13 +143,13 @@
         android:shadowRadius="2"
         android:text="@string/delete_name"
         android:textColor="@color/beige"
-        android:textSize="12sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_usernames_listview"
-        app:layout_constraintVertical_bias="0.219" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/goHome"
