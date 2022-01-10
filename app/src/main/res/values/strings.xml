@@ -2,7 +2,7 @@
     <string name="app_name">KidsPuzzle</string>
     <string name="congratulation">Well done, </string>
     <string name="your_time_text">Time spent: </string>
-    <string name="best_time_text">Your best time:  </string>
+    <string name="best_time_text">Your best time so far:  </string>
     <string name="textview">TextView</string>
     <string name="next_btn">NEXT</string>
     <string name="exit_btn">EXIT</string>

@@ -2,6 +2,7 @@ package lv.marmog.androidpuzzlegame;
 
 
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_12;
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_2;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_9;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4;
@@ -23,22 +24,23 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lv.marmog.androidpuzzlegame.database.DatabaseHelper;
 import lv.marmog.androidpuzzlegame.database.User;
 
 
 public class ScoreActivity extends AppCompatActivity {
 
-    TextView congratulationText;
-    TextView yourTimeText;
-    TextView yourTime;
-    TextView BestTimeText;
-    TextView bestTime;
-    TextView kidName;
-    Button next, exit;
-    int userId, level, time;
-    String username;
-    long insertResult;
+
+
+    private TextView yourTime;
+    private TextView bestTime;
+    private TextView kidName;
+    private int userId, level, time;
+    private String username;
+    private long insertResult;
     Cursor cursor;
     //Button to go to the StartActivity
     private FloatingActionButton goHome;
@@ -48,7 +50,7 @@ public class ScoreActivity extends AppCompatActivity {
     private DatabaseHelper dbHelper;
     private String[] allColumns = {
             DatabaseHelper.COLUMN_USER_ID,
-            DatabaseHelper.COLUMN_TIMER_RESULT_FOR_2,
+            COLUMN_TIMER_RESULT_FOR_2,
             DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4,
             DatabaseHelper.COLUMN_TIMER_RESULT_FOR_6,
             DatabaseHelper.COLUMN_TIMER_RESULT_FOR_9,
@@ -77,7 +79,7 @@ public class ScoreActivity extends AppCompatActivity {
 
         //show best time
         bestTime = (TextView) findViewById(R.id.best_time);
-        bestTime.setText(showBestResult());
+        bestTime.setText(showBestResult() + " seconds");
 
         // id, level, timer for db
         userId = getUserId();
@@ -147,48 +149,107 @@ public class ScoreActivity extends AppCompatActivity {
     }
     // --- /insert timer result in db
 
-    //Show only best
-    public String showBestResult() {
+
+
+    public String showBestResult(){
 
         Cursor cursor1;
-
+        int result = 0;
 
         //switch for showing better result for current level( puzzle pieces quantity)
-        switch (getLevel()) {
+        switch(getLevel()){
+            case 2:
+                cursor1 = database.rawQuery("SELECT " + COLUMN_TIMER_RESULT_FOR_2 + " from " +
+                        TABLE_TIMER + " WHERE user_id " + " = " + getUserId() + " AND " + COLUMN_TIMER_RESULT_FOR_2 + " IS NOT NULL " + " ORDER BY "
+                        + COLUMN_TIMER_RESULT_FOR_2 + " LIMIT 1 ", null);
+                if( cursor1.moveToFirst()) {
+                    result = cursor1.getInt(0);
+                }
+                cursor1.close();
+                break;
             case 4:
-                cursor1 = database.rawQuery("SELECT " + COLUMN_TIMER_RESULT_FOR_4 + " from " + TABLE_TIMER + " WHERE " + COLUMN_USER_ID + " = " + getUserId() +
-                        " ORDER BY " + COLUMN_TIMER_RESULT_FOR_4 + " ASC LIMIT 1", null);
-
-                //   showBestResult2 = "SELECT " + COLUMN_TIMER_RESULT_FOR_4 +  " FROM "+ TABLE_TIMER +" WHERE " + COLUMN_USER_ID + getUserId() + " ORDER BY " + COLUMN_TIMER_RESULT_FOR_4 + " limit 1 " ;
-
-                // "SELECT ( MIN " + COLUMN_TIMER_RESULT_FOR_4 + ") FROM " + TABLE_TIMER + " WHERE " + COLUMN_USER_ID  + getUserId();
+                cursor1 = database.rawQuery("SELECT " + COLUMN_TIMER_RESULT_FOR_4 + " from " +
+                        TABLE_TIMER + " WHERE user_id " + " = " + getUserId() + " AND " + COLUMN_TIMER_RESULT_FOR_4 + " IS NOT NULL " + " ORDER BY "
+                        + COLUMN_TIMER_RESULT_FOR_4 + " LIMIT 1 ", null);
+                if( cursor1.moveToFirst()) {
+                    result = cursor1.getInt(0);
+                }
+                cursor1.close();
                 break;
 
             case 9:
 
-                cursor1 = database.rawQuery("SELECT " + COLUMN_TIMER_RESULT_FOR_9 + " from " + TABLE_TIMER +
-                        " ORDER BY " + COLUMN_TIMER_RESULT_FOR_9 + " ASC LIMIT 1", null);
+                cursor1 = database.rawQuery("SELECT " + COLUMN_TIMER_RESULT_FOR_9 + " from " +
+                        TABLE_TIMER + " WHERE user_id " + " = " + getUserId() +
+                        " AND " + COLUMN_TIMER_RESULT_FOR_9 + " IS NOT NULL " + " ORDER BY "  + COLUMN_TIMER_RESULT_FOR_9 + " LIMIT 1 ", null);
+
+                if( cursor1.moveToFirst()) {
+                    result = cursor1.getInt(0);
+                }
+                cursor1.close();
                 break;
             case 12:
 
-                cursor1 = database.rawQuery("SELECT " + COLUMN_TIMER_RESULT_FOR_12 + " from " + TABLE_TIMER +
-                        " ORDER BY " + COLUMN_TIMER_RESULT_FOR_12 + " ASC LIMIT 1", null);
+                cursor1 = database.rawQuery("SELECT " + COLUMN_TIMER_RESULT_FOR_12 + " from " +
+                        TABLE_TIMER + " WHERE user_id " + " = " + getUserId() +
+                        " AND " + COLUMN_TIMER_RESULT_FOR_12 + " IS NOT NULL " + " ORDER BY "  + COLUMN_TIMER_RESULT_FOR_12 + " LIMIT 1 ", null);
+
+                if( cursor1.moveToFirst()) {
+                    result = cursor1.getInt(0);
+                }
+                cursor1.close();
                 break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + getLevel());
+
         }
 
-//        while (!cursor1.isAfterLast()) {
-//
-//            User user = cursorToUser(cursor);
-//            userList.add(user);
-//            cursor.moveToNext();
-//        }
 
-        String bestResult = cursor1.toString();
-        Log.i(ScoreActivity.class.getName(), "Best result from database is " + bestResult);
-        return bestResult;
+        return String.valueOf(result);
     }
+
+
+
+
+//
+//                List<Integer> arrayListOfScore = new ArrayList<>();
+//
+//                try {
+//
+//                    Cursor cursor1 = database.rawQuery("SELECT * FROM " +
+//                            TABLE_TIMER + " WHERE user_id " + " = " + getUserId(),  null);
+//
+//                    if (cursor1.moveToFirst()) {
+//                       int id = cursor1.getInt(5);
+//                       int score2 = cursor1.getInt(0);
+//                       int score4 = cursor1.getInt(1);
+//                       int score6 = cursor1.getInt(2);
+//                       int score9 = cursor1.getInt(3);
+//                       int score12 = cursor1.getInt(4);
+//
+//
+//
+//                       Log.i(ScoreActivity.class.getName(), "Cursor id from db is " + id);
+//                       Log.i(ScoreActivity.class.getName(), "Cursor score for 2 is " + score2);
+//                       Log.i(ScoreActivity.class.getName(), "Cursor score for 4 is " + score4);
+//                       Log.i(ScoreActivity.class.getName(), "Cursor score for 6 is " + score6);
+//                       Log.i(ScoreActivity.class.getName(), "Cursor score for 9 is " + score9);
+//                       Log.i(ScoreActivity.class.getName(), "Cursor score for 12 is " + score12);
+//
+//
+//                       while (!cursor.isAfterLast()) {
+//                           arrayListOfScore.add(score4);
+//                           cursor.moveToNext();
+//                       }
+//                   }
+//               } catch (NullPointerException e) {
+//                   Log.i(ScoreActivity.class.getName(),"NullPointerException thrown!");
+//               }
+//
+
+
+
+
+
+
 
 
     public void startNewGame(View view) {
