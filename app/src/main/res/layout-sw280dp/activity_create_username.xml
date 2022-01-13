@@ -13,7 +13,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="468dp"
         android:contentDescription="@string/app_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="16dp"
         android:letterSpacing="0.1"
         android:shadowColor="@color/teal"
         android:shadowDx="1"
@@ -102,7 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:letterSpacing="0.1"
         android:shadowColor="@color/teal"
         android:shadowDx="1"
@@ -121,11 +121,10 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="32dp"
-        android:scrollbarThumbVertical="@color/design_default_color_primary"
+        android:layout_marginTop="20dp"
         android:textSize="16sp"
+        android:scrollbarThumbVertical="@color/design_default_color_primary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_usernames_textview">
 
@@ -150,7 +149,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_usernames_listview"
-        app:layout_constraintVertical_bias="0.219" />
+        app:layout_constraintVertical_bias="0.036" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/goHome"
