@@ -10,24 +10,21 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import lv.marmog.androidpuzzlegame.database.DatabaseHelper;
 import lv.marmog.androidpuzzlegame.database.User;
-import lv.marmog.androidpuzzlegame.database.UserDAO;
 import lv.marmog.androidpuzzlegame.database.UserList;
 
+/**
+ * The activity consists of ListView of usernames and a button create new user
+ */
 public class StartActivity extends AppCompatActivity {
-    //references to buttons and other controls on the layout
-  private Button btnLogin;
-  private Button btnCreateNewUser;
+
   private ListView usernamesListView;
   private List<User> usernames;
   private UserList userList;
-  int usernameId;
-  String username;
+  private int usernameId;
+  private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,44 +40,41 @@ public class StartActivity extends AppCompatActivity {
         populateUsernamesList();
         usernamesListView.setOnItemClickListener(listViewListener);
 
-        //value for buttons that is find by id that is created in layout
-//        btnLogin = (Button) findViewById(R.id.StartGame);
-        btnCreateNewUser = (Button) findViewById(R.id.createUsername);
+        //value for buttons that is found by id that is created in layout
+
+        Button btnCreateNewUser = (Button) findViewById(R.id.createUsername);
 
         //setOnClickListener for buttons
         btnCreateNewUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User username = new User();
+                //User username = new User();
                 startActivity(new Intent(StartActivity.this, CreateUsernameActivity.class));
             }
         });
 
-//        btnLogin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(StartActivity.this, ComplexityActivity.class);
-//
-//                startActivity(intent);
-//            }
-//        });
-
     }
+
+
     private void populateUsernamesList(){
         //Create a List of Strings
         List<String> userStrings = new ArrayList<String>(0);
         usernames = userList.getAllUsers();
 
+        //enters all the usernames to the array
         for(int i = 0; i<usernames.size(); i++){
             userStrings.add(usernames.get(i).toString());
-
         }
+
+        //enters them to array adapter
         ArrayAdapter<String> arrayAdapter =
                 new ArrayAdapter<String>(this, R.layout.listview_element, userStrings);
         usernamesListView.setAdapter(arrayAdapter);
     }
 
+   //after pushing on the name redirects to complexity activities with extras
     private AdapterView.OnItemClickListener listViewListener = new AdapterView.OnItemClickListener() {
+
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             usernamesListView.setSelection(position);
@@ -95,6 +89,7 @@ public class StartActivity extends AppCompatActivity {
         }
     };
 
+    //extras to complexity activity
     protected void goToComplexityActivity(int id){
         Intent goToComplexityActivity = new Intent(this, ComplexityActivity.class);
         goToComplexityActivity.putExtra("userId", usernameId);
@@ -103,8 +98,6 @@ public class StartActivity extends AppCompatActivity {
         Log.i(StartActivity.class.getName(), "Username that is sent is " + username);
         startActivity(goToComplexityActivity);
     }
-
-
 
  }
 

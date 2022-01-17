@@ -1,14 +1,10 @@
 package lv.marmog.androidpuzzlegame;
 
-import static java.lang.Math.abs;
-
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,40 +16,42 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
+/**This activity has images in GridView
+ * home button which redirects to StartActivity
+ * camera and gallery buttons to capture image from internal gallery of from camera (front and selfie)
+ *
+ */
 public class GridViewActivity extends AppCompatActivity {
 
     //Button to go to the StartActivity
-     private FloatingActionButton goHome;
+    private FloatingActionButton goHome;
 
-     //picture from camera and gallery --------------------------------------------------------------
+     //picture from camera and gallery ----------------------------------------------------
     private static final int REQUEST_PERMISSION_WRITE_EXTERNAL_STORAGE = 2;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
-    String mCurrentPhotoPath;
 
     static final int REQUEST_PERMISSION_READ_EXTERNAL_STORAGE = 3;
     static final int REQUEST_IMAGE_GALLERY = 4;
 
+    private String mCurrentPhotoPath;
+
     //-------------------------------------------------------------------picture from camera
 
     // complexity from complexity activity
-    int piecesIntent;
-    int columnsIntent;
-    int rowsIntent;
-    int userId;
-    String username;
+    private int piecesIntent;
+    private int columnsIntent;
+    private int rowsIntent;
+    private int userId;
+    private String username;
 
 
     @Override
@@ -62,12 +60,12 @@ public class GridViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_grid_view);
         setName();
 
-        // --- get complexity
+        // --- get complexity, username and userid
         Intent getComplexity = getIntent();
 
-        piecesIntent = getComplexity.getIntExtra("numberOfPieces", 56);
-        columnsIntent = getComplexity.getIntExtra("numberOfColumns", 8);
-        rowsIntent = getComplexity.getIntExtra("numberOfRows", 7);
+        piecesIntent = getComplexity.getIntExtra("numberOfPieces", 0);
+        columnsIntent = getComplexity.getIntExtra("numberOfColumns", 0);
+        rowsIntent = getComplexity.getIntExtra("numberOfRows", 0);
 
         userId = getComplexity.getIntExtra("userId", 0);
         username = getComplexity.getStringExtra("username");
@@ -82,8 +80,7 @@ public class GridViewActivity extends AppCompatActivity {
         });
 
         Log.w(GridViewActivity.class.getName(), "User id is " + userId);
-
-        // --- /
+        // --- /get complexity
 
         AssetManager am = getAssets();
         try {
@@ -92,6 +89,7 @@ public class GridViewActivity extends AppCompatActivity {
             GridView grid = findViewById(R.id.grid);
             grid.setAdapter(new ImageAdapter(this));
             grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -111,18 +109,19 @@ public class GridViewActivity extends AppCompatActivity {
                     // --- extra for complexity
 
                     startActivity(intent);
-
-
                 }
             });
         } catch (IOException e) {
-            Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT);
+            Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    //picture from camera-------------------------------------------------------------------
-    //clickListner
+    //picture from camera-------------------------------------------------
+    /**
+     * Gets picture from camera when clicking on camera button
+     * @param view View
+     */
     public void onImageFromCameraClick(View view) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getPackageManager()) != null) {
@@ -130,7 +129,7 @@ public class GridViewActivity extends AppCompatActivity {
             try {
                 photoFile = createImageFile();
             } catch (IOException e) {
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG);
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
 
             if (photoFile != null) {
@@ -141,47 +140,16 @@ public class GridViewActivity extends AppCompatActivity {
             }
         }
     }
-    private File createImageFile() throws IOException {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            // permission not granted, initiate request
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERMISSION_WRITE_EXTERNAL_STORAGE);
-        } else {
-            // Create an image file name
-            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-            String imageFileName = "JPEG_" + timeStamp + "_";
-            File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-            File image = File.createTempFile(
-                    imageFileName,  /* prefix */
-                    ".jpg",         /* suffix */
-                    storageDir      /* directory */
-            );
-            mCurrentPhotoPath = image.getAbsolutePath(); // save this to use in the intent
 
-            return image;
-        }
-
-        return null;
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case REQUEST_PERMISSION_WRITE_EXTERNAL_STORAGE: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    onImageFromCameraClick(new View(this));
-                }
-
-                return;
-            }
-        }
-    }
-
-    //Now, that we can capture the image from the camera, we need to receive it and send it to the PuzzleActivity using an intent extra:
+    /**
+     * After we captured the image from the camera or from gallery,
+     * we need to send the path to the photo to the PuzzleActivity using extras:
+     *
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) { //from camera
 
             Intent intent = new Intent(this, PuzzleActivity.class);
 
@@ -207,6 +175,52 @@ public class GridViewActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_PERMISSION_WRITE_EXTERNAL_STORAGE: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    onImageFromCameraClick(new View(this));
+                }
+
+                return;
+            }
+        }
+    }
+
+    /**
+     * Creates image file from photo taken on camera and saves in in the gallery in
+     * Folder name Pictures/ the name is in format: JPEG_YYYYMMDD_HHMMSS_  .jpg
+     * @return image file
+     *
+     */
+    private File createImageFile() throws IOException {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            // permission not granted, initiate request
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERMISSION_WRITE_EXTERNAL_STORAGE);
+        } else {
+            // Create an image file name
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            String imageFileName = "JPEG_" + timeStamp + "_";
+            File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            File image = File.createTempFile(
+                    imageFileName,  /* prefix */
+                    ".jpg",         /* suffix */
+                    storageDir      /* directory */
+            );
+            mCurrentPhotoPath = image.getAbsolutePath(); // save this to use in the intent
+            return image;
+        }
+
+        return null;
+    }
+
+
+
+
+
     //-------------------------------------------------------------------picture from camera
 
     public void onImageFromGalleryClick(View view) {
@@ -219,7 +233,9 @@ public class GridViewActivity extends AppCompatActivity {
         }
     }
 
-    //Method to go to the StartActivity
+    /**
+     *Redirects to StartActivity
+     */
     public void goHome() {
         Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
@@ -232,7 +248,6 @@ public class GridViewActivity extends AppCompatActivity {
         TextView name = (TextView)findViewById(R.id.username_gridview);
         name.setText(nameString);
     }
-
 
 }
 

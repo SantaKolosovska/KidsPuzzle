@@ -1,15 +1,17 @@
 package lv.marmog.androidpuzzlegame.database;
 
-import android.content.ContentValues;
+
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * Creating and updateing 2 tables in the database -
+ * table 1 - user id and username
+ * table 2 - results dor every level with user id
+ */
 public class  DatabaseHelper extends SQLiteOpenHelper {
     //Database name
     public static final String DATABASE_NAME = "users.db";
@@ -31,7 +33,7 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    //First time is creating a table for database.
+    //Creates a table for database.
     @Override
     public void onCreate(SQLiteDatabase db) {
         //Users table with id and username
@@ -64,18 +66,5 @@ public class  DatabaseHelper extends SQLiteOpenHelper {
         Log.w(DatabaseHelper.class.getName(), "Upgrading database from version " + oldVersion + " to "
                 + newVersion + " , which will destroy all old data");
     }
-
-//    //Method that check username in the database
-//    public Boolean checkUsername(String username){
-//
-//    SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor cursor = db.rawQuery("Select * from "+ TABLE_USERS + " where username = ?", new String[] {username});
-//        if(cursor.getCount()>0){
-//            return true;}
-//        else{
-//            return false;}
-//    }
-
-
 
 }
