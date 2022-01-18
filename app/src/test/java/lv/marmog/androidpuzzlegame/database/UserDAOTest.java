@@ -9,11 +9,11 @@ import org.junit.Assert;
 public class UserDAOTest extends TestCase {
 
 
-    public void testCreateUser() {
+    /*public void testCreateUser() {
         UserDAO userDAO = new UserDAO();
         User user = new User();
         assertTrue(userDAO.createUser(user));
-    }
+    }*/
 
     public void testCheckUsername() {
     }

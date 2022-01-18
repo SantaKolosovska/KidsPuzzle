@@ -11,6 +11,7 @@
 
     <ImageView
         android:id="@+id/gridImageview"
+        android:contentDescription="@string/app_name"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"

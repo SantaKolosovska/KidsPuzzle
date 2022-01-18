@@ -2,8 +2,6 @@ package lv.marmog.androidpuzzlegame;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-//import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -17,12 +15,12 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+//import androidx.exifinterface.media.ExifInterface;
+
 import android.media.ExifInterface;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-//import android.view.View;
-//import android.widget.AdapterView;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
@@ -31,29 +29,31 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
-
 import static java.lang.Math.abs;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-
+/**
+ * In this activity user completes the puzzle
+ *
+ */
 public class PuzzleActivity extends AppCompatActivity {
+    public static final int TIMER_SEC = 300;
+    public static final int WAITING_TIME_MILLISECONDS = 3000;
     ArrayList<PuzzlePiece> pieces;
 
     //floating button  for going to StartActivity
     private FloatingActionButton goHome;
 
-    //picture from camera and gallery-------------------------------------------------------------------
-    String mCurrentPhotoPath;
-    String mCurrentPhotoUri;
+    //picture from camera and gallery------------------------------------------------------
+    private String mCurrentPhotoPath;
+    private String mCurrentPhotoUri;
     //-------------------------------------------------------------------picture from camera
-    //timer---------------------------------------
-    TextView countTimer;
+    //timer-----------------------------------
+    private TextView countTimer;
     //------------------------------------timer
 
     //popup-----------------------------------------------------
@@ -63,31 +63,31 @@ public class PuzzleActivity extends AppCompatActivity {
     private Button newTimeIsUpNext;
     //-----------------------------------------------------popup
 
-//  --- array for pieces, cols, rows, id - probably not needed
-//    int[] arrayPiecesColsRowsId = new int[4];
-
-    // --- separate variables for pieces, cols, rows, user id - will be initialized with
     // received results from intent extras
-    int piecesNumber;
-    int cols;
-    int rows;
-    int userId;
-    String username;
-    // ---
-
+    private int piecesNumber;
+    private int cols;
+    private int rows;
+    private int userId;
+    private String username;
 
     //timer----------------------------------------------------------------
-    int secondsRemaining = 300;//how many seconds left in timer
+    int secondsRemaining = TIMER_SEC;//how many seconds left in timer
     int time;
-    CountDownTimer timer = new CountDownTimer(300000, 1000) {
+    //will tick with intervals of 1 sec
+    final CountDownTimer timer = new CountDownTimer(TIMER_SEC * 1000, 1000) {
+        /**
+         * on every timer tick will be displayed the number of seconds passed in TextView
+         */
         @Override
         public void onTick(long millisUntilFinished) { //every time the clock ticks
             secondsRemaining--;
-            time = 299 - secondsRemaining;
+            time = TIMER_SEC - 1 - secondsRemaining;
             countTimer.setText(Integer.toString(time) + " secs"); //textView- xml
-
         }
 
+        /**
+         * after TIMER_SEC seconds the popup will appear
+         */
         @Override
         public void onFinish() {
 
@@ -115,19 +115,16 @@ public class PuzzleActivity extends AppCompatActivity {
         //timer-------------------------------------------------------
         //counter initializing
         countTimer = findViewById(R.id.count_timer);
-        countTimer.setText("OSec");
+        countTimer.setText("OSecs");
         timer.start();//starting timer
         //-------------------------------------------------timer
 
 
-        final RelativeLayout layout = findViewById(R.id.layout);
-        final ImageView imageView = findViewById(R.id.imageView);
-        // ---- timer for getting it's height and positioning the pieces
-        final TextView timer = findViewById(R.id.count_timer);
-        // -------timer
+        RelativeLayout layout = findViewById(R.id.layout);
+        ImageView imageView = findViewById(R.id.imageView);
 
         Intent intent = getIntent();
-        final String assetName = intent.getStringExtra("assetName");
+        String assetName = intent.getStringExtra("assetName");
         //picture from camera and gallery ------------------------------------------------
         mCurrentPhotoPath = intent.getStringExtra("mCurrentPhotoPath");
         mCurrentPhotoUri = intent.getStringExtra("mCurrentPhotoUri");
@@ -152,146 +149,52 @@ public class PuzzleActivity extends AppCompatActivity {
                 Collections.shuffle(pieces);
 
                 // --- SWITCH FOR COMPLEXITY LEVELS ---
-
-//positioning and size of pieces--------------------------------------------------------------------
-                int border = 28; //boarder size
-                int rows;
-                int columns;
-                int marginLeft;
+                // positioning and size of pieces-------------------------------------------
+                int border = 28; //boarder size from xml
                 double ratio = (double) ((layout.getBottom() - imageView.getBottom()) - 2 * border) / imageView.getHeight();
                 if (ratio > 1) {
                     ratio = 1;
                 }
-
-                switch (pieces.size()) {
-
-
-                    case 4:
-                        rows = 2;
-                        columns = 2;
-                        // 4 pieces - row 1
-                        for (int i = 0; i < rows; i++) {
-                            marginLeft = border;
-                            for (int j = 0; j < columns; j++) {
-                                PuzzlePiece piece = pieces.get((i * columns) + j);
-                                piece.setOnTouchListener(touchListener);
-                                layout.addView(piece);
-
-                                RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
-
-                                int percentageHeight = (int) (piece.pieceHeight * 3 / 4 * ratio);
-                                int percentageWidth = (int) (piece.pieceWidth * 3 / 4 * ratio);
-                                lParams.height = percentageHeight;
-                                lParams.width = percentageWidth;
-                                lParams.leftMargin = marginLeft;
-                                lParams.topMargin = imageView.getBottom() + i * (int) ((layout.getHeight() - imageView.getBottom() - border) / rows) + border;
-                                lParams.bottomMargin = border;
-                                piece.setLayoutParams(lParams);
-
-                                marginLeft += (int) (imageView.getWidth() / columns) + (int) border / (columns - 1);
-                            }
-                        }
-
-                        break;
-
-
-                    // --- 9 pieces ---
-                    case 9:
-                        rows = 3;
-                        columns = 3;
-                        for (int i = 0; i < rows; i++) {
-                            marginLeft = border;
-                            for (int j = 0; j < columns; j++) {
-                                PuzzlePiece piece = pieces.get((i * columns) + j);
-                                piece.setOnTouchListener(touchListener);
-                                layout.addView(piece);
-
-                                RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
-
-                                int percentageHeight = (int) (piece.pieceHeight * 3 / 4 * ratio);
-                                int percentageWidth = (int) (piece.pieceWidth * 3 / 4 * ratio);
-                                lParams.height = percentageHeight;
-                                lParams.width = percentageWidth;
-                                lParams.leftMargin = marginLeft;
-                                lParams.topMargin = imageView.getBottom() + i * (int) ((layout.getHeight() - imageView.getBottom() - border) / rows) + border;
-                                lParams.bottomMargin = border;
-                                piece.setLayoutParams(lParams);
-
-                                marginLeft += (int) (imageView.getWidth() / columns) + (int) border / (columns - 1);
-                            }
-                        }
-                        break;
-
-                    // --- 12 pieces ---
-                    case 12:
-
-                        rows = 3;
-                        columns = 4;
-                        for (int i = 0; i < rows; i++) {
-                            marginLeft = border;
-                            for (int j = 0; j < columns; j++) {
-                                PuzzlePiece piece = pieces.get((i * columns) + j);
-                                piece.setOnTouchListener(touchListener);
-                                layout.addView(piece);
-
-                                RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
-
-                                int percentageHeight = (int) (piece.pieceHeight * 3 / 4 * ratio);
-                                int percentageWidth = (int) (piece.pieceWidth * 3 / 4 * ratio);
-                                lParams.height = percentageHeight;
-                                lParams.width = percentageWidth;
-                                lParams.leftMargin = marginLeft;
-                                lParams.topMargin = imageView.getBottom() + i * (int) ((layout.getHeight() - imageView.getBottom() - border) / rows) + border;
-                                lParams.bottomMargin = border;
-                                piece.setLayoutParams(lParams);
-
-                                marginLeft += (int) (imageView.getWidth() / columns) + (int) border / (columns - 1);
-                            }
-                        }
-
-                        break;
-
-                }
-                // --- /switch ---
-
-                // --- original code ---
-//                for (PuzzlePiece piece : pieces) {
-//                    piece.setOnTouchListener(touchListener);
-//                    layout.addView(piece);
-//                    // randomize position, on the bottom of the screen
-//                    //need to make not overlapping
-//
-//                    RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
-//                    lParams.leftMargin = new Random().nextInt(layout.getWidth() - piece.pieceWidth);
-//                    lParams.topMargin = layout.getHeight() - piece.pieceHeight;
-//                    piece.setLayoutParams(lParams);
-//                }
-                // --- /original code ---
+                positioningOfPuzzlePieces(touchListener, border, getRows(), getCols(), ratio, layout, imageView);
             }
         });
     }
+
+    /**
+     * positions the resized puzzle pieces in the bottom of the layout
+     * @param border - taken from xml
+     * @param getRows - number of rows in the puzzle
+     * @param getCols - number of columns in the puzzle
+     * @param ratio - ratio of resizing the draggable puzzle piece relative to puzzle piece
+     * @param layout - layout of the PuzzleActivity
+     * @param imageView - imageView of the puzzle picture
+     */
+    private void positioningOfPuzzlePieces(TouchListener touchListener, int border, int getRows, int getCols, double ratio, RelativeLayout layout, ImageView imageView) {
+        int marginLeft;
+        for (int i = 0; i < getRows; i++) {
+            marginLeft = border;
+            for (int j = 0; j < getCols; j++) {
+                PuzzlePiece piece = pieces.get((i * getCols) + j);
+                piece.setOnTouchListener(touchListener);
+                layout.addView(piece);
+
+                RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) piece.getLayoutParams();
+
+                int percentageHeight = (int) (piece.pieceHeight * 3 / 4 * ratio);
+                int percentageWidth = (int) (piece.pieceWidth * 3 / 4 * ratio);
+                lParams.height = percentageHeight;
+                lParams.width = percentageWidth;
+                lParams.leftMargin = marginLeft;
+                lParams.topMargin = imageView.getBottom() + i * (int) ((layout.getHeight() - imageView.getBottom() - border) / getRows) + border;
+                lParams.bottomMargin = border;
+                piece.setLayoutParams(lParams);
+
+                marginLeft += (int) (imageView.getWidth() / getCols) + border / (getCols - 1);
+            }
+        }
+    }
 //--------------------------------------------------------------------positioning and size of pieces
 
-
-//    // --- create an array of pieces, cols, rows, id from intent extras
-//    private int[] getPiecesColsRowsId () {
-//        Intent getComplexityFromGridView = getIntent();
-//        int[] arrayPiecesColsRowsId = new int[4];
-//
-//        int id = getComplexityFromGridView.getIntExtra("userId",0);
-//        int piecesNumber = getComplexityFromGridView.getIntExtra("numOfPiecesToPuz", 0);
-//        int cols = getComplexityFromGridView.getIntExtra("numOfColumnsToPuz", 0);
-//        int rows = getComplexityFromGridView.getIntExtra("numOfRowsToPuz", 0);
-//
-//        arrayPiecesColsRowsId[0] = id;
-//        arrayPiecesColsRowsId[1] = piecesNumber;
-//        arrayPiecesColsRowsId[2] = cols;
-//        arrayPiecesColsRowsId[3] = rows;
-//
-//        Log.w(PuzzleActivity.class.getName(), id + ", " + piecesNumber + ", " + cols + ", " + rows);
-//        return arrayPiecesColsRowsId;
-//    }
-//    // ---
 
     // --- methods to get number of pieces, columns, rows and id from intent extras
     private int getPiecesNumber() {
@@ -325,9 +228,10 @@ public class PuzzleActivity extends AppCompatActivity {
     }
 
 
-    // --- methods to get complexity and id
-
-
+    /**
+     * when the game is over timer stops, the cheer sound is played
+     * and the screen freezes for 3 seconds
+     */
     public void checkGameOver() {
         if (isGameOver()) {
             timer.cancel(); //stops the timer
@@ -337,14 +241,16 @@ public class PuzzleActivity extends AppCompatActivity {
             stopOnCompletion(sound);
             // --- /sound
 
-            //we want to do it after 3 seconds
-            //3 sec waiting timer---------------------------------------------------------------
-            CountDownTimer pauseTimer = new CountDownTimer(3000, 1000) {
+            //3 sec waiting timer to freeze the screen--------------------------------------------
+            CountDownTimer pauseTimer = new CountDownTimer(WAITING_TIME_MILLISECONDS, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
 
                 }
 
+                /**
+                 * when time is up, passing extras to the next activity - Score activity
+                 */
                 @Override
                 public void onFinish() {
 
@@ -418,27 +324,6 @@ public class PuzzleActivity extends AppCompatActivity {
 
     private ArrayList<PuzzlePiece> splitImage() {
 
-//         // --- intent to getIntExtras from grid view activity
-//        Intent getComplexityFromGridView = getIntent();
-//
-//        int piecesNumber = getComplexityFromGridView.getIntExtra("numOfPiecesToPuz", 0);
-//        int rows =  getComplexityFromGridView.getIntExtra("numOfRowsToPuz", 0);
-//        int cols =  getComplexityFromGridView.getIntExtra("numOfColumnsToPuz", 0);
-//        Log.w(PuzzleActivity.class.getName(), "Number of pieces is " + piecesNumber);
-//        // ---
-
-        /*int piecesNumber = 56; // to check another possibilities
-        int rows = 7;
-        int cols = 8;
-*/
-
-//        // --- using array
-//        arrayPiecesColsRowsId = getPiecesColsRowsId();
-//        int piecesNumber = arrayPiecesColsRowsId[1];
-//        int cols = arrayPiecesColsRowsId[2];
-//        int rows = arrayPiecesColsRowsId[3];
-//        // ---
-
         // --- using separate methods
         piecesNumber = getPiecesNumber();
         cols = getCols();
@@ -462,7 +347,7 @@ public class PuzzleActivity extends AppCompatActivity {
         int croppedImageWidth = scaledBitmapWidth - 2 * abs(scaledBitmapLeft);
         int croppedImageHeight = scaledBitmapHeight - 2 * abs(scaledBitmapTop);
 
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, scaledBitmapWidth, scaledBitmapHeight, true);//calls createBitmap(Bitmap source, int 0, int 0, int width, int height), matrix- m, filter , The result will be the same as bitmap buth with sizes scaledBitmapWidth, scaledBitmapHeight
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, scaledBitmapWidth, scaledBitmapHeight, true);//calls createBitmap(Bitmap source, int 0, int 0, int width, int height), matrix- m, filter , The result will be the same as bitmap but with sizes scaledBitmapWidth, scaledBitmapHeight
         Bitmap croppedBitmap = Bitmap.createBitmap(scaledBitmap, abs(scaledBitmapLeft), abs(scaledBitmapTop), croppedImageWidth, croppedImageHeight);//creates bitmap from existing bitmap- scaledbitmap, x, y, width, height
 
         // Calculate the with and height of the pieces
@@ -637,6 +522,7 @@ public class PuzzleActivity extends AppCompatActivity {
             }
         });
 
+        //pushing Next Button from pop-Up
         newTimeIsUpNext.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -710,6 +596,7 @@ public class PuzzleActivity extends AppCompatActivity {
 
 
     //---------------------------------------------------------------------------picture from camera
+
     //Method to go to the StartActivity
     public void goHome() {
         Intent intent = new Intent(this, StartActivity.class);
@@ -732,5 +619,4 @@ public class PuzzleActivity extends AppCompatActivity {
             }
         });
     }
-
 }

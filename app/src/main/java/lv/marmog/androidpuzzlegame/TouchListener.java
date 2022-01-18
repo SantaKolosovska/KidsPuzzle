@@ -1,42 +1,32 @@
 package lv.marmog.androidpuzzlegame;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
+
+
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
-
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 import static java.lang.Math.abs;
 
-import androidx.annotation.ColorInt;
 
-import java.io.IOException;
-
-
+/**
+ * sets on touch listner when playing the puzzle
+ * when the puzzle piece is on its place it becomes immovable on the parent layout,
+ * the sound plays and the piece is blinking
+ */
 public class TouchListener implements View.OnTouchListener {
 
     private float xDelta;
     private float yDelta;
     private PuzzleActivity activity;
-    private MediaPlayer sound;
 
     public TouchListener(PuzzleActivity activity) {
         this.activity = activity;
     }
-
-    public TouchListener() {
-    }
-
-
-
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -66,7 +56,7 @@ public class TouchListener implements View.OnTouchListener {
                 piece.bringToFront();
 
                 // --- add sound
-                sound = MediaPlayer.create(activity.getApplicationContext(), R.raw.salt_shake);
+                MediaPlayer sound = MediaPlayer.create(activity.getApplicationContext(), R.raw.salt_shake);
                 sound.start();
                 stopOnCompletion(sound);
                 // --- /add sound
@@ -80,7 +70,7 @@ public class TouchListener implements View.OnTouchListener {
             case MotionEvent.ACTION_UP: //release
                 int xDiff = abs(piece.xCoord - lParams.leftMargin);
                 int yDiff = abs(piece.yCoord - lParams.topMargin);
-                if (xDiff <= tolerance && yDiff <= tolerance) {
+                if (xDiff <= tolerance && yDiff <= tolerance) { //the correct place od the puzzle piece
                     lParams.leftMargin = piece.xCoord;
                     lParams.topMargin = piece.yCoord;
 
@@ -91,7 +81,6 @@ public class TouchListener implements View.OnTouchListener {
                         @Override
                         public void onTick(long millisUntilFinished) {
                             piece.setColorFilter(0X80FFFFFF); //can change filter or make blinking faster
-
                         }
 
                         @Override
@@ -128,7 +117,10 @@ public class TouchListener implements View.OnTouchListener {
         }
     }
 
-    // stop media player after playing sound
+    /**
+     * stops media player after playing sound
+     * @param mp - sound created from media player
+     */
     public void stopOnCompletion(MediaPlayer mp) {
         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -138,5 +130,4 @@ public class TouchListener implements View.OnTouchListener {
             }
         });
     }
-
 }

@@ -5,52 +5,37 @@ import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_R
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_2;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_9;
-import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4;
-import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_USER_ID;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.TABLE_TIMER;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import lv.marmog.androidpuzzlegame.database.DatabaseHelper;
-import lv.marmog.androidpuzzlegame.database.User;
 
 
+/**
+ * in this activity the time of the current game is shown
+ * and the best result achieved before this game
+ */
 public class ScoreActivity extends AppCompatActivity {
 
-
-
-    private TextView yourTime;
-    private TextView bestTime;
-    private TextView kidName;
     private int userId, level, time;
     private String username;
     private long insertResult;
     Cursor cursor;
-    //Button to go to the StartActivity
-    private FloatingActionButton goHome;
 
     //Variables for connection to the database
     private SQLiteDatabase database;
     private DatabaseHelper dbHelper;
     private String[] allColumns = {
             DatabaseHelper.COLUMN_USER_ID,
-            COLUMN_TIMER_RESULT_FOR_2,
+            DatabaseHelper.COLUMN_TIMER_RESULT_FOR_2,
             DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4,
             DatabaseHelper.COLUMN_TIMER_RESULT_FOR_6,
             DatabaseHelper.COLUMN_TIMER_RESULT_FOR_9,
@@ -63,22 +48,23 @@ public class ScoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
 
+
         // database
         dbHelper = new DatabaseHelper(ScoreActivity.this);
         database = dbHelper.getWritableDatabase();
 
         // show timer result from puzzleActivity
-        yourTime = (TextView) findViewById(R.id.your_time);
+        TextView yourTime = (TextView) findViewById(R.id.your_time);
         String timeString = String.valueOf(getTime());
         yourTime.setText(timeString + " seconds");
 
-        kidName = (TextView) findViewById(R.id.kid_name);
+        TextView kidName = (TextView) findViewById(R.id.kid_name);
         username = getUsername();
         Log.i(ScoreActivity.class.getName(), "Username for textview is " + username);
         kidName.setText(username + "!");
 
         //show best time
-        bestTime = (TextView) findViewById(R.id.best_time);
+        TextView bestTime = (TextView) findViewById(R.id.best_time);
         bestTime.setText(showBestResult() + " seconds");
 
         // id, level, timer for db
@@ -86,7 +72,8 @@ public class ScoreActivity extends AppCompatActivity {
         level = getLevel();
         time = getTime();
         //Button to go in StartActivity
-        goHome = findViewById(R.id.goHome);
+        //Button to go to the StartActivity
+        FloatingActionButton goHome = findViewById(R.id.goHome);
         goHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,48 +81,32 @@ public class ScoreActivity extends AppCompatActivity {
             }
         });
 
-        // insert in db
+        // insert into db
         insertResult();
 
     }
 
-    // --- insert timer result in db
+
+
+    /**
+     * inserts timer result in db
+     * @return true if the result was saved or false if not
+     */
     public boolean insertResult() {
         ContentValues contentValues = new ContentValues();
 
         // switch for insertion of data in different puzzle complexity/level columns
         switch (level) {
             case 4:
-                contentValues.put(DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4, time);
-                contentValues.put(DatabaseHelper.COLUMN_USER_ID, userId);
-                insertResult = database.insert(TABLE_TIMER, null, contentValues);
-                cursor = database.query(TABLE_TIMER, allColumns,
-                        DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4 + " = " + insertResult, null, null, null, null);
-                cursor.moveToLast();
-                cursor.close();
-                Log.w(ScoreActivity.class.getName(), "Id: " + userId + " and timer result: " + time + " inserted into column " + level);
+                insertResultToDatabase(contentValues, DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4);
                 break;
 
             case 9:
-                contentValues.put(DatabaseHelper.COLUMN_TIMER_RESULT_FOR_9, time);
-                contentValues.put(DatabaseHelper.COLUMN_USER_ID, userId);
-                insertResult = database.insert(TABLE_TIMER, null, contentValues);
-                cursor = database.query(TABLE_TIMER, allColumns,
-                        DatabaseHelper.COLUMN_TIMER_RESULT_FOR_9 + " = " + insertResult, null, null, null, null);
-                cursor.moveToLast();
-                cursor.close();
-                Log.w(ScoreActivity.class.getName(), "Id: " + userId + " and timer result: " + time + " inserted into column " + level);
+                insertResultToDatabase(contentValues, DatabaseHelper.COLUMN_TIMER_RESULT_FOR_9);
                 break;
 
             case 12:
-                contentValues.put(DatabaseHelper.COLUMN_TIMER_RESULT_FOR_12, time);
-                contentValues.put(DatabaseHelper.COLUMN_USER_ID, userId);
-                insertResult = database.insert(TABLE_TIMER, null, contentValues);
-                cursor = database.query(TABLE_TIMER, allColumns,
-                        DatabaseHelper.COLUMN_TIMER_RESULT_FOR_12 + " = " + insertResult, null, null, null, null);
-                cursor.moveToLast();
-                cursor.close();
-                Log.w(ScoreActivity.class.getName(), "Id: " + userId + " and timer result: " + time + " inserted into column " + level);
+                insertResultToDatabase(contentValues, DatabaseHelper.COLUMN_TIMER_RESULT_FOR_12);
                 break;
         }
 
@@ -147,10 +118,26 @@ public class ScoreActivity extends AppCompatActivity {
             return true;
         }
     }
-    // --- /insert timer result in db
 
+    /**
+     *inserts result for specific level to the database
+     * @param columnTimerResult - timer result for specific level
+     */
+    private void insertResultToDatabase(ContentValues contentValues, String columnTimerResult) {
+        contentValues.put(columnTimerResult, time);
+        contentValues.put(DatabaseHelper.COLUMN_USER_ID, userId);
+        insertResult = database.insert(TABLE_TIMER, null, contentValues);
+        cursor = database.query(TABLE_TIMER, allColumns,
+                columnTimerResult + " = " + insertResult, null, null, null, null);
+        cursor.moveToLast();
+        cursor.close();
+        Log.w(ScoreActivity.class.getName(), "Id: " + userId + " and timer result: " + time + " inserted into column " + level);
+    }
 
-
+    /**
+     * gets the best result for every level
+     * @return
+     */
     public String showBestResult(){
 
         Cursor cursor1;
@@ -159,101 +146,48 @@ public class ScoreActivity extends AppCompatActivity {
         //switch for showing better result for current level( puzzle pieces quantity)
         switch(getLevel()){
             case 2:
-                cursor1 = database.rawQuery("SELECT " + COLUMN_TIMER_RESULT_FOR_2 + " from " +
-                        TABLE_TIMER + " WHERE user_id " + " = " + getUserId() + " AND " + COLUMN_TIMER_RESULT_FOR_2 + " IS NOT NULL " + " ORDER BY "
-                        + COLUMN_TIMER_RESULT_FOR_2 + " LIMIT 1 ", null);
-                if( cursor1.moveToFirst()) {
-                    result = cursor1.getInt(0);
-                }
-                cursor1.close();
+                result = getBestResult(result, COLUMN_TIMER_RESULT_FOR_2);
                 break;
             case 4:
-                cursor1 = database.rawQuery("SELECT " + COLUMN_TIMER_RESULT_FOR_4 + " from " +
-                        TABLE_TIMER + " WHERE user_id " + " = " + getUserId() + " AND " + COLUMN_TIMER_RESULT_FOR_4 + " IS NOT NULL " + " ORDER BY "
-                        + COLUMN_TIMER_RESULT_FOR_4 + " LIMIT 1 ", null);
-                if( cursor1.moveToFirst()) {
-                    result = cursor1.getInt(0);
-                }
-                cursor1.close();
+                result = getBestResult(result, COLUMN_TIMER_RESULT_FOR_4);
                 break;
 
             case 9:
-
-                cursor1 = database.rawQuery("SELECT " + COLUMN_TIMER_RESULT_FOR_9 + " from " +
-                        TABLE_TIMER + " WHERE user_id " + " = " + getUserId() +
-                        " AND " + COLUMN_TIMER_RESULT_FOR_9 + " IS NOT NULL " + " ORDER BY "  + COLUMN_TIMER_RESULT_FOR_9 + " LIMIT 1 ", null);
-
-                if( cursor1.moveToFirst()) {
-                    result = cursor1.getInt(0);
-                }
-                cursor1.close();
+                result = getBestResult(result, COLUMN_TIMER_RESULT_FOR_9);
                 break;
             case 12:
-
-                cursor1 = database.rawQuery("SELECT " + COLUMN_TIMER_RESULT_FOR_12 + " from " +
-                        TABLE_TIMER + " WHERE user_id " + " = " + getUserId() +
-                        " AND " + COLUMN_TIMER_RESULT_FOR_12 + " IS NOT NULL " + " ORDER BY "  + COLUMN_TIMER_RESULT_FOR_12 + " LIMIT 1 ", null);
-
-                if( cursor1.moveToFirst()) {
-                    result = cursor1.getInt(0);
-                }
-                cursor1.close();
+                result = getBestResult(result, COLUMN_TIMER_RESULT_FOR_12);
                 break;
 
         }
 
-
         return String.valueOf(result);
     }
 
+    /**
+     * Gets the best result from the database for the specific user for the specific level
+     * @param result = the parameter that will be returned
+     * @param columnTimerResult - result for specific level
+     * @return result- the best result for this specific userid and for the specific level (number of pieces)
+     */
+    private int getBestResult(int result, String columnTimerResult) {
+        Cursor cursor1;
+        cursor1 = database.rawQuery("SELECT " + columnTimerResult + " from " +
+                TABLE_TIMER + " WHERE user_id " + " = " + getUserId() + " AND " + columnTimerResult + " IS NOT NULL " + " ORDER BY "
+                + columnTimerResult + " LIMIT 1 ", null);
+        if (cursor1.moveToFirst()) {
+            result = cursor1.getInt(0);
+        }
+        cursor1.close();
+        return result;
+    }
 
-
-
-//
-//                List<Integer> arrayListOfScore = new ArrayList<>();
-//
-//                try {
-//
-//                    Cursor cursor1 = database.rawQuery("SELECT * FROM " +
-//                            TABLE_TIMER + " WHERE user_id " + " = " + getUserId(),  null);
-//
-//                    if (cursor1.moveToFirst()) {
-//                       int id = cursor1.getInt(5);
-//                       int score2 = cursor1.getInt(0);
-//                       int score4 = cursor1.getInt(1);
-//                       int score6 = cursor1.getInt(2);
-//                       int score9 = cursor1.getInt(3);
-//                       int score12 = cursor1.getInt(4);
-//
-//
-//
-//                       Log.i(ScoreActivity.class.getName(), "Cursor id from db is " + id);
-//                       Log.i(ScoreActivity.class.getName(), "Cursor score for 2 is " + score2);
-//                       Log.i(ScoreActivity.class.getName(), "Cursor score for 4 is " + score4);
-//                       Log.i(ScoreActivity.class.getName(), "Cursor score for 6 is " + score6);
-//                       Log.i(ScoreActivity.class.getName(), "Cursor score for 9 is " + score9);
-//                       Log.i(ScoreActivity.class.getName(), "Cursor score for 12 is " + score12);
-//
-//
-//                       while (!cursor.isAfterLast()) {
-//                           arrayListOfScore.add(score4);
-//                           cursor.moveToNext();
-//                       }
-//                   }
-//               } catch (NullPointerException e) {
-//                   Log.i(ScoreActivity.class.getName(),"NullPointerException thrown!");
-//               }
-//
-
-
-
-
-
-
-
-
+    /**
+     * redirects to ComplexityActivity with extras
+     * @param view
+     */
     public void startNewGame(View view) {
-        Intent intent = new Intent(this, ComplexityActivity.class);// redirect from this page to MainActivity page- list of images
+        Intent intent = new Intent(this, ComplexityActivity.class);
         userId = getUserId();
         username = getUsername();
         intent.putExtra("userIdFromScoreActivity", userId);
@@ -262,13 +196,11 @@ public class ScoreActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void goToMenu(View view) {
-        // redirect from this activity to the first activity, for now it redirects to MianActivy!!!!!!!!!!!!!!!!
-        Intent intent = new Intent(this, ComplexityActivity.class);
-        startActivity(intent);
-    }
 
-    // --- methods to get userId, level and time from intent extras
+    /**
+     * gets userId, level and time from intent extras
+     * @return userId - current user id
+     */
     public int getUserId() {
         Intent getUserIntent = getIntent();
         userId = getUserIntent.getIntExtra("userId", 0);
@@ -295,14 +227,15 @@ public class ScoreActivity extends AppCompatActivity {
         int time = getTimeIntent.getIntExtra("time", 0);
         return time;
     }
-    // --- /methods to get userId, level and time
 
     public Cursor getData() {
         Cursor cursor = database.rawQuery("Select * from " + TABLE_TIMER, null);
         return cursor;
     }
 
-    //Method to go to the StartActivity
+    /**
+     *  Redirects to StartActivity
+     */
     public void goHome() {
         Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);

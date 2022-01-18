@@ -3,25 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/PuzzleGameSGT/app/src/main/res/layout/activity_grid_view.xml" value="0.33" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/PuzzleGameSGT/app/src/main/res/layout/activity_puzzle.xml" value="0.1" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/PuzzleGameSGT/app/src/main/res/layout/activity_start.xml" value="0.15677083333333333" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/PuzzleGameSGT/app/src/main/res/font/montserrat.xml" value="0.1" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/PuzzleGameSGT/app/src/main/res/font/montserrat_bold.xml" value="0.1" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/PuzzleGameSGT/app/src/main/res/font/what.xml" value="0.1" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/PuzzleGameSGT/app/src/main/res/layout-sw320dp/activity_create_username.xml" value="0.28177083333333336" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/PuzzleGameSGT/app/src/main/res/layout/activity_complexity.xml" value="0.22" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/PuzzleGameSGT/app/src/main/res/layout/activity_create_username.xml" value="1.0" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/PuzzleGameSGT/app/src/main/res/layout/activity_grid_view.xml" value="0.25" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/PuzzleGameSGT/app/src/main/res/layout/activity_puzzle.xml" value="0.22" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/PuzzleGameSGT/app/src/main/res/layout/activity_score.xml" value="0.25" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/PuzzleGameSGT/app/src/main/res/layout/activity_start.xml" value="0.1" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/PuzzleGameSGT/app/src/main/res/layout/activity_time_is_up.xml" value="0.20677083333333332" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/PuzzleGameSGT/app/src/main/res/layout/grid_element.xml" value="0.17239583333333333" />
-        <entry key="..\:/Users/genna/AndroidStudioProjects/puzzle_game/app/src/main/res/drawable-anydpi/ic_action_name.xml" value="0.36770833333333336" />
-        <entry key="..\:/Users/genna/AndroidStudioProjects/puzzle_game/app/src/main/res/layout-sw280dp/activity_create_username.xml" value="0.3120471014492754" />
-        <entry key="..\:/Users/genna/AndroidStudioProjects/puzzle_game/app/src/main/res/layout-sw320dp/activity_create_username.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/genna/AndroidStudioProjects/puzzle_game/app/src/main/res/layout-sw320dp/create_username.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/genna/AndroidStudioProjects/puzzle_game/app/src/main/res/layout-sw480dp/activity_create_username.xml" value="0.263671875" />
-        <entry key="..\:/Users/genna/AndroidStudioProjects/puzzle_game/app/src/main/res/layout-sw560dp/activity_create_username.xml" value="0.263671875" />
-        <entry key="..\:/Users/genna/AndroidStudioProjects/puzzle_game/app/src/main/res/layout/activity_complexity.xml" value="0.1953125" />
-        <entry key="..\:/Users/genna/AndroidStudioProjects/puzzle_game/app/src/main/res/layout/activity_create_username.xml" value="0.1" />
-        <entry key="..\:/Users/genna/AndroidStudioProjects/puzzle_game/app/src/main/res/layout/activity_grid_view.xml" value="0.3038949275362319" />
-        <entry key="..\:/Users/genna/AndroidStudioProjects/puzzle_game/app/src/main/res/layout/activity_puzzle.xml" value="0.32563405797101447" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/PuzzleGameSGT/app/src/main/res/layout/listview_element.xml" value="0.21145833333333333" />
+        <entry key="..\:/Users/genna/AndroidStudioProjects/puzzle_game/app/src/main/res/layout/activity_create_username.xml" value="0.22735507246376813" />
         <entry key="..\:/Users/genna/AndroidStudioProjects/puzzle_game/app/src/main/res/layout/activity_score.xml" value="0.23867753623188406" />
         <entry key="..\:/Users/genna/AndroidStudioProjects/puzzle_game/app/src/main/res/layout/activity_start.xml" value="0.22735507246376813" />
-        <entry key="..\:/Users/genna/AndroidStudioProjects/puzzle_game/app/src/main/res/layout/activity_time_is_up.xml" value="0.32563405797101447" />
-        <entry key="..\:/Users/genna/AndroidStudioProjects/puzzle_game/app/src/main/res/layout/grid_element.xml" value="0.3038949275362319" />
-        <entry key="..\:/Users/genna/AndroidStudioProjects/puzzle_game/app/src/main/res/layout/toolbar.xml" value="0.3038949275362319" />
         <entry key="..\:/Users/user1/AndroidStudioProjects/AndroidPuzzleGame/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.38333333333333336" />
         <entry key="..\:/Users/user1/AndroidStudioProjects/AndroidPuzzleGame/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/user1/AndroidStudioProjects/AndroidPuzzleGame/app/src/main/res/layout/activity_main.xml" value="0.1" />

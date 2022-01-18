@@ -12,10 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-
 import java.io.IOException;
 import java.io.InputStream;
 
+
+/**
+ * This image adapter is for GridView Activity
+ */
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
     private AssetManager am;
@@ -30,10 +33,11 @@ public class ImageAdapter extends BaseAdapter {
             e.printStackTrace();
         }
     }
-
+    //returns number of photos in the GridView
     public int getCount() {
         return files.length;
     }
+
 
     public Object getItem(int position) {
         return null;
@@ -43,7 +47,14 @@ public class ImageAdapter extends BaseAdapter {
         return 0;
     }
 
-    // create a new ImageView for each item referenced by the Adapter
+
+    /**
+     * creates a new ImageView for each item referenced by the Adapter
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return convertView - image for every file
+     */
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {

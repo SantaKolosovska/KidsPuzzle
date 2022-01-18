@@ -1,5 +1,8 @@
 package lv.marmog.androidpuzzlegame.database;
 
+/**
+ * User model - consists of 2 rows- usernameId and username
+ */
 public class User {
     private int usernameId;
     private String username;
@@ -18,7 +21,7 @@ public class User {
     public String toString() {
         return username ;
     }
-//getters and setters
+    //getters and setters
     public int getUsernameId() {
         return usernameId;
     }

@@ -1,37 +1,42 @@
 package lv.marmog.androidpuzzlegame;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Switch;
 import android.widget.TextView;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import lv.marmog.androidpuzzlegame.database.DatabaseHelper;
-import lv.marmog.androidpuzzlegame.database.UserDAO;
 
+
+/**
+ * This activity enables to choose the complexity level of the game,
+ * It has a home button - goHome, extras - userId, userIdFromScore, userIdFromPopup, username.
+ * methods: selectPieces, getUserId, getUsername, goHome, setName
+ *
+ */
 public class ComplexityActivity extends AppCompatActivity {
 
-    //Variables that is extras
-    int userId;
-    int userIdFromScore;
-    int userIdFromPopup;
-    String username;
-    //Button to go to the StartActivity
+    //Variables that are extras
+    private int userId;
+    private int userIdFromScore;
+    private int userIdFromPopup;
+    private String username;
+    // redirects to the StartActivity
     private FloatingActionButton goHome;
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complexity);
         setName();
 
-        //Button to go to the StartActivity
+        //Button which redirects to the StartActivity
         goHome = findViewById(R.id.goHome);
         goHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,9 +44,13 @@ public class ComplexityActivity extends AppCompatActivity {
                 goHome();
             }
         });
-
     }
-//Method that selects pieces for puzzle when is pressed one of the buttons
+
+    /**
+     * Selects the number of pieces for puzzle when one of the buttons is pushed (4,9, or 12)
+     * and sends extras to GridViewActivity
+     * @param view
+     */
     public void selectPieces(View view) {
 
         userId = getUserId();
@@ -53,8 +62,7 @@ public class ComplexityActivity extends AppCompatActivity {
         complexityIntent.putExtra("userId", userId);
         complexityIntent.putExtra("username", username);
 
-
-        // sending number of pieces, columns and rows from buttons to gridView activity
+        // sending number of pieces, columns and rows from buttons to GridView activity
         if (view == findViewById(R.id.choose4)) {
             complexityIntent.putExtra("numberOfPieces", 4);
             complexityIntent.putExtra("numberOfColumns", 2);
@@ -70,10 +78,12 @@ public class ComplexityActivity extends AppCompatActivity {
         }
 
         startActivity(complexityIntent);
-
     }
 
-    // --- method to get user id
+    /**
+     * Gets userId from extras
+     * @return userId from StartActivity, from ScoreActivity, or from popup
+     */
     private int getUserId() {
         Intent getUserId = getIntent();
         // user id from start activity
@@ -86,11 +96,11 @@ public class ComplexityActivity extends AppCompatActivity {
         userIdFromPopup = getUserId.getIntExtra("userIdFromPopup", 0);
         Log.i(ComplexityActivity.class.getName(), "Received user id from popup is " + userIdFromPopup);
 
-        // set user id to user id from score
+        // if not received userId from StartActivity set userIdFromScore
         if (userId == 0) {
             userId = userIdFromScore;
         }
-        // if didn't receive the user id from score and it still is 0, set user id from popup
+        // if not received userIdFromScore (0) , set userIdFromPopup
         if (userId == 0) {
             userId = userIdFromPopup;
         }
@@ -98,7 +108,10 @@ public class ComplexityActivity extends AppCompatActivity {
         return userId;
     }
 
-    // method to get username
+    /**
+     * Gets username from extras
+     * @return username from StartActivity,  ScoreActivity, or from popup
+     */
     private String getUsername() {
         Intent getUsername = getIntent();
         // user id from start activity
@@ -115,7 +128,7 @@ public class ComplexityActivity extends AppCompatActivity {
         if (username == null) {
             username = usernameFromScore;
         }
-        // if didn't receive the username from score and it still is null, set username from popup
+        // if not received from score, set username from popup
         if (username == null) {
             username = userNameFromPopup;
         }
@@ -124,20 +137,18 @@ public class ComplexityActivity extends AppCompatActivity {
     }
 
 
-
-//    private String getUsername() {
-//        Intent getUsernameIntent = getIntent();
-//        String username = getUsernameIntent.getStringExtra("username");
-//        Log.i(ComplexityActivity.class.getName(), "Received username is " + username);
-//        return username;
-//    }
-
-    //Method to go to the StartActivity
+    /**
+     * Redirects to StartActivity
+     */
     public void goHome() {
         Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
     }
 
+
+    /**
+     * Sets the username in TextView
+     */
     public void setName() {
         TextView name = (TextView)findViewById(R.id.username_complexity);
         name.setText(getUsername());

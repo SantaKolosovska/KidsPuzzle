@@ -14,7 +14,7 @@
         android:layout_height="100dp"
         android:contentDescription="@string/app_name"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="10dp"
         app:srcCompat="@drawable/puzzle_game_logo_nocircle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -151,6 +151,7 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/goHome"
+        android:contentDescription="@string/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0.7"

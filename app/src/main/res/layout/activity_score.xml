@@ -149,6 +149,7 @@
         android:alpha="0.7"
         android:backgroundTint="@color/aqua"
         android:clickable="true"
+        android:contentDescription="@string/app_name"
         android:src="@drawable/ic_baseline_home_24_smaller"
         android:tint="@android:color/white"
         app:layout_constraintTop_toTopOf="parent"
