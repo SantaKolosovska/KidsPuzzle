@@ -10,7 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/puzzle_game_icon"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Design.NoActionBarMy">
+        android:theme="@style/Theme.Design.NoActionBarMy"
+        >
 
         <activity
             android:name=".ScoreActivity"

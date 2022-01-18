@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/PuzzleGameSGT/app/src/main/res/layout-sw320dp/activity_create_username.xml" value="0.17831813576494426" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/PuzzleGameSGT/app/src/main/res/layout/activity_create_username.xml" value="1.074013157894737" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/PuzzleGameSGT/app/src/main/res/layout/activity_grid_view.xml" value="0.33" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/PuzzleGameSGT/app/src/main/res/layout/activity_puzzle.xml" value="0.1" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/PuzzleGameSGT/app/src/main/res/layout/activity_start.xml" value="0.15677083333333333" />

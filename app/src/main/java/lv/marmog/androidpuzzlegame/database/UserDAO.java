@@ -5,18 +5,15 @@ import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_ID;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_USER_ID;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.TABLE_TIMER;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.TABLE_USERS;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.ContactsContract;
 import android.util.Log;
-
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class UserDAO {
     //Fields
@@ -67,7 +64,11 @@ public class UserDAO {
 
     }
 
-    //Method that check username in the database
+    /**
+     * checks if username exists in the database
+     * @param username - string - username
+     * @return true - if exists, false - is not
+     */
     public Boolean checkUsername(String username) {
 
         Cursor cursor = database.rawQuery("Select * from " + TABLE_USERS + " where username = ?", new String[]{username});
@@ -78,18 +79,6 @@ public class UserDAO {
         }
     }
 
-
-    //Method that delete user from the database
-//    public Boolean deleteUser(int id) {
-//
-//        String queryString = "DELETE FROM " + TABLE_USERS + " WHERE " + COLUMN_ID + " = " + id;
-//        Cursor cursor2 = database.rawQuery(queryString, null);
-//        if (cursor2.moveToFirst()) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
 
     public Boolean deleteUser(User user) {
 
@@ -102,7 +91,11 @@ public class UserDAO {
         }
     }
 
-    // --- need to delete from timer database
+    /**
+     *  deletes all the scores from timer database for specific user
+     * @param user user, for whom we need to delete all results
+     * @return true- if all results were deleted, false - if not
+     */
     public Boolean deleteResults(User user) {
         String queryStringToDeleteFromTimer = "DELETE FROM " + TABLE_TIMER + " WHERE " + COLUMN_USER_ID + " = " + user.getUsernameId();
         Cursor cursor1 = database.rawQuery(queryStringToDeleteFromTimer, null);
@@ -113,7 +106,10 @@ public class UserDAO {
         }
     }
 
-    //Method that show us all the users we have in database
+    /**
+     * shows all the users in the database
+     * @return list of users
+     */
     public List<User> getAllUsers() {
         List<User> userList = new ArrayList<User>(0);
 

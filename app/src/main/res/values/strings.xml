@@ -13,6 +13,13 @@
     <string name="save_username">Save Username</string>
     <string name="existing_names">Already existing usernames:</string>
     <string name="delete_name">Delete Username</string>
+    <string name="choose_level">Choose the number of puzzle pieces: </string>
+    <string name="choose_name">Choose your username</string>
+
+
+
+
+
 
 
 
