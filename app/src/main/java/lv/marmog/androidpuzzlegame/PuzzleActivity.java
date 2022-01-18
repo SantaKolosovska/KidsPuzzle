@@ -15,7 +15,9 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import androidx.exifinterface.media.ExifInterface;
+//import androidx.exifinterface.media.ExifInterface;
+
+import android.media.ExifInterface;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;

@@ -157,6 +157,8 @@ public class GridViewActivity extends AppCompatActivity {
             intent.putExtra("numOfPiecesToPuz", piecesIntent);
             intent.putExtra("numOfColumnsToPuz", columnsIntent);
             intent.putExtra("numOfRowsToPuz", rowsIntent);
+            intent.putExtra("userId", userId);
+            intent.putExtra("username", username);
             // --- extra for complexity
 
             intent.putExtra("mCurrentPhotoPath", mCurrentPhotoPath);
@@ -170,6 +172,8 @@ public class GridViewActivity extends AppCompatActivity {
             intent.putExtra("numOfPiecesToPuz", piecesIntent);
             intent.putExtra("numOfColumnsToPuz", columnsIntent);
             intent.putExtra("numOfRowsToPuz", rowsIntent);
+            intent.putExtra("userId", userId);
+            intent.putExtra("username", username);
             // --- extra for complexity
             intent.putExtra("mCurrentPhotoUri", uri.toString());
             startActivity(intent);
