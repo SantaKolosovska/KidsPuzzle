@@ -50,7 +50,7 @@ b) Tap anywhere to continue the puzzle you have started. Note that timer won't r
 \
 ![time_is_up](https://user-images.githubusercontent.com/86738044/150312744-e2d80e68-da06-482a-91bc-93662770599a.jpg)
 
-10. To delete a user press "Create / Delete user" button on the start screen. Find the user in the list at the bottom, select it by pressing on it and press "Delete username" button. You will recieve a message that user has been deleted.\
+10. To delete a user press "Create / Delete user" button on the start screen. Find the user in the list at the bottom, select it by pressing on it and press "Delete username" button. You will recieve a message that user has been deleted. (It should be noted that deleting the user also deletes all the results of games for this user.) \
 \
 ![user_was_deleted](https://user-images.githubusercontent.com/86738044/150312751-ea3224a7-1c85-466a-9c90-61e273ad21d0.jpg) 
 
