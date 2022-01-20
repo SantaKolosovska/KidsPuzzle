@@ -11,7 +11,7 @@ Open the project in Android Studio. If you want to run it on emulator, select an
 App was created by a team of three - Alija Jeniceka, Santa Kolosovska, Marina Mogers.
 
 ## Instructions 
-1. After running the app for the first time there will be no users available. Press “Create new user” button to create a user. To create a user the username must be entered in two fields. \
+1. After running the app for the first time there will be no users available. Press “Create/delete user” button to create a user. To create a user the username must be entered in two fields. \
 \
 ![start_screen_empty](https://user-images.githubusercontent.com/86738044/150312742-277f7e1a-2076-4b39-b648-37286fb6106b.jpg)       ![create_user](https://user-images.githubusercontent.com/86738044/150312734-3141e2d6-ea60-456c-8f48-fda946a8facc.jpg)  
 
@@ -40,7 +40,7 @@ App was created by a team of three - Alija Jeniceka, Santa Kolosovska, Marina Mo
 \
 ![puzzle_in_progress](https://user-images.githubusercontent.com/86738044/150312738-692e254b-abaf-4024-a422-a17f523f686a.jpg)
 
-6. Upon completion of puzzle there will be a cheering sound. You will be redirected to a new screen that will say how many seconds you have spent on assembly and what has been your best time so far for this number of puzzle pieces. To play another game press "Next" button and you will be redirected to "Choose number of puzzle pieces" screen. Repeat the actions from point 3 of this manual.\
+6. Upon completion of puzzle there will be a cheering sound. You will be redirected to a new screen that will state how many seconds you have spent on assembly and what has been your best time so far for this number of puzzle pieces. To play another game press "Next" button and you will be redirected to "Choose number of puzzle pieces" screen. Repeat the actions from point 3 of this manual.\
 \
 ![well_done](https://user-images.githubusercontent.com/86738044/150312757-fba60906-c14f-44d3-8bab-24399fe1a38a.jpg)
 
@@ -54,4 +54,4 @@ b) Tap anywhere to continue the puzzle you have started. Note that timer won't r
 \
 ![user_was_deleted](https://user-images.githubusercontent.com/86738044/150312751-ea3224a7-1c85-466a-9c90-61e273ad21d0.jpg) 
 
-10. Each screen has a home button in upper right corner. You can press it to log out the current user and to return to start screen.
+10. Each screen has a home button in upper right corner. It can be pressed to log out the current user and to return to start screen.
