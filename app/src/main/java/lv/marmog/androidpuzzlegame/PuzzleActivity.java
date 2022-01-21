@@ -513,15 +513,6 @@ public class PuzzleActivity extends AppCompatActivity {
         dialog = dialogBuilder.create();
         dialog.show();
 
-        //Button to go to the HomePage
-        goHome = findViewById(R.id.goHome);
-        goHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goHome();
-            }
-        });
-
         //pushing Next Button from pop-Up
         newTimeIsUpNext.setOnClickListener(new View.OnClickListener() {
 

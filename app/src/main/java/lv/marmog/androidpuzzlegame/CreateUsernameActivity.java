@@ -123,7 +123,7 @@ public class CreateUsernameActivity extends AppCompatActivity {
      */
     private void checkUsernameAndDisplayToastMessage(String username, String reUser, User u) {
         if(username.equals("") || reUser.equals("")) {
-            Toast.makeText(CreateUsernameActivity.this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateUsernameActivity.this, "Please fill out all the fields", Toast.LENGTH_SHORT).show();
         }
 
         //check username and repeatUsername fields if they are same

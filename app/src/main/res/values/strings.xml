@@ -7,7 +7,7 @@
     <string name="next_btn">NEXT</string>
     <string name="exit_btn">EXIT</string>
     <string name="time_us_up">\nTIME IS UP!\nTRY AGAIN!\n\n\nPush to continue\n</string>
-    <string name="create_user">Create new user</string>
+    <string name="create_user">Create / Delete user</string>
     <string name="new_username">Enter new username</string>
     <string name="repeat_username">Repeat username</string>
     <string name="save_username">Save Username</string>
