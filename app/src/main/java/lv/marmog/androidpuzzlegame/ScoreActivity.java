@@ -2,8 +2,19 @@ package lv.marmog.androidpuzzlegame;
 
 
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_12;
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_15;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_2;
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_20;
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_24;
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_30;
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_36;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4;
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_42;
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_48;
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_56;
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_6;
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_64;
+import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_72;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.COLUMN_TIMER_RESULT_FOR_9;
 import static lv.marmog.androidpuzzlegame.database.DatabaseHelper.TABLE_TIMER;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +36,7 @@ import lv.marmog.androidpuzzlegame.database.DatabaseHelper;
  */
 public class ScoreActivity extends AppCompatActivity {
 
+
     private int userId, level, time;
     private String username;
     private long insertResult;
@@ -37,9 +49,19 @@ public class ScoreActivity extends AppCompatActivity {
             DatabaseHelper.COLUMN_USER_ID,
             DatabaseHelper.COLUMN_TIMER_RESULT_FOR_2,
             DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4,
-            DatabaseHelper.COLUMN_TIMER_RESULT_FOR_6,
+            COLUMN_TIMER_RESULT_FOR_6,
             DatabaseHelper.COLUMN_TIMER_RESULT_FOR_9,
             DatabaseHelper.COLUMN_TIMER_RESULT_FOR_12,
+            COLUMN_TIMER_RESULT_FOR_15,
+            COLUMN_TIMER_RESULT_FOR_20,
+            COLUMN_TIMER_RESULT_FOR_24,
+            COLUMN_TIMER_RESULT_FOR_30,
+            COLUMN_TIMER_RESULT_FOR_36,
+            COLUMN_TIMER_RESULT_FOR_42,
+            COLUMN_TIMER_RESULT_FOR_48,
+            COLUMN_TIMER_RESULT_FOR_56,
+            COLUMN_TIMER_RESULT_FOR_64,
+            COLUMN_TIMER_RESULT_FOR_72,
     };
 
 
@@ -97,16 +119,50 @@ public class ScoreActivity extends AppCompatActivity {
 
         // switch for insertion of data in different puzzle complexity/level columns
         switch (level) {
+            case 2:
+                insertResultToDatabase(contentValues, DatabaseHelper.COLUMN_TIMER_RESULT_FOR_2);
+                break;
             case 4:
                 insertResultToDatabase(contentValues, DatabaseHelper.COLUMN_TIMER_RESULT_FOR_4);
                 break;
-
+            case 6:
+                insertResultToDatabase(contentValues, COLUMN_TIMER_RESULT_FOR_6);
+                break;
             case 9:
                 insertResultToDatabase(contentValues, DatabaseHelper.COLUMN_TIMER_RESULT_FOR_9);
                 break;
-
             case 12:
                 insertResultToDatabase(contentValues, DatabaseHelper.COLUMN_TIMER_RESULT_FOR_12);
+                break;
+            case 15:
+                insertResultToDatabase(contentValues, COLUMN_TIMER_RESULT_FOR_15);
+                break;
+            case 20:
+                insertResultToDatabase(contentValues, COLUMN_TIMER_RESULT_FOR_20);
+                break;
+            case 24:
+                insertResultToDatabase(contentValues, COLUMN_TIMER_RESULT_FOR_24);
+                break;
+            case 30:
+                insertResultToDatabase(contentValues, COLUMN_TIMER_RESULT_FOR_30);
+                break;
+            case 36:
+                insertResultToDatabase(contentValues, COLUMN_TIMER_RESULT_FOR_36);
+                break;
+            case 42:
+                insertResultToDatabase(contentValues, COLUMN_TIMER_RESULT_FOR_42);
+                break;
+            case 48:
+                insertResultToDatabase(contentValues, COLUMN_TIMER_RESULT_FOR_48);
+                break;
+            case 56:
+                insertResultToDatabase(contentValues, COLUMN_TIMER_RESULT_FOR_56);
+                break;
+            case 64:
+                insertResultToDatabase(contentValues, COLUMN_TIMER_RESULT_FOR_64);
+                break;
+            case 72:
+                insertResultToDatabase(contentValues, COLUMN_TIMER_RESULT_FOR_72);
                 break;
         }
 
@@ -151,14 +207,45 @@ public class ScoreActivity extends AppCompatActivity {
             case 4:
                 result = getBestResult(result, COLUMN_TIMER_RESULT_FOR_4);
                 break;
-
+            case 6:
+                result = getBestResult(result, COLUMN_TIMER_RESULT_FOR_6);
+                break;
             case 9:
                 result = getBestResult(result, COLUMN_TIMER_RESULT_FOR_9);
                 break;
             case 12:
                 result = getBestResult(result, COLUMN_TIMER_RESULT_FOR_12);
                 break;
-
+            case 15:
+                result = getBestResult(result, COLUMN_TIMER_RESULT_FOR_15);
+                break;
+            case 20:
+                result = getBestResult(result, COLUMN_TIMER_RESULT_FOR_20);
+                break;
+            case 24:
+                result = getBestResult(result, COLUMN_TIMER_RESULT_FOR_24);
+                break;
+            case 30:
+                result = getBestResult(result, COLUMN_TIMER_RESULT_FOR_30);
+                break;
+            case 36:
+                result = getBestResult(result, COLUMN_TIMER_RESULT_FOR_36);
+                break;
+            case 42:
+                result = getBestResult(result, COLUMN_TIMER_RESULT_FOR_42);
+                break;
+            case 48:
+                result = getBestResult(result, COLUMN_TIMER_RESULT_FOR_48);
+                break;
+            case 56:
+                result = getBestResult(result, COLUMN_TIMER_RESULT_FOR_56);
+                break;
+            case 64:
+                result = getBestResult(result, COLUMN_TIMER_RESULT_FOR_64);
+                break;
+            case 72:
+                result = getBestResult(result, COLUMN_TIMER_RESULT_FOR_72);
+                break;
         }
 
         return String.valueOf(result);

@@ -63,18 +63,82 @@ public class ComplexityActivity extends AppCompatActivity {
         complexityIntent.putExtra("username", username);
 
         // sending number of pieces, columns and rows from buttons to GridView activity
-        if (view == findViewById(R.id.choose4)) {
-            complexityIntent.putExtra("numberOfPieces", 4);
-            complexityIntent.putExtra("numberOfColumns", 2);
-            complexityIntent.putExtra("numberOfRows", 2);
-        } else if (view == findViewById(R.id.choose9)) {
-            complexityIntent.putExtra("numberOfPieces", 9);
-            complexityIntent.putExtra("numberOfColumns", 3);
-            complexityIntent.putExtra("numberOfRows", 3);
-        } else if (view == findViewById(R.id.choose12)) {
-            complexityIntent.putExtra("numberOfPieces", 12);
-            complexityIntent.putExtra("numberOfColumns", 4);
-            complexityIntent.putExtra("numberOfRows", 3);
+        switch (view.getId()) {
+            case R.id.choose2:
+                complexityIntent.putExtra("numberOfPieces", 2);
+                complexityIntent.putExtra("numberOfColumns", 2);
+                complexityIntent.putExtra("numberOfRows", 1);
+                break;
+            case R.id.choose4:
+                complexityIntent.putExtra("numberOfPieces", 4);
+                complexityIntent.putExtra("numberOfColumns", 2);
+                complexityIntent.putExtra("numberOfRows", 2);
+                break;
+            case R.id.choose6:
+                complexityIntent.putExtra("numberOfPieces", 6);
+                complexityIntent.putExtra("numberOfColumns", 3);
+                complexityIntent.putExtra("numberOfRows", 2);
+                break;
+            case R.id.choose9:
+                complexityIntent.putExtra("numberOfPieces", 9);
+                complexityIntent.putExtra("numberOfColumns", 3);
+                complexityIntent.putExtra("numberOfRows", 3);
+                break;
+            case R.id.choose12:
+                complexityIntent.putExtra("numberOfPieces", 12);
+                complexityIntent.putExtra("numberOfColumns", 4);
+                complexityIntent.putExtra("numberOfRows", 3);
+                break;
+            case R.id.choose15:
+                complexityIntent.putExtra("numberOfPieces", 15);
+                complexityIntent.putExtra("numberOfColumns", 5);
+                complexityIntent.putExtra("numberOfRows", 3);
+                break;
+            case R.id.choose20:
+                complexityIntent.putExtra("numberOfPieces", 20);
+                complexityIntent.putExtra("numberOfColumns", 5);
+                complexityIntent.putExtra("numberOfRows", 4);
+                break;
+            case R.id.choose24:
+                complexityIntent.putExtra("numberOfPieces", 24);
+                complexityIntent.putExtra("numberOfColumns", 6);
+                complexityIntent.putExtra("numberOfRows", 4);
+                break;
+            case R.id.choose30:
+                complexityIntent.putExtra("numberOfPieces", 30);
+                complexityIntent.putExtra("numberOfColumns", 6);
+                complexityIntent.putExtra("numberOfRows", 5);
+                break;
+            case R.id.choose36:
+                complexityIntent.putExtra("numberOfPieces", 36);
+                complexityIntent.putExtra("numberOfColumns", 6);
+                complexityIntent.putExtra("numberOfRows", 6);
+                break;
+            case R.id.choose42:
+                complexityIntent.putExtra("numberOfPieces", 42);
+                complexityIntent.putExtra("numberOfColumns", 7);
+                complexityIntent.putExtra("numberOfRows", 6);
+                break;
+            case R.id.choose48:
+                complexityIntent.putExtra("numberOfPieces", 48);
+                complexityIntent.putExtra("numberOfColumns", 8);
+                complexityIntent.putExtra("numberOfRows", 6);
+                break;
+            case R.id.choose56:
+                complexityIntent.putExtra("numberOfPieces", 56);
+                complexityIntent.putExtra("numberOfColumns", 8);
+                complexityIntent.putExtra("numberOfRows", 7);
+                break;
+            case R.id.choose64:
+                complexityIntent.putExtra("numberOfPieces", 64);
+                complexityIntent.putExtra("numberOfColumns", 8);
+                complexityIntent.putExtra("numberOfRows", 8);
+                break;
+            case R.id.choose72:
+                complexityIntent.putExtra("numberOfPieces", 72);
+                complexityIntent.putExtra("numberOfColumns", 9);
+                complexityIntent.putExtra("numberOfRows", 8);
+                break;
         }
 
         startActivity(complexityIntent);

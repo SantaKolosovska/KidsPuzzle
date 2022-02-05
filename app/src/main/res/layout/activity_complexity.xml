@@ -45,62 +45,266 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/choose4"
-        android:layout_width="wrap_content"
+    <TableLayout
+        android:id="@+id/table_for_complexity_buttons"
+        android:layout_width="fill_parent"
+        android:stretchColumns="0,1,2"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"
-        android:backgroundTint="@color/yellow"
-        android:onClick="selectPieces"
-        android:shadowColor="@color/black"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="2"
-        android:text="4"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/choosePieces"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/choosePieces" />
+        android:layout_marginTop="54dp"
+        >
 
-    <Button
-        android:id="@+id/choose9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/yellow"
-        android:onClick="selectPieces"
-        android:shadowColor="@color/black"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="2"
-        android:text="9"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/choose4" />
+        <TableRow
+            android:id="@+id/row1_for_complexity_buttons">
 
-    <Button
-        android:id="@+id/choose12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/yellow"
-        android:onClick="selectPieces"
-        android:shadowColor="@color/black"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="2"
-        android:text="12"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/choose9" />
+            <Button
+                android:id="@+id/choose2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:backgroundTint="@color/comp_beige"
+                android:onClick="selectPieces"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="2" />
+
+            <Button
+                android:id="@+id/choose4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:backgroundTint="@color/comp_beige"
+                android:onClick="selectPieces"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="4" />
+
+            <Button
+                android:id="@+id/choose6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:backgroundTint="@color/comp_beige"
+                android:onClick="selectPieces"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="6" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row2_for_complexity_buttons"
+            android:layout_marginTop="20dp">
+
+            <Button
+                android:id="@+id/choose9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:backgroundTint="@color/comp_yellow"
+                android:onClick="selectPieces"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="9" />
+
+            <Button
+                android:id="@+id/choose12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:backgroundTint="@color/comp_yellow"
+                android:onClick="selectPieces"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="12" />
+
+            <Button
+                android:id="@+id/choose15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:backgroundTint="@color/comp_yellow"
+                android:onClick="selectPieces"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="15" />
+
+        </TableRow>
+
+
+        <TableRow
+            android:id="@+id/row3_for_complexity_buttons"
+            android:layout_marginTop="20dp">
+
+            <Button
+                android:id="@+id/choose20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:backgroundTint="@color/comp_blue"
+                android:onClick="selectPieces"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="20" />
+
+            <Button
+                android:id="@+id/choose24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:backgroundTint="@color/comp_blue"
+                android:onClick="selectPieces"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="24" />
+
+            <Button
+                android:id="@+id/choose30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:backgroundTint="@color/comp_blue"
+                android:onClick="selectPieces"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="30" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row4_for_complexity_buttons"
+            android:layout_marginTop="20dp">
+
+            <Button
+                android:id="@+id/choose36"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:backgroundTint="@color/comp_green"
+                android:onClick="selectPieces"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="36" />
+
+            <Button
+                android:id="@+id/choose42"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:backgroundTint="@color/comp_green"
+                android:onClick="selectPieces"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="42" />
+
+            <Button
+                android:id="@+id/choose48"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:backgroundTint="@color/comp_green"
+                android:onClick="selectPieces"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="48" />
+
+        </TableRow>
+
+
+        <TableRow
+            android:id="@+id/row5_for_complexity_buttons"
+            android:layout_marginTop="20dp">
+
+            <Button
+                android:id="@+id/choose56"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:backgroundTint="@color/comp_red"
+                android:onClick="selectPieces"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="56" />
+
+            <Button
+                android:id="@+id/choose64"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:backgroundTint="@color/comp_red"
+                android:onClick="selectPieces"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="64" />
+
+            <Button
+                android:id="@+id/choose72"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:backgroundTint="@color/comp_red"
+                android:onClick="selectPieces"
+                android:shadowColor="@color/black"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="72" />
+
+        </TableRow>
+
+    </TableLayout>
+
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

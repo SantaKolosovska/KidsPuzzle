@@ -28,4 +28,28 @@
     <color name="aqua">#28EEE7</color>
     <color name="yellow2">#FBCD42</color>
     --- /colors from palette ---
+
+    --- colors for complexity buttons ---
+    <color name="compl_1k">#E3704D</color>
+    <color name="compl_2">#F3CF90</color>
+    <color name="compl_3">#EAA796</color>
+    <color name="compl_4">#BEC85F</color>
+    <color name="compl_5">#F6D267</color>
+    <color name="compl_6">#f9dc82</color>
+    <color name="compl_7">#A0CC97</color>
+    <color name="compl_8">#F1ECD2</color>
+    <color name="compl_9">#F7EBC2</color>
+
+    <color name="comp_red">#E17664</color>
+    <color name="comp_blue">#75BDE1</color>
+    <color name="comp_green">#ADD17B</color>
+    <color name="comp_yellow">#DEAE54</color>
+    <color name="comp_beige">#EBE3C1</color>
+
+    --- dark colors for complexity buttons
+    <color name="c1">#8C1A21</color>
+    <color name="c2">#2D556F</color>
+    <color name="c3">#502D52</color>
+    <color name="c4">#B03E1C</color>
+    <color name="c5">#128580</color>
 </resources>

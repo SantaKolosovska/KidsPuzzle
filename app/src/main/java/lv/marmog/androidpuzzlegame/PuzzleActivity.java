@@ -41,7 +41,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
  *
  */
 public class PuzzleActivity extends AppCompatActivity {
-    public static final int TIMER_SEC = 300;
+    public static final int TIMER_SEC = 1500;
     public static final int WAITING_TIME_MILLISECONDS = 3000;
     ArrayList<PuzzlePiece> pieces;
 
