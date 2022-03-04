@@ -2,7 +2,7 @@
 
 Kids' Puzzle is a puzzle assembly game made for Android mobile phones. This app was created as the final project during SheGoesTech Java II Bootcamp. Game is initially targeted for toddlers, but the implemented timer feature makes it fun also for older audience, as it lets users compete for the fastest puzzle assembly time. Future improvements include more complexity levels (up to 72 pieces) and leaderboard. 
 You can see it how it looks in action in this video: 
-https://www.youtube.com/watch?v=0harFK2dufY&t=18s
+https://youtu.be/0harFK2dufY
 
 ## Installation
 Open the project in Android Studio. If you want to run it on emulator, select an emulator. If you want to run it on physical device, connect the device via USB to your computer (before that enable developer settings on your phone if needed). Then run the project. If you're using physical device, app will be available on your phone also after disconnecting the device.
